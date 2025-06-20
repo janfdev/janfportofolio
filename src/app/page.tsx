@@ -1,5 +1,5 @@
 "use client";
-import { FloatingDockNavbar } from "@/components/FloatingDock";
+import { FloatingDockNavbar } from "@/components/navbar";
 
 export default function Home() {
   return (
