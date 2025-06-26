@@ -1,8 +1,6 @@
 import { BlurFade } from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import Link from "next/link";
-import Markdown from "react-markdown";
-import { Badge } from "@/components/ui/badge";
+
 import { DATA } from "@/data/resume";
 import { SpringElement } from "@/components/animate-ui/components/spring-element";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
