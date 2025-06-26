@@ -1,3 +1,4 @@
+"use client";
 
 import { GlobeIcon, MailIcon } from "lucide-react";
 

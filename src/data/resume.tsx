@@ -30,19 +30,19 @@ export const DATA = {
     email: "rizqinoorfauzan503@gmail.com",
     tel: "+6282115974856",
     social: {
-      Github: {
-        name: "Github",
+      GitHub: {
+        name: "GitHub",
         url: "https://github.com/janfdev",
         icon: Icons.github,
         navbar: true
       },
-      Linkedin: {
-        name: "Linkedin",
+      LinkedIn: {
+        name: "LinkedIn",
         url: "https://www.linkedin.com/in/rizqinoorfauzan",
         icon: Icons.linkedin,
         navbar: true
       },
-      email: {
+      Email: {
         name: "Send Email",
         url: "#",
         icon: Icons.email,
