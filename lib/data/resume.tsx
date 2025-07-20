@@ -31,7 +31,7 @@ export const DATA = {
     tel: "+6282115974856",
     social: {
       GitHub: {
-        name: "GitHub",
+        name: "Github",
         url: "https://github.com/janfdev",
         icon: Icons.github,
         navbar: true

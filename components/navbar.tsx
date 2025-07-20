@@ -1,8 +1,9 @@
 "use client";
 
 import { Dock, DockIcon } from "./ui/dock";
+import { useState, useEffect } from "react";
 import { ModeToggle } from "./mode-toggle";
-import { buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import {
   Tooltip,
@@ -11,10 +12,16 @@ import {
   TooltipTrigger
 } from "./ui/tooltip";
 import { DATA } from "../lib/data/resume";
-import { cn } from "../lib/utils";
 import Link from "next/link";
 
 export default function Navbar() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
   return (
     <div className="fixed inset-x-0 bottom-5 z-50 flex justify-center pointer-events-none">
       <TooltipProvider>
@@ -26,17 +33,16 @@ export default function Navbar() {
             <DockIcon key={item.href}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      buttonVariants({
-                        variant: "ghost",
-                        size: "icon"
-                      }),
-                      "size-12 rounded-full"
-                    )}
-                  >
-                    <item.icon className="size-4" />
+                  <Link href={item.href} aria-label={item.label}>
+                    <Button
+                      variant={"ghost"}
+                      size={"icon"}
+                      className="size-12 rounded-full cursor-pointer"
+                      type="button"
+                      aria-label={item.label}
+                    >
+                      <item.icon className="size-4" />
+                    </Button>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -52,14 +58,15 @@ export default function Navbar() {
               <DockIcon key={name}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link
-                      href={social.url}
-                      className={cn(
-                        buttonVariants({ variant: "ghost", size: "icon" }),
-                        "size-12 rounded-full"
-                      )}
-                    >
-                      <social.icon className="size-4" />
+                    <Link href={social.url}>
+                      <Button
+                        variant={"ghost"}
+                        size={"icon"}
+                        className="size-12 rounded-full"
+                        aria-label={social.name}
+                      >
+                        <social.icon className="size-4" />
+                      </Button>
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent>
