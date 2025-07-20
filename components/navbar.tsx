@@ -1,7 +1,7 @@
 "use client";
 
-import { Dock, DockIcon } from "@/components/magicui/dock";
-import { ModeToggle } from "@/components/mode-toggle";
+import { Dock, DockIcon } from "./ui/dock";
+import { ModeToggle } from "./mode-toggle";
 import { buttonVariants } from "./ui/button";
 import { Separator } from "./ui/separator";
 import {
@@ -10,8 +10,8 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "./ui/tooltip";
-import { DATA } from "@/data/resume";
-import { cn } from "@/lib/utils";
+import { DATA } from "../lib/data/resume";
+import { cn } from "../lib/utils";
 import Link from "next/link";
 
 export default function Navbar() {

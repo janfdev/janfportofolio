@@ -7,7 +7,7 @@ import {
   useMotionValue,
   useSpring
 } from "motion/react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 const generateSpringPath = (
   x1: number,

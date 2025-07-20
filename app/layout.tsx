@@ -1,20 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import Navbar from "@/components/navbar";
-import { cn } from "@/lib/utils";
+import { ThemeProvider } from "../components/theme-provider";
+import { TooltipProvider } from "../components/ui/tooltip";
+import Navbar from "../components/navbar";
+import { cn } from "../lib/utils";
 import { Inter as FontSans } from "next/font/google";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans"
 });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"]
-// });
 
 export const metadata: Metadata = {
   title: "Rizqi Noor Fauzan",
@@ -30,8 +25,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "antialiased min-h-screen bg-background max-w-2xl mx-auto py-12 sm:py-24 px-6",
-          fontSans.variable,
+          "antialiased min-h-screen bg-background max-w-2xl mx-auto py-14 sm:py-12 px-6",
+          fontSans.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">

@@ -1,15 +1,15 @@
-import { BlurFade } from "@/components/magicui/blur-fade";
-import BlurFadeText from "@/components/magicui/blur-fade-text";
+import { BlurFade } from "../components/ui/blur-fade";
+import BlurFadeText from "../components/ui/blur-fade-text";
 
-import { DATA } from "@/data/resume";
-import { SpringElement } from "@/components/animate-ui/components/spring-element";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DATA } from "../lib/data/resume";
+import { SpringElement } from "../components/ui/spring-element";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Home() {
   return (
-    <main className="flex flex-col overflow-x-hidden min-h-[100dvh] space-y-10">
+    <main className="flex flex-col overflow-x-hidden min-h-[100dvh] ">
       <section id="hero">
         <div className="mx-auto w-full max-w-3xl space-y-8">
           <div className="gap-2 flex justify-between">
