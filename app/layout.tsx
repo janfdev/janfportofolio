@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="!scroll-smooth"> 
       <body
         className={cn(
           "antialiased min-h-screen bg-background max-w-2xl mx-auto py-14 sm:py-12 px-6",

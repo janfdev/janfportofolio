@@ -1,5 +1,10 @@
 import { Icons } from "../../components/icons";
-import { HomeIcon, BookText } from "lucide-react";
+import { HomeIcon, BookText, Code } from "lucide-react";
+import NextJS from "../../public/assets/icon/nextjs.svg";
+import Neon from "../../public/assets/icon/neon.svg";
+import Prisma from "../../public/assets/icon/prisma_dark.svg";
+import React from "../../public/assets/icon/react_dark.svg";
+import Tailwind from "../../public/assets/icon/tailwindcss.svg";
 
 export const DATA = {
   name: "Rizqi Noor Fauzan",
@@ -8,12 +13,18 @@ export const DATA = {
   location: "Losari, Indonesia",
   locationLink:
     "https://www.google.com/maps/place/Losari,+Brebes+Regency,+Central+Java/@-6.885098,109.086626,12z/data=!3m1!4b1!4m6!3m5!1s0x2e6f7c8d9f8a0b5b:0x2c7d9f8a0b5b9f8a!8m2!3d-6.885098!4d109.086626!16zL20vMDJwNnVq",
-  description:
-    "Software Engineer turned Entrepreneur, I love building things and helping people. Very active on Twitter",
+  description: "Fullstack Developer Enthusiast",
   summary:
-    "At the end of 2024 I quit my job as a software engineer to go fulltime into building and scalling my own SaaS business. In the past",
+    "I’m a passionate full-stack developer who started my journey with a love for front-end design and user experiences. Over time, my curiosity grew toward how everything works behind the scenes, which led me to explore full-stack development with ***Next.js***. What I enjoy most is the creative process — turning ideas into clean, functional interfaces and bringing them to life through logic and code. For me, coding is like solving meaningful puzzles, and I find joy in continuous learning.",
   avatarUrl: "/me.jpeg",
-  skills: ["React", "Typescript", "Node.js", "Tailwind CSS"],
+  skills: [
+    "React",
+    "Javascript",
+    "Typescript",
+    "Node.js",
+    "Tailwind CSS",
+    "Next.js"
+  ],
   navbar: [
     {
       href: "/",
@@ -24,6 +35,11 @@ export const DATA = {
       href: "/blog",
       icon: BookText,
       label: "Blog"
+    },
+    {
+      href: "#projects",
+      icon: Code,
+      label: "Projects"
     }
   ],
   contact: {
@@ -78,32 +94,13 @@ export const DATA = {
 
   projects: [
     {
-      title: "Nts Free",
-      href: "https:ntsfree.vercel.app",
-      dates: "June 2024",
-      active: true,
-      description:
-        "With the MERN stack, I built a free and open-source platform for sharing and discovering free resources.",
-      technologies: [
-        "React",
-        "Axios",
-        "Node.js",
-        "Express",
-        "MongoDB",
-        "Tailwind CSS"
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://ntsfree.vercel.app",
-          icon: <Icons.globe className="size-3" />
-        },
-        {
-          type: "Source Code",
-          href: "https://github.com/janfdev/notes-app",
-          icon: <Icons.github className="size-3" />
-        }
-      ]
+      title: "ReciVerse",
+      description: "Recipe App - Find Your Family's Favorite Recipes",
+      tags: ["React", "NextJS", "Prisma", "NextAuth", "Neon", "Tailwind"],
+      tagsIcon: [React, NextJS, Prisma, Neon, Tailwind],
+      imageUrl: "/reciVerse.png",
+      url: "https://reciverse.my.id",
+      github: "https://github.com/janfdev/recipe-jda-nextjs"
     }
   ]
 };
