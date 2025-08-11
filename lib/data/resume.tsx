@@ -1,10 +1,5 @@
 import { Icons } from "../../components/icons";
 import { HomeIcon, BookText, Code } from "lucide-react";
-import NextJS from "../../public/assets/icon/nextjs.svg";
-import Neon from "../../public/assets/icon/neon.svg";
-import Prisma from "../../public/assets/icon/prisma_dark.svg";
-import React from "../../public/assets/icon/react_dark.svg";
-import Tailwind from "../../public/assets/icon/tailwindcss.svg";
 
 export const DATA = {
   name: "Rizqi Noor Fauzan",
@@ -19,11 +14,14 @@ export const DATA = {
   avatarUrl: "/me.jpeg",
   skills: [
     "React",
+    "Next.js",
     "Javascript",
     "Typescript",
+    "Prisma",
+    "Express.js",
+    "PostgreSQL",
     "Node.js",
-    "Tailwind CSS",
-    "Next.js"
+    "Tailwind CSS"
   ],
   navbar: [
     {
@@ -97,10 +95,30 @@ export const DATA = {
       title: "ReciVerse",
       description: "Recipe App - Find Your Family's Favorite Recipes",
       tags: ["React", "NextJS", "Prisma", "NextAuth", "Neon", "Tailwind"],
-      tagsIcon: [React, NextJS, Prisma, Neon, Tailwind],
+      tagsIcon: [
+        "/assets/icon/react_dark.svg",
+        "/assets/icon/nextjs.svg",
+        "/assets/icon/prisma_dark.svg",
+        "/assets/icon/neon.svg",
+        "/assets/icon/tailwindcss.svg"
+      ],
       imageUrl: "/reciVerse.png",
       url: "https://reciverse.my.id",
       github: "https://github.com/janfdev/recipe-jda-nextjs"
+    },
+    {
+      title: "Nota-Wota",
+      description: "Note-taking App - Organize Your Thoughts",
+      tags: ["Mongo DB", "Express JS", "React JS", "Node JS"],
+      tagsIcon: [
+        "/assets/icon/mongodb.svg",
+        "/assets/icon/expressjs_dark.svg",
+        "/assets/icon/react_dark.svg",
+        "/assets/icon/nodejs.svg"
+      ],
+      imageUrl: "/nota-wota.png",
+      url: "https://nota-wota.vercel.app/",
+      github: "https://github.com/janfdev/notes-app-mern"
     }
   ]
 };

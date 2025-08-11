@@ -1,4 +1,5 @@
 "use client";
+
 import { useRef } from "react";
 import { DATA } from "../lib/data/resume";
 import Image from "next/image";
@@ -6,13 +7,14 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Github, Globe } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { Avatar, AvatarImage } from "./ui/avatar";
 
 type ProjectProps = (typeof DATA.projects)[number];
 
 export default function ProjectData({
   title,
   description,
-  tags,
+  tagsIcon,
   imageUrl,
   url,
   github
@@ -42,19 +44,17 @@ export default function ProjectData({
           <h3 className="text-2xl font-bold text-primary">{title}</h3>
           <p className="mt-2 text-primary leading-relaxed">{description}</p>
 
-          <ul className="flex flex-wrap mt-4 gap-2 sm:mt-auto">
-            {tags.map((tag, index) => (
-              <li
-                key={index}
-                className="bg-black/[0.7] px-3 py-1 text-[0.7rem] uppercase tracking-wider text-white rounded-full"
-              >
-                {tag}
-              </li>
+          {/* Tech Stack Icon */}
+          <div className="flex flex-wrap items-center mt-4 gap-2 sm:mt-auto">
+            {tagsIcon?.map((icon, index) => (
+              <Avatar key={index} className="bg-primary p-2 dark:bg-primary/10">
+                <AvatarImage src={icon} />
+              </Avatar>
             ))}
-          </ul>
+          </div>
 
           <div className="flex gap-4 mt-3 items-center">
-            <Link href={url}>
+            <Link href={url} target="_blank">
               <Button size={"sm"}>
                 <Globe />
                 Preview
@@ -70,6 +70,7 @@ export default function ProjectData({
           </div>
         </div>
 
+        {/* Image Animation on hover */}
         <Image
           src={imageUrl}
           alt="My Project"
