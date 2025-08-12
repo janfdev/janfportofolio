@@ -11,7 +11,7 @@ export const DATA = {
   description: "Fullstack Developer Enthusiast",
   summary:
     "I’m a passionate full-stack developer who started my journey with a love for front-end design and user experiences. Over time, my curiosity grew toward how everything works behind the scenes, which led me to explore full-stack development with ***Next.js***. What I enjoy most is the creative process — turning ideas into clean, functional interfaces and bringing them to life through logic and code. For me, coding is like solving meaningful puzzles, and I find joy in continuous learning.",
-  avatarUrl: "/me.jpeg",
+  avatarUrl: "/profiless.png",
   skills: [
     "React",
     "Next.js",
