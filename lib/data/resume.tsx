@@ -1,5 +1,5 @@
 import { Icons } from "../../components/icons";
-import { HomeIcon, BookText, Code } from "lucide-react";
+import { HomeIcon, Code } from "lucide-react";
 
 export const DATA = {
   name: "Rizqi Noor Fauzan",
@@ -21,24 +21,24 @@ export const DATA = {
     "Express.js",
     "PostgreSQL",
     "Node.js",
-    "Tailwind CSS"
+    "Tailwind CSS",
   ],
   navbar: [
     {
       href: "/",
       icon: HomeIcon,
-      label: "Home"
+      label: "Home",
     },
-    {
-      href: "/blog",
-      icon: BookText,
-      label: "Blog"
-    },
+    // {
+    //   href: "/blog",
+    //   icon: BookText,
+    //   label: "Blog",
+    // },
     {
       href: "#projects",
       icon: Code,
-      label: "Projects"
-    }
+      label: "Projects",
+    },
   ],
   contact: {
     email: "rizqinoorfauzan503@gmail.com",
@@ -48,36 +48,36 @@ export const DATA = {
         name: "Github",
         url: "https://github.com/janfdev",
         icon: Icons.github,
-        navbar: true
+        navbar: true,
       },
       LinkedIn: {
         name: "LinkedIn",
         url: "https://www.linkedin.com/in/rizqinoorfauzan",
         icon: Icons.linkedin,
-        navbar: true
+        navbar: true,
       },
       Email: {
         name: "Send Email",
         url: "#",
         icon: Icons.email,
-        navbar: false
-      }
-    }
+        navbar: false,
+      },
+    },
   },
 
   work: [
     {
-      company: "Atomic Finance",
-      href: "https://atomic.finance",
+      company: "Digital Hero",
+      href: "https://digitalhero.id",
       badges: [],
       location: "Remote",
-      title: "Bitcoin Protocol Engineer",
-      logoUrl: "/atomic.png",
-      start: "May 2021",
-      end: "Oct 2022",
+      title: "Web Developer | Intern",
+      logoUrl: "/Logo.png",
+      start: "September 2025",
+      end: "Desember 2025",
       description:
-        "Worked on Bitcoin protocol development, focusing on improving the scalability and security of the Bitcoin network. Contributed to the development of Atomic Finance's core products, enhancing user experience and functionality."
-    }
+        "Developed a company profile website using React.js and Tailwind CSS, focusing on responsive and user-friendly UI/UX aligned with brand guidelines. Collaborated with a development team to improve website performance and code efficiency, while contributing to planning, implementation, and product launch preparation. Also implemented AI-based features using APIs, including game prompting and speech-to-text, as part of ongoing company projects.",
+    },
   ],
   education: [
     {
@@ -86,8 +86,8 @@ export const DATA = {
       degree: "Bachelor of Informatics Engineering",
       logoUrl: "/umc.png",
       start: "2023",
-      end: "Present"
-    }
+      end: "Present",
+    },
   ],
 
   projects: [
@@ -100,11 +100,11 @@ export const DATA = {
         "/assets/icon/nextjs.svg",
         "/assets/icon/prisma_dark.svg",
         "/assets/icon/neon.svg",
-        "/assets/icon/tailwindcss.svg"
+        "/assets/icon/tailwindcss.svg",
       ],
       imageUrl: "/reciVerse.png",
       url: "https://reciverse.my.id",
-      github: "https://github.com/janfdev/recipe-jda-nextjs"
+      github: "https://github.com/janfdev/recipe-jda-nextjs",
     },
     {
       title: "Nota-Wota",
@@ -114,11 +114,11 @@ export const DATA = {
         "/assets/icon/mongodb.svg",
         "/assets/icon/expressjs_dark.svg",
         "/assets/icon/react_dark.svg",
-        "/assets/icon/nodejs.svg"
+        "/assets/icon/nodejs.svg",
       ],
       imageUrl: "/nota-wota.png",
       url: "https://nota-wota.vercel.app/",
-      github: "https://github.com/janfdev/notes-app-mern"
-    }
-  ]
+      github: "https://github.com/janfdev/notes-app-mern",
+    },
+  ],
 };
