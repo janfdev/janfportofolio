@@ -120,5 +120,14 @@ export const DATA = {
       url: "https://nota-wota.vercel.app/",
       github: "https://github.com/janfdev/notes-app-mern",
     },
+    {
+      title: "API PUBLIC",
+      description: "API Public for testing",
+      tags: ["Express JS"],
+      tagsIcon: ["/assets/icon/expressjs_dark.svg"],
+      imageUrl: "/api-ojan.png",
+      url: "https://api-ojan.vercel.app",
+      github: "https://github.com/janfdev/api-ojan",
+    },
   ],
 };
