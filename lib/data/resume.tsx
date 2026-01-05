@@ -67,14 +67,29 @@ export const DATA = {
 
   work: [
     {
+      company: "UIN Siber Syekh Nurjati Cirebon",
+      href: "https://uinssc.ac.id/",
+      badges: [],
+      location: "Remote",
+      title: "Frontend Developer | Contract | Remote",
+      logoUrl: "/logo_uin.jpg",
+      start: "Desc 2025",
+      end: "Present",
+      description: `
+Developed and maintained a web application as a Frontend Developer, focusing on building responsive, reusable, and user-friendly interfaces using modern frontend technologies. Designed UI components based on UX principles and ensured consistency across the application.
+Implemented REST API integration to handle dynamic data rendering and user interactions. Conducted UI testing and validation to identify missing states, edge cases, and usability issues, while improving overall user experience. Actively refined UI components for better performance, maintainability, and scalability.
+
+`,
+    },
+    {
       company: "Digital Hero",
       href: "https://digitalhero.id",
       badges: [],
       location: "Remote",
-      title: "Web Developer | Intern",
+      title: "Web Developer | Intern | Remote",
       logoUrl: "/Logo.png",
-      start: "September 2025",
-      end: "Desember 2025",
+      start: "Sept 2025",
+      end: "Desc 2025",
       description:
         "Developed a company profile website using React.js and Tailwind CSS, focusing on responsive and user-friendly UI/UX aligned with brand guidelines. Collaborated with a development team to improve website performance and code efficiency, while contributing to planning, implementation, and product launch preparation. Also implemented AI-based features using APIs, including game prompting and speech-to-text, as part of ongoing company projects.",
     },
@@ -91,6 +106,20 @@ export const DATA = {
   ],
 
   projects: [
+    {
+      title: "API PUBLIC",
+      description: "API Public for testing",
+      tags: ["Express JS", "Node JS", "Prisma", "PostgreSQL"],
+      tagsIcon: [
+        "/assets/icon/expressjs_dark.svg",
+        "/assets/icon/nodejs.svg",
+        "/assets/icon/prisma_dark.svg",
+        "/assets/icon/supabase.svg",
+      ],
+      imageUrl: "/api-ojan.png",
+      url: "https://api-ojan.vercel.app",
+      github: "https://github.com/janfdev/api-ojan",
+    },
     {
       title: "ReciVerse",
       description: "Recipe App - Find Your Family's Favorite Recipes",
@@ -119,15 +148,6 @@ export const DATA = {
       imageUrl: "/nota-wota.png",
       url: "https://nota-wota.vercel.app/",
       github: "https://github.com/janfdev/notes-app-mern",
-    },
-    {
-      title: "API PUBLIC",
-      description: "API Public for testing",
-      tags: ["Express JS"],
-      tagsIcon: ["/assets/icon/expressjs_dark.svg"],
-      imageUrl: "/api-ojan.png",
-      url: "https://api-ojan.vercel.app",
-      github: "https://github.com/janfdev/api-ojan",
     },
   ],
 };
