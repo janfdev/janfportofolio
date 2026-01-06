@@ -117,7 +117,7 @@ Implemented REST API integration to handle dynamic data rendering and user inter
         "/assets/icon/supabase.svg",
       ],
       imageUrl: "/api-ojan.png",
-      url: "https://api-ojan.vercel.app",
+      url: "https://api.rizqinoorfauzan.my.id/docs",
       github: "https://github.com/janfdev/api-ojan",
     },
     {
