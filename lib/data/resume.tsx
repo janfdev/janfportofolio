@@ -26,13 +26,13 @@ Currently, I’m exploring **deployment** and **containerization** to strengthen
     "SQL",
     "NoSQL",
     "Node.js",
-    "Tailwind CSS",
+    "Tailwind CSS"
   ],
   navbar: [
     {
       href: "/",
       icon: HomeIcon,
-      label: "Home",
+      label: "Home"
     },
     // {
     //   href: "/blog",
@@ -42,8 +42,8 @@ Currently, I’m exploring **deployment** and **containerization** to strengthen
     {
       href: "#projects",
       icon: Code,
-      label: "Projects",
-    },
+      label: "Projects"
+    }
   ],
   contact: {
     email: "rizqinoorfauzan503@gmail.com",
@@ -53,21 +53,21 @@ Currently, I’m exploring **deployment** and **containerization** to strengthen
         name: "Github",
         url: "https://github.com/janfdev",
         icon: Icons.github,
-        navbar: true,
+        navbar: true
       },
       LinkedIn: {
         name: "LinkedIn",
         url: "https://www.linkedin.com/in/rizqinoorfauzan",
         icon: Icons.linkedin,
-        navbar: true,
+        navbar: true
       },
       Email: {
         name: "Send Email",
         url: "#",
         icon: Icons.email,
-        navbar: false,
-      },
-    },
+        navbar: false
+      }
+    }
   },
 
   work: [
@@ -86,7 +86,7 @@ Developed a full-stack web-based library system to support daily operational pro
 Designed and implemented responsive user interfaces while maintaining seamless integration between frontend and backend. Applied data validation and feature testing to minimize errors and ensure system reliability in real-world usage.
 
 Focused on building a modular and maintainable codebase to support scalability and future feature development.
-`,
+`
     },
     {
       company: "UIN Siber Syekh Nurjati Cirebon",
@@ -101,7 +101,7 @@ Focused on building a modular and maintainable codebase to support scalability a
 Developed and maintained a web application as a Frontend Developer, focusing on building responsive, reusable, and user-friendly interfaces using modern frontend technologies. Designed UI components based on UX principles and ensured consistency across the application.
 Implemented REST API integration to handle dynamic data rendering and user interactions. Conducted UI testing and validation to identify missing states, edge cases, and usability issues, while improving overall user experience. Actively refined UI components for better performance, maintainability, and scalability.
 
-`,
+`
     },
     {
       company: "Digital Hero",
@@ -113,8 +113,8 @@ Implemented REST API integration to handle dynamic data rendering and user inter
       start: "Sept 2025",
       end: "Desc 2025",
       description:
-        "Developed a company profile website using React.js and Tailwind CSS, focusing on responsive and user-friendly UI/UX aligned with brand guidelines. Collaborated with a development team to improve website performance and code efficiency, while contributing to planning, implementation, and product launch preparation. Also implemented AI-based features using APIs, including game prompting and speech-to-text, as part of ongoing company projects.",
-    },
+        "Developed a company profile website using React.js and Tailwind CSS, focusing on responsive and user-friendly UI/UX aligned with brand guidelines. Collaborated with a development team to improve website performance and code efficiency, while contributing to planning, implementation, and product launch preparation. Also implemented AI-based features using APIs, including game prompting and speech-to-text, as part of ongoing company projects."
+    }
   ],
   education: [
     {
@@ -123,8 +123,8 @@ Implemented REST API integration to handle dynamic data rendering and user inter
       degree: "Bachelor of Informatics Engineering",
       logoUrl: "/umc.png",
       start: "2023",
-      end: "Present",
-    },
+      end: "Present"
+    }
   ],
 
   projects: [
@@ -140,11 +140,11 @@ Implemented REST API integration to handle dynamic data rendering and user inter
         "/assets/icon/gemini.svg",
         "/assets/icon/groq.svg",
         "/assets/icon/neon.svg",
-        "/assets/icon/shadcn-ui.svg",
+        "/assets/icon/shadcn-ui.svg"
       ],
       imageUrl: "/smartseum.png",
       url: "https://smartseum.vercel.app/",
-      github: "https://github.com/janfdev/api-ojan",
+      github: "https://github.com/janfdev/smartseum"
     },
     {
       title: "Quavity",
@@ -157,11 +157,11 @@ Implemented REST API integration to handle dynamic data rendering and user inter
         "/assets/icon/cloudinary.svg",
         "/assets/icon/gemini.svg",
         "/assets/icon/neon.svg",
-        "/assets/icon/shadcn-ui.svg",
+        "/assets/icon/shadcn-ui.svg"
       ],
       imageUrl: "/quavity.png",
       url: "https://quavity.vercel.app/",
-      github: "https://github.com/janfdev/api-ojan",
+      github: "https://github.com/janfdev/quavity"
     },
     {
       title: "API PUBLIC",
@@ -171,11 +171,11 @@ Implemented REST API integration to handle dynamic data rendering and user inter
         "/assets/icon/expressjs_dark.svg",
         "/assets/icon/nodejs.svg",
         "/assets/icon/prisma_dark.svg",
-        "/assets/icon/supabase.svg",
+        "/assets/icon/supabase.svg"
       ],
       imageUrl: "/api-ojan.png",
       url: "https://api.rizqinoorfauzan.my.id/docs",
-      github: "https://github.com/janfdev/api-ojan",
+      github: "https://github.com/janfdev/api-ojan"
     },
     {
       title: "ReciVerse",
@@ -186,11 +186,11 @@ Implemented REST API integration to handle dynamic data rendering and user inter
         "/assets/icon/prisma_dark.svg",
         "/assets/icon/neon.svg",
         "/assets/icon/tailwindcss.svg",
-        "/assets/icon/shadcn-ui.svg",
+        "/assets/icon/shadcn-ui.svg"
       ],
       imageUrl: "/reciVerse.png",
       url: "https://reciverse.my.id",
-      github: "https://github.com/janfdev/recipe-jda-nextjs",
+      github: "https://github.com/janfdev/recipe-jda-nextjs"
     },
     {
       title: "Nota-Wota",
@@ -200,11 +200,11 @@ Implemented REST API integration to handle dynamic data rendering and user inter
         "/assets/icon/mongodb.svg",
         "/assets/icon/expressjs_dark.svg",
         "/assets/icon/react_dark.svg",
-        "/assets/icon/nodejs.svg",
+        "/assets/icon/nodejs.svg"
       ],
       imageUrl: "/nota-wota.png",
       url: "https://nota-wota.vercel.app/",
-      github: "https://github.com/janfdev/notes-app-mern",
-    },
-  ],
+      github: "https://github.com/janfdev/notes-app-mern"
+    }
+  ]
 };
