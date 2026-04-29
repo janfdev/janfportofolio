@@ -54,14 +54,14 @@ export default function ProjectData({
           </div>
 
           <div className="flex gap-4 mt-3 items-center">
-            <Link href={url} target="_blank">
+            <Link href={url} target="_blank" rel="noopener noreferrer">
               <Button size={"sm"}>
                 <Globe />
                 Preview
               </Button>
             </Link>
 
-            <Link href={github}>
+            <Link href={github} target="_blank" rel="noopener noreferrer">
               <Button size={"sm"}>
                 <Github />
                 <span className="lg:block md:block sm:hidden">Source Code</span>
@@ -73,7 +73,7 @@ export default function ProjectData({
         {/* Image Animation on hover */}
         <Image
           src={imageUrl}
-          alt="My Project"
+          alt={`${title} project preview`}
           width={800}
           height={800}
           quality={95}

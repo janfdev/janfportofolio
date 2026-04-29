@@ -25,13 +25,13 @@ const Intro = () => {
             </BlurFade>
           </SpringElement>
           <div className="flex flex-col flex-1 items-center justify-center text-center space-y-1.5">
-            <BlurFadeText
-              delay={BLUR_FADE_DELAY}
-              className="md:text-4xl font-bold tracking-tighter sm:text-3xl xl:text-5xl/none"
-              yOffset={8}
-              text={`
-                Hi, I'm ${DATA.name} 👋`}
-            />
+            <h1 className="md:text-4xl font-bold tracking-tighter sm:text-3xl xl:text-5xl/none">
+              <BlurFadeText
+                delay={BLUR_FADE_DELAY}
+                yOffset={8}
+                text={`Hi, I'm ${DATA.name} 👋`}
+              />
+            </h1>
             <BlurFadeText
               className="max-w-[600px] md:text-xl"
               delay={BLUR_FADE_DELAY}

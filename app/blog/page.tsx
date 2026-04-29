@@ -1,12 +1,20 @@
 import React from "react";
-import Navbar from "../../components/navbar";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Blog sedang dalam pengembangan.",
+  robots: {
+    index: false,
+    follow: false
+  }
+};
 
 const page = () => {
   return (
-    <div>
+    <main>
       <h1>Blog Coming Soon</h1>
-      <Navbar />
-    </div>
+    </main>
   );
 };
 
