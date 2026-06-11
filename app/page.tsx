@@ -3,6 +3,7 @@ import AboutSection from "../components/section/about-section";
 import ExperienceSection from "../components/section/experience-section";
 import ProjectSection from "../components/section/projects-section";
 import SkillSection from "../components/section/skills-section";
+import GithubContribution from "../components/GithubContribution";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Intro />
       <AboutSection />
       <ExperienceSection />
+      <GithubContribution />
       <SkillSection />
       <ProjectSection />
     </main>
