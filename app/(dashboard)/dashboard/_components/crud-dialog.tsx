@@ -1,7 +1,7 @@
 "use client";
 
-// Formulir dialog generik: schema field sederhana, validasi required ringan,
-// tanpa dependensi form tambahan (RHF/Zod baru ditambah bila aturan kompleks).
+// Formulir dialog generik: error per-field, tombol Simpan disabled bila invalid.
+// Tanpa dependensi form tambahan (RHF/Zod baru ditambah bila aturan kompleks).
 
 import { useState, type ReactNode } from "react";
 import { Button } from "../../../../components/ui/button";
@@ -38,18 +38,19 @@ export function CrudDialog({
       fields.map((f) => [f.name, String(initial[f.name] ?? "")])
     )
   );
-  const [err, setErr] = useState("");
+  const [touched, setTouched] = useState(false);
 
   if (!open) return null;
 
+  const errors: Record<string, string> = {};
+  for (const f of fields) {
+    if (f.required && !values[f.name]?.trim()) errors[f.name] = `Kolom "${f.label}" wajib diisi.`;
+  }
+  const invalid = Object.keys(errors).length > 0;
+
   const submit = () => {
-    const missing = fields.find(
-      (f) => f.required && !values[f.name]?.trim()
-    );
-    if (missing) {
-      setErr(`Kolom "${missing.label}" wajib diisi.`);
-      return;
-    }
+    setTouched(true);
+    if (invalid) return;
     onSave(Object.fromEntries(fields.map((f) => [f.name, values[f.name]?.trim() ?? ""])));
   };
 
@@ -68,28 +69,28 @@ export function CrudDialog({
                 value={values[f.name]}
                 placeholder={f.placeholder}
                 rows={4}
-                onChange={(e) =>
-                  setValues((v) => ({ ...v, [f.name]: e.target.value }))
-                }
+                aria-invalid={touched && !!errors[f.name]}
+                onChange={(e) => setValues((v) => ({ ...v, [f.name]: e.target.value }))}
               />
             ) : (
               <Input
                 id={`f-${f.name}`}
                 value={values[f.name]}
                 placeholder={f.placeholder}
-                onChange={(e) =>
-                  setValues((v) => ({ ...v, [f.name]: e.target.value }))
-                }
+                aria-invalid={touched && !!errors[f.name]}
+                onChange={(e) => setValues((v) => ({ ...v, [f.name]: e.target.value }))}
               />
+            )}
+            {touched && errors[f.name] && (
+              <p className="mt-1 text-xs text-destructive">{errors[f.name]}</p>
             )}
           </div>
         ))}
-        {err && <p className="text-sm text-destructive">{err}</p>}
         <div className="flex justify-end gap-2 pt-1">
           <Button type="button" variant="outline" onClick={onClose}>
             Batal
           </Button>
-          <Button type="button" onClick={submit}>
+          <Button type="button" onClick={submit} disabled={touched && invalid}>
             Simpan
           </Button>
         </div>

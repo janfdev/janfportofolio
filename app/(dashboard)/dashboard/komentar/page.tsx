@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/button";
 import { useDashboard } from "../../../../lib/dashboard/store";
@@ -21,14 +22,15 @@ export default function KomentarPage() {
   const rows = [...state.comments].sort(
     (a, b) => (b.createdAt ? new Date(b.createdAt).getTime() : 0) - (a.createdAt ? new Date(a.createdAt).getTime() : 0)
   );
+  const delRow = rows.find((c) => c.id === del);
 
   return (
     <div>
-      <PageHeader title="Komentar" desc="Moderasi komentar pengunjung." />
+      <PageHeader title="Komentar" desc="Moderasi komentar pengunjung sebelum tampil di situs." />
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Nama</TableHead>
+            <TableHead>Pengirim</TableHead>
             <TableHead>Komentar</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Aksi</TableHead>
@@ -58,26 +60,41 @@ export default function KomentarPage() {
                       Tolak
                     </Button>
                   )}
-                  <Button size="sm" variant="destructive" onClick={() => setDel(c.id)}>Hapus</Button>
+                  <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-destructive" onClick={() => setDel(c.id)}>
+                    Hapus
+                  </Button>
                 </div>
               </TableCell>
             </TableRow>
           ))}
           {rows.length === 0 && (
-            <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground">Belum ada komentar.</TableCell></TableRow>
+            <TableRow>
+              <TableCell colSpan={4} className="py-8 text-center">
+                <p className="text-sm font-medium">Belum ada komentar</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">
+                  Komentar pengunjung yang masuk akan muncul di sini untuk dimoderasi.
+                </p>
+              </TableCell>
+            </TableRow>
           )}
         </TableBody>
       </Table>
       <ConfirmDialog
         open={del !== null}
-        title="Hapus komentar?"
-        message="Komentar yang dihapus tidak bisa dikembalikan."
+        title={`Hapus komentar dari ${delRow?.name ?? "pengunjung"}?`}
+        message={`"${delRow?.message.slice(0, 80) ?? ""}" akan dihapus permanen dan tidak bisa dikembalikan.`}
         onClose={() => setDel(null)}
         onConfirm={() => {
           dispatch({ type: "remove", table: "comments", id: del! });
           setDel(null);
         }}
       />
+      {rows.length > 0 && (
+        <p className="mt-3 text-xs text-muted-foreground">
+          Hanya komentar berstatus Disetujui yang tampil di situs. Kelola juga dari{" "}
+          <Link href="/dashboard" className="underline underline-offset-2">Ringkasan</Link>.
+        </p>
+      )}
     </div>
   );
 }

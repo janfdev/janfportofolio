@@ -22,7 +22,7 @@ export default function KunjunganPage() {
     <div className="space-y-4">
       <PageHeader
         title="Kunjungan"
-        desc="Statistik kunjungan situs (data dummy lokal)."
+        desc="Statistik kunjungan situs yang tercatat lokal di perangkat ini."
         extra={
           <>
             <Button
@@ -33,16 +33,16 @@ export default function KunjunganPage() {
               Simulasi kunjungan
             </Button>
             <Button size="sm" variant="outline" onClick={() => setReset(true)}>
-              Reset dummy
+              Reset data
             </Button>
           </>
         }
       />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
-        <Card className="py-4"><CardHeader className="px-4"><CardTitle className="text-xs font-medium text-muted-foreground">Total kunjungan</CardTitle></CardHeader><CardContent className="px-4"><p className="text-2xl font-bold">{state.visits.length}</p></CardContent></Card>
-        <Card className="py-4"><CardHeader className="px-4"><CardTitle className="text-xs font-medium text-muted-foreground">Klik project</CardTitle></CardHeader><CardContent className="px-4"><p className="text-2xl font-bold">{state.visits.filter((v) => v.projectId).length}</p></CardContent></Card>
-        <Card className="py-4"><CardHeader className="px-4"><CardTitle className="text-xs font-medium text-muted-foreground">Halaman unik</CardTitle></CardHeader><CardContent className="px-4"><p className="text-2xl font-bold">{new Set(state.visits.map((v) => v.path)).size}</p></CardContent></Card>
+        <Card className="py-4"><CardHeader className="px-4"><CardTitle className="text-xs font-medium text-muted-foreground">Total kunjungan</CardTitle></CardHeader><CardContent className="px-4"><p className="text-2xl font-bold tabular-nums">{state.visits.length}</p></CardContent></Card>
+        <Card className="py-4"><CardHeader className="px-4"><CardTitle className="text-xs font-medium text-muted-foreground">Klik project</CardTitle></CardHeader><CardContent className="px-4"><p className="text-2xl font-bold tabular-nums">{state.visits.filter((v) => v.projectId).length}</p></CardContent></Card>
+        <Card className="py-4"><CardHeader className="px-4"><CardTitle className="text-xs font-medium text-muted-foreground">Halaman unik</CardTitle></CardHeader><CardContent className="px-4"><p className="text-2xl font-bold tabular-nums">{new Set(state.visits.map((v) => v.path)).size}</p></CardContent></Card>
       </div>
 
       <Card>
@@ -51,9 +51,14 @@ export default function KunjunganPage() {
           {byProject.map(({ project, views }) => (
             <div key={project.id} className="flex items-center justify-between gap-2 text-sm">
               <span className="truncate">{project.title}</span>
-              <Badge variant="secondary">{views} klik</Badge>
+              <Badge variant="secondary" className="tabular-nums">{views} klik</Badge>
             </div>
           ))}
+          {byProject.length === 0 && (
+            <p className="text-sm text-muted-foreground">
+              Belum ada project, jadi belum ada statistik per project.
+            </p>
+          )}
         </CardContent>
       </Card>
 
@@ -77,14 +82,24 @@ export default function KunjunganPage() {
                 <TableCell>{state.projects.find((p) => p.id === v.projectId)?.title ?? "-"}</TableCell>
               </TableRow>
             ))}
+            {state.visits.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={3} className="py-8 text-center">
+                  <p className="text-sm font-medium">Belum ada kunjungan tercatat</p>
+                  <p className="mt-0.5 text-sm text-muted-foreground">
+                    Buka situs atau tekan Simulasi kunjungan untuk mencatat yang pertama.
+                  </p>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </div>
 
       <ConfirmDialog
         open={reset}
-        title="Reset data dummy?"
-        message="Statistik kunjungan dikembalikan ke seed awal."
+        title="Reset data kunjungan?"
+        message="Statistik kunjungan dikembalikan ke seed awal dan tidak bisa dikembalikan."
         onClose={() => setReset(false)}
         onConfirm={() => {
           dispatch({ type: "reset-visits" });

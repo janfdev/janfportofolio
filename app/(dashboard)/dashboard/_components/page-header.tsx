@@ -3,7 +3,7 @@
 // Header halaman modul: judul + deskripsi + tombol tambah + slot aksi ekstra.
 
 import type { ReactNode } from "react";
-import { Plus } from "lucide-react";
+import { Pencil, Plus, Trash2 } from "lucide-react";
 import { Button } from "../../../../components/ui/button";
 
 export function PageHeader({
@@ -29,7 +29,7 @@ export function PageHeader({
         {extra}
         {addLabel && onAdd && (
           <Button size="sm" onClick={onAdd}>
-            <Plus className="size-4" />
+            <Plus className="size-4" aria-hidden />
             {addLabel}
           </Button>
         )}
@@ -38,21 +38,37 @@ export function PageHeader({
   );
 }
 
-// Tombol aksi baris (ubah/hapus) agar konsisten di semua modul.
+// Tombol aksi baris: 2 tombol ghost icon agar tabel ringkas dan konsisten.
 export function RowActions({
+  item,
   onEdit,
   onDelete,
 }: {
+  item: string;
   onEdit: () => void;
   onDelete: () => void;
 }) {
   return (
-    <div className="flex justify-end gap-1.5 whitespace-nowrap">
-      <Button size="sm" variant="outline" onClick={onEdit}>
-        Ubah
+    <div className="flex justify-end gap-1 whitespace-nowrap">
+      <Button
+        size="icon"
+        variant="ghost"
+        onClick={onEdit}
+        aria-label={`Ubah ${item}`}
+        title={`Ubah ${item}`}
+        className="size-8 rounded-md"
+      >
+        <Pencil className="size-4" aria-hidden />
       </Button>
-      <Button size="sm" variant="destructive" onClick={onDelete}>
-        Hapus
+      <Button
+        size="icon"
+        variant="ghost"
+        onClick={onDelete}
+        aria-label={`Hapus ${item}`}
+        title={`Hapus ${item}`}
+        className="size-8 rounded-md text-muted-foreground hover:text-destructive"
+      >
+        <Trash2 className="size-4" aria-hidden />
       </Button>
     </div>
   );

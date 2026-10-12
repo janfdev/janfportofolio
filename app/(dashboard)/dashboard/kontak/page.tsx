@@ -3,22 +3,24 @@
 import { useState } from "react";
 import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/button";
+import { Input } from "../../../../components/ui/input";
+import { Label } from "../../../../components/ui/label";
 import { useDashboard } from "../../../../lib/dashboard/store";
 import { PageHeader, RowActions } from "../_components/page-header";
 import { CrudDialog, ConfirmDialog, type FieldDef } from "../_components/crud-dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../../components/ui/table";
 
 const FIELDS: FieldDef[] = [
-  { name: "name", label: "Nama kontak", required: true, placeholder: "GitHub" },
-  { name: "url", label: "Tautan", required: true, placeholder: "https://github.com/..." },
+  { name: "name", label: "Nama kontak", required: true, placeholder: "cth: GitHub" },
+  { name: "url", label: "Tautan", required: true, placeholder: "https://github.com/username" },
   { name: "navbar", label: "Tampil di navbar (true/false)", placeholder: "true" },
 ];
 
 export default function KontakPage() {
   const { state, dispatch } = useDashboard();
   const [editEmail, setEditEmail] = useState(false);
-  // Sosial disimpan di profile? Belum ada tabelnya — kelola sebagai daftar lokal
-  // turunan profile: ponytail: tambah tabel socials bila perlu CRUD penuh.
+  // Sosial disimpan lokal turunan profile:
+  // ponytail: tambah tabel socials bila perlu CRUD penuh + tampil di situs.
   const [socials, setSocials] = useState([
     { id: 1, name: "GitHub", url: "https://github.com/janfdev", navbar: "true" },
     { id: 2, name: "LinkedIn", url: "https://www.linkedin.com/in/rizqinoorfauzan", navbar: "true" },
@@ -28,6 +30,7 @@ export default function KontakPage() {
   const [del, setDel] = useState<number | null>(null);
   const [email, setEmail] = useState(state.profile.email);
   const [tel, setTel] = useState(state.profile.tel);
+  const delRow = socials.find((s) => s.id === del);
 
   const save = (v: Record<string, string>) => {
     if (form.id) setSocials((s) => s.map((x) => (x.id === form.id ? { ...x, ...v } : x)));
@@ -43,14 +46,23 @@ export default function KontakPage() {
   return (
     <div className="space-y-6">
       <div>
-        <PageHeader title="Kontak" desc="Email, telepon, dan tautan sosial." />
+        <PageHeader title="Kontak" desc="Email, telepon, dan tautan sosial pengunjung." />
         <div className="grid max-w-xl gap-2 rounded-xl border p-4">
           <p className="text-sm"><span className="text-muted-foreground">Email: </span>{editEmail ? null : state.profile.email}</p>
           {editEmail ? (
-            <div className="flex gap-2">
-              <input className="h-9 w-full rounded-md border bg-transparent px-3 text-sm" value={email} onChange={(e) => setEmail(e.target.value)} aria-label="Email" />
-              <input className="h-9 w-full rounded-md border bg-transparent px-3 text-sm" value={tel} onChange={(e) => setTel(e.target.value)} aria-label="Telepon" />
-              <Button size="sm" onClick={saveContact}>Simpan</Button>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <div className="flex-1">
+                <Label htmlFor="ct-email">Email</Label>
+                <Input id="ct-email" className="h-9" value={email} placeholder="nama@email.com" onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div className="flex-1">
+                <Label htmlFor="ct-tel">Telepon</Label>
+                <Input id="ct-tel" className="h-9" value={tel} placeholder="+62…" onChange={(e) => setTel(e.target.value)} />
+              </div>
+              <div className="flex items-end gap-2">
+                <Button size="sm" onClick={saveContact}>Simpan</Button>
+                <Button size="sm" variant="outline" onClick={() => setEditEmail(false)}>Batal</Button>
+              </div>
             </div>
           ) : (
             <>
@@ -82,7 +94,11 @@ export default function KontakPage() {
                 <TableCell className="max-w-50 truncate text-muted-foreground">{s.url}</TableCell>
                 <TableCell><Badge variant={s.navbar === "true" ? "default" : "outline"}>{s.navbar === "true" ? "Ya" : "Tidak"}</Badge></TableCell>
                 <TableCell>
-                  <RowActions onEdit={() => setForm({ open: true, id: s.id })} onDelete={() => setDel(s.id)} />
+                  <RowActions
+                    item={s.name}
+                    onEdit={() => setForm({ open: true, id: s.id })}
+                    onDelete={() => setDel(s.id)}
+                  />
                 </TableCell>
               </TableRow>
             ))}
@@ -100,7 +116,7 @@ export default function KontakPage() {
       />
       <ConfirmDialog
         open={del !== null}
-        title="Hapus kontak?"
+        title={`Hapus tautan ${delRow?.name ?? "kontak"}?`}
         message="Tautan sosial ini akan dihapus dari daftar."
         onClose={() => setDel(null)}
         onConfirm={() => {

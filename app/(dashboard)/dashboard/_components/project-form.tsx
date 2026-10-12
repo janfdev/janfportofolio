@@ -36,22 +36,37 @@ export function ProjectDialog({
   onSave: (v: FormState) => void;
 }) {
   const [v, setV] = useState<FormState>({ ...EMPTY, ...initial });
-  const [err, setErr] = useState("");
+  const [touched, setTouched] = useState(false);
   if (!open) return null;
-  const set = (k: keyof FormState) => (e: { target: { value: string } }) =>
+  const set = (k: keyof FormState) => (e: { target: { value: string } }) => {
     setV((p) => ({ ...p, [k]: e.target.value }));
+    setTouched(true);
+  };
+  const titleErr = !v.title.trim() ? 'Kolom "Judul" wajib diisi.' : "";
+  const descErr = !v.description.trim() ? 'Kolom "Deskripsi" wajib diisi.' : "";
+  const invalid = !!titleErr || !!descErr;
   const submit = () => {
-    if (!v.title.trim() || !v.description.trim()) {
-      setErr("Judul dan deskripsi wajib diisi.");
-      return;
-    }
+    setTouched(true);
+    if (invalid) return;
     onSave({ ...v, title: v.title.trim(), description: v.description.trim() });
   };
+  const fld = (
+    id: string,
+    label: string,
+    node: React.ReactNode,
+    err?: string
+  ) => (
+    <div>
+      <Label htmlFor={id}>{label}</Label>
+      {node}
+      {touched && err && <p className="mt-1 text-xs text-destructive">{err}</p>}
+    </div>
+  );
   return (
     <Dialog open={open} onClose={onClose} title={title}>
       <div className="space-y-3">
-        <div><Label htmlFor="p-title">Judul *</Label><Input id="p-title" value={v.title} onChange={set("title")} /></div>
-        <div><Label htmlFor="p-desc">Deskripsi *</Label><Textarea id="p-desc" value={v.description} rows={3} onChange={set("description")} /></div>
+        {fld("p-title", "Judul *", <Input id="p-title" value={v.title} placeholder="cth: Aplikasi Kasir" onChange={set("title")} aria-invalid={touched && !!titleErr} />, titleErr)}
+        {fld("p-desc", "Deskripsi *", <Textarea id="p-desc" value={v.description} rows={3} placeholder="Fungsi utama project dan hasil yang dicapai…" onChange={set("description")} aria-invalid={touched && !!descErr} />, descErr)}
         <div><Label htmlFor="p-img">Gambar (URL/path)</Label><Input id="p-img" value={v.imageUrl} placeholder="/proyek.png" onChange={set("imageUrl")} /></div>
         <div><Label htmlFor="p-url">Tautan live</Label><Input id="p-url" value={v.url} placeholder="https://..." onChange={set("url")} /></div>
         <div><Label htmlFor="p-gh">Tautan GitHub</Label><Input id="p-gh" value={v.github} placeholder="https://github.com/..." onChange={set("github")} /></div>
@@ -60,10 +75,9 @@ export function ProjectDialog({
           <Input id="p-tags" value={v.tags} placeholder="React, NextJS | /icon.svg" onChange={set("tags")} />
           <p className="mt-1 text-xs text-muted-foreground">cth: React, NextJS | /icon.svg, Neon</p>
         </div>
-        {err && <p className="text-sm text-destructive">{err}</p>}
         <div className="flex justify-end gap-2 pt-1">
           <Button type="button" variant="outline" onClick={onClose}>Batal</Button>
-          <Button type="button" onClick={submit}>Simpan</Button>
+          <Button type="button" onClick={submit} disabled={touched && invalid}>Simpan</Button>
         </div>
       </div>
     </Dialog>
@@ -107,7 +121,7 @@ export function ProjectModule() {
 
   return (
     <div>
-      <PageHeader title="Projects" desc="Proyek yang tampil di portofolio." addLabel="Tambah project" onAdd={() => setForm({ open: true })} />
+      <PageHeader title="Projects" desc="Proyek yang tampil di halaman utama portofolio." addLabel="Tambah project" onAdd={() => setForm({ open: true })} />
       <div className="grid gap-3 sm:grid-cols-2">
         {rows.map((p) => {
           const tags = tagsOf(state, p.id);
@@ -120,13 +134,27 @@ export function ProjectModule() {
                   <Badge key={t.id} variant="outline">{t.tag}</Badge>
                 ))}
               </div>
-              <div className="mt-3">
-                <RowActions onEdit={() => setForm({ open: true, id: p.id })} onDelete={() => setDel(p.id)} />
+              <div className="mt-3 flex justify-end">
+                <RowActions
+                  item={p.title}
+                  onEdit={() => setForm({ open: true, id: p.id })}
+                  onDelete={() => setDel(p.id)}
+                />
               </div>
             </div>
           );
         })}
-        {rows.length === 0 && <p className="text-sm text-muted-foreground">Belum ada project.</p>}
+        {rows.length === 0 && (
+          <div className="rounded-lg border border-dashed p-6 text-center sm:col-span-2">
+            <p className="text-sm font-medium">Belum ada project</p>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              Data belum diisi, jadi halaman utama situs masih kosong.
+            </p>
+            <Button size="sm" className="mt-3" onClick={() => setForm({ open: true })}>
+              Tambah project pertama
+            </Button>
+          </div>
+        )}
       </div>
       {form.open && (
         <ProjectDialog
@@ -140,8 +168,8 @@ export function ProjectModule() {
       )}
       <ConfirmDialog
         open={del !== null}
-        title="Hapus project?"
-        message="Project, tag, dan statistik view-nya ikut terhapus."
+        title={`Hapus ${rows.find((p) => p.id === del)?.title ?? "project"}?`}
+        message="Project, tag, dan statistik view-nya ikut terhapus dan langsung hilang dari situs."
         onClose={() => setDel(null)}
         onConfirm={() => {
           dispatch({ type: "remove", table: "projects", id: del! });

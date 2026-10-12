@@ -3,7 +3,9 @@
 import Link from "next/link";
 import {
   Briefcase,
+  CheckCheck,
   FolderGit2,
+  GraduationCap,
   Inbox,
   MessageSquare,
   MousePointerClick,
@@ -12,10 +14,12 @@ import {
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "../../../components/ui/card";
 import { Badge } from "../../../components/ui/badge";
+import { Button } from "../../../components/ui/button";
 import { useDashboard } from "../../../lib/dashboard/store";
 
 const DAY = 86_400_000;
@@ -27,72 +31,136 @@ function startOfDay(t: number) {
 }
 
 export default function DashboardPage() {
-  const { state } = useDashboard();
+  const { state, dispatch } = useDashboard();
   const now = Date.now();
-  const pending = state.comments.filter((c) => c.status === "pending").length;
-  const unread = state.messages.filter((m) => !m.read).length;
+  const pending = state.comments.filter((c) => c.status === "pending");
+  const unread = state.messages.filter((m) => !m.read);
+  const weekStart = startOfDay(now - 6 * DAY);
+  const weekCount = state.visits.filter((v) => {
+    const t = v.createdAt ? new Date(v.createdAt).getTime() : 0;
+    return t >= weekStart;
+  }).length;
 
-  // Kunjungan 7 hari terakhir (urutan kronologis untuk batang CSS).
   const days = Array.from({ length: 7 }, (_, i) => {
     const dayStart = startOfDay(now - (6 - i) * DAY);
     const count = state.visits.filter((v) => {
       const t = v.createdAt ? new Date(v.createdAt).getTime() : 0;
       return t >= dayStart && t < dayStart + DAY;
     }).length;
-    return { label: new Date(dayStart).toLocaleDateString("id-ID", { weekday: "short" }), count };
+    const d = new Date(dayStart);
+    return {
+      weekday: d.toLocaleDateString("id-ID", { weekday: "short" }),
+      date: d.toLocaleDateString("id-ID", { day: "numeric", month: "numeric" }),
+      full: d.toLocaleDateString("id-ID", { day: "numeric", month: "short" }),
+      count,
+    };
   });
   const max = Math.max(1, ...days.map((d) => d.count));
 
-  const activity = [
-    ...state.comments.map((c) => ({
-      at: c.createdAt ? new Date(c.createdAt).getTime() : 0,
-      text: `Komentar ${c.status} dari ${c.name}`,
-      href: "/dashboard/komentar",
-    })),
-    ...state.messages.map((m) => ({
-      at: m.createdAt ? new Date(m.createdAt).getTime() : 0,
-      text: `Pesan ${m.read ? "" : "baru "}dari ${m.name}`,
-      href: "/dashboard/pesan",
-    })),
-    ...state.visits.slice(0, 5).map((v) => ({
-      at: v.createdAt ? new Date(v.createdAt).getTime() : 0,
-      text: `Kunjungan ${v.path}`,
+  const main = [
+    {
+      label: "Projects",
+      value: state.projects.length,
+      icon: FolderGit2,
+      href: "/dashboard/projects",
+      badge: `${state.projectTags.length} tag`,
+      ctx:
+        state.projects.length === 0
+          ? "Belum ada project yang tampil di situs."
+          : `${state.projects.length} project tampil di halaman utama.`,
+    },
+    {
+      label: "Kunjungan total",
+      value: state.visits.length,
+      icon: MousePointerClick,
       href: "/dashboard/kunjungan",
-    })),
-  ]
-    .sort((a, b) => b.at - a.at)
-    .slice(0, 6);
-
-  const cards = [
-    { label: "Projects", value: state.projects.length, icon: FolderGit2, href: "/dashboard/projects" },
-    { label: "Experience", value: state.experiences.length, icon: Briefcase, href: "/dashboard/experience" },
-    { label: "Skills", value: state.skills.length, icon: Wrench, href: "/dashboard/skills" },
-    { label: "Kunjungan", value: state.visits.length, icon: MousePointerClick, href: "/dashboard/kunjungan" },
-    { label: "Komentar pending", value: pending, icon: MessageSquare, href: "/dashboard/komentar" },
-    { label: "Pesan belum dibaca", value: unread, icon: Inbox, href: "/dashboard/pesan" },
+      badge: `${weekCount} minggu ini`,
+      ctx:
+        state.visits.length === 0
+          ? "Belum ada kunjungan tercatat."
+          : `${weekCount} kunjungan dalam 7 hari terakhir.`,
+    },
+    {
+      label: "Komentar pending",
+      value: pending.length,
+      icon: MessageSquare,
+      href: "/dashboard/komentar",
+      badge: pending.length > 0 ? "Perlu moderasi" : "Aman",
+      badgeVariant: (pending.length > 0 ? "destructive" : "secondary") as "destructive" | "secondary",
+      ctx:
+        pending.length === 0
+          ? "Semua komentar sudah dimoderasi."
+          : `${pending.length} komentar menunggu disetujui atau ditolak.`,
+    },
+    {
+      label: "Pesan unread",
+      value: unread.length,
+      icon: Inbox,
+      href: "/dashboard/pesan",
+      badge: unread.length > 0 ? "Perlu dibaca" : "Aman",
+      badgeVariant: (unread.length > 0 ? "destructive" : "secondary") as "destructive" | "secondary",
+      ctx:
+        unread.length === 0
+          ? "Kotak masuk sudah dibaca semua."
+          : `${unread.length} pesan belum dibaca.`,
+    },
   ];
 
+  const secondary = [
+    { label: "Experience", value: state.experiences.length, icon: Briefcase, href: "/dashboard/experience" },
+    { label: "Education", value: state.educations.length, icon: GraduationCap, href: "/dashboard/education" },
+    { label: "Skills", value: state.skills.length, icon: Wrench, href: "/dashboard/skills" },
+  ];
+
+  const needAction = pending.length + unread.length > 0;
+
   return (
-    <div className="space-y-6">
+    <div className="@container/main flex flex-col gap-4 md:gap-6">
       <div>
-        <h1 className="text-xl font-bold">Ringkasan</h1>
+        <h2 className="text-xl font-bold">Ringkasan</h2>
         <p className="text-sm text-muted-foreground">
           Halo, {state.profile.name}. Pantau dan kelola isi portofolio dari sini.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
-        {cards.map((c) => (
-          <Link key={c.label} href={c.href}>
-            <Card className="gap-2 py-4 transition-colors hover:border-foreground/30">
-              <CardHeader className="px-4">
-                <CardTitle className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                  <c.icon className="size-4" />
-                  {c.label}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {main.map((c) => (
+          <Link key={c.label} href={c.href} className="min-w-0">
+            <Card className="h-full transition-colors hover:border-foreground/30">
+              <CardHeader>
+                <CardTitle>
+                  <div className="flex size-7 items-center justify-center rounded-lg border bg-muted text-muted-foreground">
+                    <c.icon className="size-4" aria-hidden />
+                  </div>
                 </CardTitle>
+                <CardDescription>{c.label}</CardDescription>
               </CardHeader>
-              <CardContent className="px-4">
-                <p className="text-2xl font-bold">{c.value}</p>
+              <CardContent className="flex flex-col gap-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="text-3xl font-medium tabular-nums leading-none tracking-tight">
+                    {c.value}
+                  </div>
+                  <Badge variant={c.badgeVariant ?? "secondary"}>{c.badge}</Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">{c.ctx}</p>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {secondary.map((c) => (
+          <Link key={c.label} href={c.href} className="min-w-0">
+            <Card className="gap-2 py-4 transition-colors hover:border-foreground/30">
+              <CardContent className="flex items-center gap-3 px-4">
+                <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border bg-muted text-muted-foreground">
+                  <c.icon className="size-4" aria-hidden />
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-xs font-medium text-muted-foreground">{c.label}</p>
+                  <p className="text-xl font-bold tabular-nums leading-tight">{c.value}</p>
+                </div>
               </CardContent>
             </Card>
           </Link>
@@ -101,19 +169,25 @@ export default function DashboardPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-sm">Kunjungan 7 hari terakhir</CardTitle>
+          <CardTitle className="text-sm">Kunjungan per hari, 7 hari terakhir?</CardTitle>
+          <CardDescription>
+            {weekCount === 0
+              ? "Belum ada kunjungan minggu ini."
+              : `${weekCount} kunjungan dari ${days[0].full} sampai ${days[6].full}.`}
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex h-32 items-end gap-2">
+          <div className="flex h-36 items-end gap-2" role="img" aria-label={`Kunjungan 7 hari terakhir, total ${weekCount}`}>
             {days.map((d) => (
-              <div key={d.label} className="flex flex-1 flex-col items-center gap-1.5">
+              <div key={d.full} className="flex min-w-0 flex-1 flex-col items-center gap-1.5">
                 <span className="text-xs font-medium tabular-nums">{d.count}</span>
                 <div
                   className="w-full rounded-t bg-primary/80"
                   style={{ height: `${Math.max(4, (d.count / max) * 96)}px` }}
-                  title={`${d.count} kunjungan`}
+                  title={`${d.full}: ${d.count} kunjungan`}
                 />
-                <span className="text-[11px] text-muted-foreground">{d.label}</span>
+                <span className="text-[11px] text-muted-foreground">{d.weekday}</span>
+                <span className="text-[10px] tabular-nums text-muted-foreground/80">{d.date}</span>
               </div>
             ))}
           </div>
@@ -122,23 +196,59 @@ export default function DashboardPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-sm">Aktivitas terakhir</CardTitle>
+          <CardTitle className="text-sm">Perlu tindakan</CardTitle>
+          <CardDescription>
+            {needAction
+              ? `${pending.length} komentar pending dan ${unread.length} pesan unread.`
+              : "Tidak ada yang menunggu — semua sudah beres."}
+          </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2">
-          {activity.length === 0 && (
-            <p className="text-sm text-muted-foreground">Belum ada aktivitas.</p>
+        <CardContent className="flex flex-col gap-2">
+          {!needAction && (
+            <div className="flex items-center gap-2 rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+              <CheckCheck className="size-4 shrink-0" aria-hidden />
+              Kotak moderasi kosong. Komentar baru dan pesan masuk akan muncul di sini.
+            </div>
           )}
-          {activity.map((a, i) => (
-            <Link
-              key={i}
-              href={a.href}
-              className="flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent"
-            >
-              <span className="truncate">{a.text}</span>
-              <Badge variant="outline" className="shrink-0">
-                {a.at ? new Date(a.at).toLocaleDateString("id-ID", { day: "numeric", month: "short" }) : "-"}
-              </Badge>
-            </Link>
+          {pending.slice(0, 3).map((c) => (
+            <div key={c.id} className="flex flex-wrap items-center gap-2 rounded-lg border p-3">
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium">
+                  Komentar dari {c.name}
+                </p>
+                <p className="line-clamp-1 text-xs text-muted-foreground">{c.message}</p>
+              </div>
+              <div className="flex gap-1.5">
+                <Button size="sm" variant="outline" asChild>
+                  <Link href="/dashboard/komentar">Tinjau</Link>
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => dispatch({ type: "set-comment-status", id: c.id, status: "approved" })}
+                >
+                  Setujui
+                </Button>
+              </div>
+            </div>
+          ))}
+          {unread.slice(0, 3).map((m) => (
+            <div key={m.id} className="flex flex-wrap items-center gap-2 rounded-lg border p-3">
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium">Pesan dari {m.name}</p>
+                <p className="line-clamp-1 text-xs text-muted-foreground">{m.message}</p>
+              </div>
+              <div className="flex gap-1.5">
+                <Button size="sm" variant="outline" asChild>
+                  <Link href="/dashboard/pesan">Buka</Link>
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => dispatch({ type: "set-message-read", id: m.id, read: true })}
+                >
+                  Tandai dibaca
+                </Button>
+              </div>
+            </div>
           ))}
         </CardContent>
       </Card>

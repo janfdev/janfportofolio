@@ -4,17 +4,18 @@ import { useState } from "react";
 import { useDashboard } from "../../../../lib/dashboard/store";
 import { PageHeader, RowActions } from "../_components/page-header";
 import { CrudDialog, ConfirmDialog, type FieldDef } from "../_components/crud-dialog";
+import { Button } from "../../../../components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../../components/ui/table";
 
 const FIELDS: FieldDef[] = [
-  { name: "company", label: "Perusahaan", required: true, placeholder: "Library UMC" },
-  { name: "title", label: "Jabatan", required: true, placeholder: "Fullstack Developer" },
-  { name: "location", label: "Lokasi kerja", placeholder: "Remote / On-site" },
-  { name: "href", label: "Tautan perusahaan", placeholder: "https://..." },
-  { name: "logoUrl", label: "Logo (URL/path)", placeholder: "/logo.png" },
-  { name: "start", label: "Mulai", required: true, placeholder: "Jan 2025" },
-  { name: "end", label: "Selesai", required: true, placeholder: "Present" },
-  { name: "description", label: "Deskripsi", type: "textarea", required: true },
+  { name: "company", label: "Perusahaan", required: true, placeholder: "cth: Library UMC" },
+  { name: "title", label: "Jabatan", required: true, placeholder: "cth: Fullstack Developer" },
+  { name: "location", label: "Lokasi kerja", placeholder: "cth: Remote / Cirebon" },
+  { name: "href", label: "Tautan perusahaan", placeholder: "https://perusahaan.com" },
+  { name: "logoUrl", label: "Logo (URL/path)", placeholder: "/logo-perusahaan.png" },
+  { name: "start", label: "Mulai", required: true, placeholder: "cth: Jan 2025" },
+  { name: "end", label: "Selesai", required: true, placeholder: "cth: Present / Des 2025" },
+  { name: "description", label: "Deskripsi", type: "textarea", required: true, placeholder: "Tugas utama dan hasil yang dicapai…" },
 ];
 
 export default function ExperiencePage() {
@@ -22,6 +23,7 @@ export default function ExperiencePage() {
   const [form, setForm] = useState<{ open: boolean; id?: number }>({ open: false });
   const [del, setDel] = useState<number | null>(null);
   const rows = [...state.experiences].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+  const delRow = rows.find((r) => r.id === del);
 
   const save = (v: Record<string, string>) => {
     if (form.id) dispatch({ type: "update", table: "experiences", id: form.id, patch: v });
@@ -55,14 +57,24 @@ export default function ExperiencePage() {
                 {r.start} – {r.end}
               </TableCell>
               <TableCell>
-                <RowActions onEdit={() => setForm({ open: true, id: r.id })} onDelete={() => setDel(r.id)} />
+                <RowActions
+                  item={`${r.title} di ${r.company}`}
+                  onEdit={() => setForm({ open: true, id: r.id })}
+                  onDelete={() => setDel(r.id)}
+                />
               </TableCell>
             </TableRow>
           ))}
           {rows.length === 0 && (
             <TableRow>
-              <TableCell colSpan={4} className="text-center text-muted-foreground">
-                Belum ada data.
+              <TableCell colSpan={4} className="py-8 text-center">
+                <p className="text-sm font-medium">Belum ada pengalaman</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">
+                  Data belum diisi, jadi bagian experience di situs masih kosong.
+                </p>
+                <Button size="sm" className="mt-3" onClick={() => setForm({ open: true })}>
+                  Tambah pengalaman pertama
+                </Button>
               </TableCell>
             </TableRow>
           )}
@@ -79,8 +91,8 @@ export default function ExperiencePage() {
       />
       <ConfirmDialog
         open={del !== null}
-        title="Hapus pengalaman?"
-        message="Data yang dihapus tidak bisa dikembalikan."
+        title={`Hapus ${delRow ? `${delRow.title} di ${delRow.company}` : "pengalaman"}?`}
+        message="Data yang dihapus tidak bisa dikembalikan dan langsung hilang dari situs."
         onClose={() => setDel(null)}
         onConfirm={() => {
           dispatch({ type: "remove", table: "experiences", id: del! });
@@ -93,4 +105,3 @@ export default function ExperiencePage() {
     </div>
   );
 }
-
