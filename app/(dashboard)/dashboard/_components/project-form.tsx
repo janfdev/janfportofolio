@@ -56,7 +56,7 @@ export function ProjectDialog({
     node: React.ReactNode,
     err?: string
   ) => (
-    <div>
+    <div className="flex flex-col gap-1.5">
       <Label htmlFor={id}>{label}</Label>
       {node}
       {touched && err && <p className="mt-1 text-xs text-destructive">{err}</p>}
@@ -64,7 +64,7 @@ export function ProjectDialog({
   );
   return (
     <Dialog open={open} onClose={onClose} title={title}>
-      <div className="space-y-3">
+      <div className="flex flex-col gap-3">
         {fld("p-title", "Judul *", <Input id="p-title" value={v.title} placeholder="cth: Aplikasi Kasir" onChange={set("title")} aria-invalid={touched && !!titleErr} />, titleErr)}
         {fld("p-desc", "Deskripsi *", <Textarea id="p-desc" value={v.description} rows={3} placeholder="Fungsi utama project dan hasil yang dicapai…" onChange={set("description")} aria-invalid={touched && !!descErr} />, descErr)}
         <div><Label htmlFor="p-img">Gambar (URL/path)</Label><Input id="p-img" value={v.imageUrl} placeholder="/proyek.png" onChange={set("imageUrl")} /></div>
@@ -120,7 +120,7 @@ export function ProjectModule() {
   };
 
   return (
-    <div>
+    <div className="@container/main flex flex-col gap-4 md:gap-6">
       <PageHeader title="Projects" desc="Proyek yang tampil di halaman utama portofolio." addLabel="Tambah project" onAdd={() => setForm({ open: true })} />
       <div className="grid gap-3 sm:grid-cols-2">
         {rows.map((p) => {

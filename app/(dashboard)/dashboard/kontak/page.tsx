@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
 import { Input } from "../../../../components/ui/input";
 import { Label } from "../../../../components/ui/label";
 import { useDashboard } from "../../../../lib/dashboard/store";
@@ -44,10 +45,15 @@ export default function KontakPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <PageHeader title="Kontak" desc="Email, telepon, dan tautan sosial pengunjung." />
-        <div className="grid max-w-xl gap-2 rounded-xl border p-4">
+    <div className="@container/main flex flex-col gap-4 md:gap-6">
+      <PageHeader title="Kontak" desc="Email, telepon, dan tautan sosial pengunjung." />
+      <Card>
+        <CardHeader>
+          <CardTitle>Kontak utama</CardTitle>
+          <CardDescription>Email dan telepon yang tampil di situs.</CardDescription>
+        </CardHeader>
+        <CardContent>
+        <div className="grid max-w-xl gap-2">
           <p className="text-sm"><span className="text-muted-foreground">Email: </span>{editEmail ? null : state.profile.email}</p>
           {editEmail ? (
             <div className="flex flex-col gap-2 sm:flex-row">
@@ -71,13 +77,20 @@ export default function KontakPage() {
             </>
           )}
         </div>
-      </div>
+        </CardContent>
+      </Card>
 
-      <div>
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="font-semibold">Tautan sosial</h2>
-          <Button size="sm" onClick={() => setForm({ open: true })}>Tambah</Button>
-        </div>
+      <Card>
+        <CardHeader>
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="flex min-w-0 flex-col gap-1">
+              <CardTitle>Tautan sosial</CardTitle>
+              <CardDescription>Akun yang tampil sebagai ikon di situs.</CardDescription>
+            </div>
+            <Button size="sm" onClick={() => setForm({ open: true })}>Tambah</Button>
+          </div>
+        </CardHeader>
+        <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
@@ -104,7 +117,8 @@ export default function KontakPage() {
             ))}
           </TableBody>
         </Table>
-      </div>
+        </CardContent>
+      </Card>
 
       <CrudDialog
         open={form.open}

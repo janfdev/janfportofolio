@@ -27,7 +27,7 @@ export default function SkillsPage() {
   };
 
   return (
-    <div>
+    <div className="@container/main flex flex-col gap-4 md:gap-6">
       <PageHeader title="Skills" desc="Daftar keahlian yang tampil sebagai badge di portofolio." />
       <div className="mb-2 flex gap-2">
         <Input
@@ -54,7 +54,7 @@ export default function SkillsPage() {
             <button
               type="button"
               aria-label={`Hapus skill ${s.name}`}
-              className="rounded-full px-1 text-muted-foreground hover:text-destructive"
+              className="rounded-md px-1 text-muted-foreground hover:text-destructive"
               onClick={() => dispatch({ type: "remove", table: "skills", id: s.id })}
             >
               ×

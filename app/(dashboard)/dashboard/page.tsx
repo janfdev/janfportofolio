@@ -116,17 +116,17 @@ export default function DashboardPage() {
 
   return (
     <div className="@container/main flex flex-col gap-4 md:gap-6">
-      <div>
-        <h2 className="text-xl font-bold">Ringkasan</h2>
+      <div className="flex min-w-0 flex-col gap-1">
+        <h2 className="text-2xl font-semibold tracking-tight">Ringkasan</h2>
         <p className="text-sm text-muted-foreground">
           Halo, {state.profile.name}. Pantau dan kelola isi portofolio dari sini.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs dark:*:data-[slot=card]:bg-card">
         {main.map((c) => (
           <Link key={c.label} href={c.href} className="min-w-0">
-            <Card className="h-full transition-colors hover:border-foreground/30">
+            <Card className="h-full">
               <CardHeader>
                 <CardTitle>
                   <div className="flex size-7 items-center justify-center rounded-lg border bg-muted text-muted-foreground">
@@ -167,9 +167,10 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <Card>
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-5">
+      <Card className="xl:col-span-3">
         <CardHeader>
-          <CardTitle className="text-sm">Kunjungan per hari, 7 hari terakhir?</CardTitle>
+          <CardTitle>Kunjungan per hari, 7 hari terakhir</CardTitle>
           <CardDescription>
             {weekCount === 0
               ? "Belum ada kunjungan minggu ini."
@@ -194,13 +195,13 @@ export default function DashboardPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="xl:col-span-2">
         <CardHeader>
-          <CardTitle className="text-sm">Perlu tindakan</CardTitle>
+          <CardTitle>Perlu tindakan</CardTitle>
           <CardDescription>
             {needAction
               ? `${pending.length} komentar pending dan ${unread.length} pesan unread.`
-              : "Tidak ada yang menunggu — semua sudah beres."}
+              : "Tidak ada yang menunggu, semua sudah beres."}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
@@ -252,6 +253,7 @@ export default function DashboardPage() {
           ))}
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }

@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { Eye, FolderGit2, LayoutGrid } from "lucide-react";
 import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../../../../components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
 import { useDashboard } from "../../../../lib/dashboard/store";
 import { PageHeader } from "../_components/page-header";
 import { ConfirmDialog } from "../_components/crud-dialog";
@@ -17,9 +18,32 @@ export default function KunjunganPage() {
     project: p,
     views: state.projectViews.find((v) => v.projectId === p.id)?.views ?? 0,
   })).sort((a, b) => b.views - a.views);
+  const projectClicks = state.visits.filter((v) => v.projectId).length;
+  const uniquePages = new Set(state.visits.map((v) => v.path)).size;
+
+  const stats = [
+    {
+      label: "Total kunjungan",
+      value: state.visits.length,
+      icon: Eye,
+      ctx: state.visits.length === 0 ? "Belum ada kunjungan tercatat." : "Semua halaman yang tercatat lokal.",
+    },
+    {
+      label: "Klik project",
+      value: projectClicks,
+      icon: FolderGit2,
+      ctx: projectClicks === 0 ? "Belum ada klik ke project." : "Kunjungan yang membuka project.",
+    },
+    {
+      label: "Halaman unik",
+      value: uniquePages,
+      icon: LayoutGrid,
+      ctx: uniquePages === 0 ? "Belum ada halaman dikunjungi." : "Jalur berbeda yang dikunjungi.",
+    },
+  ];
 
   return (
-    <div className="space-y-4">
+    <div className="@container/main flex flex-col gap-4 md:gap-6">
       <PageHeader
         title="Kunjungan"
         desc="Statistik kunjungan situs yang tercatat lokal di perangkat ini."
@@ -39,15 +63,32 @@ export default function KunjunganPage() {
         }
       />
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
-        <Card className="py-4"><CardHeader className="px-4"><CardTitle className="text-xs font-medium text-muted-foreground">Total kunjungan</CardTitle></CardHeader><CardContent className="px-4"><p className="text-2xl font-bold tabular-nums">{state.visits.length}</p></CardContent></Card>
-        <Card className="py-4"><CardHeader className="px-4"><CardTitle className="text-xs font-medium text-muted-foreground">Klik project</CardTitle></CardHeader><CardContent className="px-4"><p className="text-2xl font-bold tabular-nums">{state.visits.filter((v) => v.projectId).length}</p></CardContent></Card>
-        <Card className="py-4"><CardHeader className="px-4"><CardTitle className="text-xs font-medium text-muted-foreground">Halaman unik</CardTitle></CardHeader><CardContent className="px-4"><p className="text-2xl font-bold tabular-nums">{new Set(state.visits.map((v) => v.path)).size}</p></CardContent></Card>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs dark:*:data-[slot=card]:bg-card">
+        {stats.map((s) => (
+          <Card key={s.label}>
+            <CardHeader>
+              <CardTitle>
+                <div className="flex size-7 items-center justify-center rounded-lg border bg-muted text-muted-foreground">
+                  <s.icon className="size-4" aria-hidden />
+                </div>
+              </CardTitle>
+              <CardDescription>{s.label}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-1">
+              <div className="text-3xl font-medium tabular-nums leading-none tracking-tight">{s.value}</div>
+              <p className="text-sm text-muted-foreground">{s.ctx}</p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      <Card>
-        <CardHeader><CardTitle className="text-sm">Kunjungan per project</CardTitle></CardHeader>
-        <CardContent className="space-y-2">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-5">
+      <Card className="xl:col-span-2">
+        <CardHeader>
+          <CardTitle>Kunjungan per project</CardTitle>
+          <CardDescription>Project mana yang paling sering dibuka pengunjung.</CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-2">
           {byProject.map(({ project, views }) => (
             <div key={project.id} className="flex items-center justify-between gap-2 text-sm">
               <span className="truncate">{project.title}</span>
@@ -62,8 +103,12 @@ export default function KunjunganPage() {
         </CardContent>
       </Card>
 
-      <div>
-        <h2 className="mb-2 font-semibold">Kunjungan terakhir</h2>
+      <Card className="xl:col-span-3">
+        <CardHeader>
+          <CardTitle>Kunjungan terakhir</CardTitle>
+          <CardDescription>15 kunjungan terbaru yang tercatat di perangkat ini.</CardDescription>
+        </CardHeader>
+        <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
@@ -94,6 +139,8 @@ export default function KunjunganPage() {
             )}
           </TableBody>
         </Table>
+        </CardContent>
+      </Card>
       </div>
 
       <ConfirmDialog

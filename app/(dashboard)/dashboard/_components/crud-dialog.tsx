@@ -56,9 +56,9 @@ export function CrudDialog({
 
   return (
     <Dialog open={open} onClose={onClose} title={title}>
-      <div className="space-y-3">
+      <div className="flex flex-col gap-3">
         {fields.map((f) => (
-          <div key={f.name}>
+          <div key={f.name} className="flex flex-col gap-1.5">
             <Label htmlFor={`f-${f.name}`}>
               {f.label}
               {f.required ? " *" : ""}
