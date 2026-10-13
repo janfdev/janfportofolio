@@ -27,7 +27,7 @@ export default function SkillsPage() {
   };
 
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6">
+    <div className="@container/main flex flex-col gap-6">
       <PageHeader title="Skills" desc="Daftar keahlian yang tampil sebagai badge di portofolio." />
       <div className="mb-2 flex gap-2">
         <Input

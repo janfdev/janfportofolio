@@ -17,7 +17,7 @@ export default function PesanPage() {
   const delRow = rows.find((m) => m.id === del);
 
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6">
+    <div className="@container/main flex flex-col gap-6">
       <PageHeader title="Pesan" desc="Kotak masuk dari formulir kontak situs." />
       <div className="flex flex-col gap-3">
         {rows.map((m) => (

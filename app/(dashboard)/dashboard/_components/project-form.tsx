@@ -120,9 +120,9 @@ export function ProjectModule() {
   };
 
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6">
+    <div className="@container/main flex flex-col gap-6">
       <PageHeader title="Projects" desc="Proyek yang tampil di halaman utama portofolio." addLabel="Tambah project" onAdd={() => setForm({ open: true })} />
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-3">
         {rows.map((p) => {
           const tags = tagsOf(state, p.id);
           return (
@@ -145,7 +145,7 @@ export function ProjectModule() {
           );
         })}
         {rows.length === 0 && (
-          <div className="rounded-lg border border-dashed p-6 text-center sm:col-span-2">
+          <div className="col-span-2 rounded-lg border border-dashed p-6 text-center">
             <p className="text-sm font-medium">Belum ada project</p>
             <p className="mt-0.5 text-sm text-muted-foreground">
               Data belum diisi, jadi halaman utama situs masih kosong.

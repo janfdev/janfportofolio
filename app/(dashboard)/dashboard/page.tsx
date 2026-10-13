@@ -115,7 +115,7 @@ export default function DashboardPage() {
   const needAction = pending.length + unread.length > 0;
 
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6">
+    <div className="@container/main flex flex-col gap-6">
       <div className="flex min-w-0 flex-col gap-1">
         <h2 className="text-2xl font-semibold tracking-tight">Ringkasan</h2>
         <p className="text-sm text-muted-foreground">
@@ -123,7 +123,7 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs dark:*:data-[slot=card]:bg-card">
+      <div className="grid grid-cols-4 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs dark:*:data-[slot=card]:bg-card">
         {main.map((c) => (
           <Link key={c.label} href={c.href} className="min-w-0">
             <Card className="h-full">
@@ -149,7 +149,7 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-3 gap-3">
         {secondary.map((c) => (
           <Link key={c.label} href={c.href} className="min-w-0">
             <Card className="gap-2 py-4 transition-colors hover:border-foreground/30">
@@ -167,8 +167,8 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-5">
-      <Card className="xl:col-span-3">
+      <div className="grid grid-cols-5 gap-4">
+      <Card className="col-span-3">
         <CardHeader>
           <CardTitle>Kunjungan per hari, 7 hari terakhir</CardTitle>
           <CardDescription>
@@ -195,7 +195,7 @@ export default function DashboardPage() {
         </CardContent>
       </Card>
 
-      <Card className="xl:col-span-2">
+      <Card className="col-span-2">
         <CardHeader>
           <CardTitle>Perlu tindakan</CardTitle>
           <CardDescription>

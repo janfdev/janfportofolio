@@ -66,7 +66,7 @@ export default function ProfilPage() {
   );
 
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6">
+    <div className="@container/main flex flex-col gap-6">
       <PageHeader title="Profil" desc="Identitas dan ringkasan yang tampil di halaman utama situs." />
       <div className="grid max-w-2xl gap-3">
         {field("name", "Nama", "cth: Rizqi Noor Fauzan", false, true)}

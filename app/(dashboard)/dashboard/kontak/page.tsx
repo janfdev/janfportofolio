@@ -45,7 +45,7 @@ export default function KontakPage() {
   };
 
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6">
+    <div className="@container/main flex flex-col gap-6">
       <PageHeader title="Kontak" desc="Email, telepon, dan tautan sosial pengunjung." />
       <Card>
         <CardHeader>
@@ -56,7 +56,7 @@ export default function KontakPage() {
         <div className="grid max-w-xl gap-2">
           <p className="text-sm"><span className="text-muted-foreground">Email: </span>{editEmail ? null : state.profile.email}</p>
           {editEmail ? (
-            <div className="flex flex-col gap-2 sm:flex-row">
+            <div className="flex gap-2">
               <div className="flex-1">
                 <Label htmlFor="ct-email">Email</Label>
                 <Input id="ct-email" className="h-9" value={email} placeholder="nama@email.com" onChange={(e) => setEmail(e.target.value)} />

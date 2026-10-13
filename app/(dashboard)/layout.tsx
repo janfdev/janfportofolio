@@ -12,12 +12,11 @@ import {
   Inbox,
   LayoutDashboard,
   Mail,
-  Menu,
   MessageSquare,
+  MonitorUp,
   PanelLeft,
   UserRound,
   Wrench,
-  X,
 } from "lucide-react";
 import { ModeToggle } from "../../components/mode-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
@@ -72,9 +71,10 @@ function isActive(pathname: string | null, href: string) {
   return pathname?.startsWith(href);
 }
 
-// Isi sidebar desktop dan drawer mobile: satu sumber agar selalu sama.
-// Mode ciut (collapsed) hanya di desktop: ikon saja, label disembunyikan.
-function SidebarBody({ collapsed, onNavigate }: { collapsed?: boolean; onNavigate?: () => void }) {
+// Dashboard tampil mode desktop penuh di semua layar: sidebar selalu
+// terlihat, konten min 1024px dengan scroll horizontal di layar kecil.
+// Portofolio (landing) tetap responsif; hanya /dashboard yang desktop-only.
+function SidebarBody({ collapsed }: { collapsed?: boolean }) {
   const pathname = usePathname();
   const { state } = useDashboard();
   const pending = state.comments.filter((c) => c.status === "pending").length;
@@ -113,7 +113,6 @@ function SidebarBody({ collapsed, onNavigate }: { collapsed?: boolean; onNavigat
                   <Link
                     key={n.href}
                     href={n.href}
-                    onClick={onNavigate}
                     aria-current={active ? "page" : undefined}
                     title={collapsed ? n.label : undefined}
                     className={cn(
@@ -150,7 +149,6 @@ function SidebarBody({ collapsed, onNavigate }: { collapsed?: boolean; onNavigat
         )}
         <Link
           href="/"
-          onClick={onNavigate}
           title={collapsed ? "Kembali ke situs" : undefined}
           className={cn(
             "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground",
@@ -167,7 +165,6 @@ function SidebarBody({ collapsed, onNavigate }: { collapsed?: boolean; onNavigat
 
 function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const title =
     TITLES[pathname ?? ""] ??
@@ -193,85 +190,48 @@ function Shell({ children }: { children: React.ReactNode }) {
     });
   };
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
-  }, [open ]);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   return (
-    <div className="flex min-h-screen">
-      <aside
-        className={cn(
-          "sticky top-0 hidden h-screen shrink-0 flex-col overflow-y-auto border-r bg-sidebar p-4 transition-[width] md:flex",
-          collapsed ? "w-16 p-3" : "w-60"
-        )}
-      >
-        <SidebarBody collapsed={collapsed} />
-      </aside>
+    <div className="overflow-x-auto">
+      <div className="flex min-h-screen min-w-[1024px]">
+        <aside
+          className={cn(
+            "sticky top-0 flex h-screen shrink-0 flex-col overflow-y-auto border-r bg-sidebar p-4 transition-[width]",
+            collapsed ? "w-16 p-3" : "w-60"
+          )}
+        >
+          <SidebarBody collapsed={collapsed} />
+        </aside>
 
-      <div className="min-w-0 flex-1 overflow-x-clip">
-        <header className="sticky top-0 z-10 flex h-12 shrink-0 items-center gap-2 border-b bg-background/90 backdrop-blur">
-          <div className="flex w-full items-center gap-1 px-4 md:px-6">
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              aria-expanded={open}
-              aria-label="Buka navigasi dashboard"
-              className="rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground md:hidden"
-            >
-              <Menu className="size-5" aria-hidden />
-            </button>
-            <button
-              type="button"
-              onClick={toggleCollapsed}
-              aria-expanded={!collapsed}
-              aria-label={collapsed ? "Bentangkan sidebar" : "Ciutkan sidebar"}
-              title={collapsed ? "Bentangkan sidebar" : "Ciutkan sidebar"}
-              className="hidden rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground md:block"
-            >
-              <PanelLeft className="size-5" aria-hidden />
-            </button>
-            <Separator orientation="vertical" className="mx-2 h-4 self-center" />
-            <h1 className="text-sm font-semibold">{title}</h1>
-            <div className="ml-auto flex items-center gap-1">
-              <ModeToggle />
-            </div>
-          </div>
-        </header>
-        <main className="min-h-0 min-w-0 flex-1 overflow-x-hidden p-4 md:p-6">{children}</main>
-      </div>
-
-      {open && (
-        <div className="fixed inset-0 z-40 md:hidden" role="dialog" aria-modal="true" aria-label="Navigasi dashboard">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} aria-hidden="true" />
-          <div className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col overflow-y-auto border-r bg-sidebar p-4 shadow-lg">
-            <div className="mb-2 flex items-center justify-end">
+        <div className="min-w-0 flex-1 overflow-x-clip">
+          <header className="sticky top-0 z-10 flex h-12 shrink-0 items-center gap-2 border-b bg-background/90 backdrop-blur">
+            <div className="flex w-full items-center gap-1 px-6">
               <button
                 type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Tutup navigasi dashboard"
+                onClick={toggleCollapsed}
+                aria-expanded={!collapsed}
+                aria-label={collapsed ? "Bentangkan sidebar" : "Ciutkan sidebar"}
+                title={collapsed ? "Bentangkan sidebar" : "Ciutkan sidebar"}
                 className="rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
               >
-                <X className="size-5" aria-hidden />
+                <PanelLeft className="size-5" aria-hidden />
               </button>
+              <Separator orientation="vertical" className="mx-2 h-4 self-center" />
+              <h1 className="text-sm font-semibold">{title}</h1>
+              <div className="ml-auto flex items-center gap-1">
+                <ModeToggle />
+              </div>
             </div>
-            <SidebarBody onNavigate={() => setOpen(false)} />
-          </div>
+          </header>
+          <main className="min-h-0 min-w-0 flex-1 overflow-x-hidden p-6">
+            <div className="mb-4 flex items-center gap-2 rounded-lg border border-dashed p-3 text-sm text-muted-foreground min-[1024px]:hidden">
+              <MonitorUp className="size-4 shrink-0" aria-hidden />
+              Layar kecil terdeteksi. Dashboard tampil mode desktop: geser horizontal
+              atau buka lewat komputer agar nyaman.
+            </div>
+            {children}
+          </main>
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -25,7 +25,7 @@ export default function KomentarPage() {
   const delRow = rows.find((c) => c.id === del);
 
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6">
+    <div className="@container/main flex flex-col gap-6">
       <PageHeader title="Komentar" desc="Moderasi komentar pengunjung sebelum tampil di situs." />
       <Table>
         <TableHeader>

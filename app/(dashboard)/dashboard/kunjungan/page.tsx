@@ -43,7 +43,7 @@ export default function KunjunganPage() {
   ];
 
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6">
+    <div className="@container/main flex flex-col gap-6">
       <PageHeader
         title="Kunjungan"
         desc="Statistik kunjungan situs yang tercatat lokal di perangkat ini."
@@ -63,7 +63,7 @@ export default function KunjunganPage() {
         }
       />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs dark:*:data-[slot=card]:bg-card">
+      <div className="grid grid-cols-3 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs dark:*:data-[slot=card]:bg-card">
         {stats.map((s) => (
           <Card key={s.label}>
             <CardHeader>
@@ -82,8 +82,8 @@ export default function KunjunganPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-5">
-      <Card className="xl:col-span-2">
+      <div className="grid grid-cols-5 gap-4">
+      <Card className="col-span-2">
         <CardHeader>
           <CardTitle>Kunjungan per project</CardTitle>
           <CardDescription>Project mana yang paling sering dibuka pengunjung.</CardDescription>
@@ -103,7 +103,7 @@ export default function KunjunganPage() {
         </CardContent>
       </Card>
 
-      <Card className="xl:col-span-3">
+      <Card className="col-span-3">
         <CardHeader>
           <CardTitle>Kunjungan terakhir</CardTitle>
           <CardDescription>15 kunjungan terbaru yang tercatat di perangkat ini.</CardDescription>
