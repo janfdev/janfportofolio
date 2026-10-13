@@ -13,7 +13,6 @@ import {
   LayoutDashboard,
   Mail,
   MessageSquare,
-  MonitorUp,
   PanelLeft,
   UserRound,
   Wrench,
@@ -191,8 +190,8 @@ function Shell({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <div className="flex min-h-screen min-w-[1024px]">
+    <div className="overflow-x-auto bg-muted/40">
+      <div className="mx-auto flex min-h-screen w-[1280px]">
         <aside
           className={cn(
             "sticky top-0 flex h-screen shrink-0 flex-col overflow-y-auto border-r bg-sidebar p-4 transition-[width]",
@@ -202,7 +201,7 @@ function Shell({ children }: { children: React.ReactNode }) {
           <SidebarBody collapsed={collapsed} />
         </aside>
 
-        <div className="min-w-0 flex-1 overflow-x-clip">
+        <div className="min-w-0 flex-1">
           <header className="sticky top-0 z-10 flex h-12 shrink-0 items-center gap-2 border-b bg-background/90 backdrop-blur">
             <div className="flex w-full items-center gap-1 px-6">
               <button
@@ -222,14 +221,7 @@ function Shell({ children }: { children: React.ReactNode }) {
               </div>
             </div>
           </header>
-          <main className="min-h-0 min-w-0 flex-1 overflow-x-hidden p-6">
-            <div className="mb-4 flex items-center gap-2 rounded-lg border border-dashed p-3 text-sm text-muted-foreground min-[1024px]:hidden">
-              <MonitorUp className="size-4 shrink-0" aria-hidden />
-              Layar kecil terdeteksi. Dashboard tampil mode desktop: geser horizontal
-              atau buka lewat komputer agar nyaman.
-            </div>
-            {children}
-          </main>
+          <main className="min-h-0 min-w-0 flex-1 p-6">{children}</main>
         </div>
       </div>
     </div>
