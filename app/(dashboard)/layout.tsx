@@ -190,39 +190,37 @@ function Shell({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="overflow-x-auto bg-muted/40">
-      <div className="mx-auto flex min-h-screen w-[1280px]">
-        <aside
-          className={cn(
-            "sticky top-0 flex h-screen shrink-0 flex-col overflow-y-auto border-r bg-sidebar p-4 transition-[width]",
-            collapsed ? "w-16 p-3" : "w-60"
-          )}
-        >
-          <SidebarBody collapsed={collapsed} />
-        </aside>
+    <div className="flex min-h-screen w-full">
+      <aside
+        className={cn(
+          "sticky top-0 flex h-screen shrink-0 flex-col overflow-y-auto border-r bg-sidebar p-4 transition-[width]",
+          collapsed ? "w-16 p-3" : "w-60"
+        )}
+      >
+        <SidebarBody collapsed={collapsed} />
+      </aside>
 
-        <div className="min-w-0 flex-1">
-          <header className="sticky top-0 z-10 flex h-12 shrink-0 items-center gap-2 border-b bg-background/90 backdrop-blur">
-            <div className="flex w-full items-center gap-1 px-6">
-              <button
-                type="button"
-                onClick={toggleCollapsed}
-                aria-expanded={!collapsed}
-                aria-label={collapsed ? "Bentangkan sidebar" : "Ciutkan sidebar"}
-                title={collapsed ? "Bentangkan sidebar" : "Ciutkan sidebar"}
-                className="rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-              >
-                <PanelLeft className="size-5" aria-hidden />
-              </button>
-              <Separator orientation="vertical" className="mx-2 h-4 self-center" />
-              <h1 className="text-sm font-semibold">{title}</h1>
-              <div className="ml-auto flex items-center gap-1">
-                <ModeToggle />
-              </div>
+      <div className="min-w-0 flex-1">
+        <header className="sticky top-0 z-10 flex h-12 shrink-0 items-center gap-2 border-b bg-background/90 backdrop-blur">
+          <div className="flex w-full items-center gap-1 px-6">
+            <button
+              type="button"
+              onClick={toggleCollapsed}
+              aria-expanded={!collapsed}
+              aria-label={collapsed ? "Bentangkan sidebar" : "Ciutkan sidebar"}
+              title={collapsed ? "Bentangkan sidebar" : "Ciutkan sidebar"}
+              className="rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+            >
+              <PanelLeft className="size-5" aria-hidden />
+            </button>
+            <Separator orientation="vertical" className="mx-2 h-4 self-center" />
+            <h1 className="text-sm font-semibold">{title}</h1>
+            <div className="ml-auto flex items-center gap-1">
+              <ModeToggle />
             </div>
-          </header>
-          <main className="min-h-0 min-w-0 flex-1 p-6">{children}</main>
-        </div>
+          </div>
+        </header>
+        <main className="min-h-0 min-w-0 flex-1 p-6">{children}</main>
       </div>
     </div>
   );
