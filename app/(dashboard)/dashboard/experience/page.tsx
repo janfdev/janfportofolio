@@ -1,11 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import { Briefcase, Building2, MapPin, Plus } from "lucide-react";
 import { useDashboard } from "../../../../lib/dashboard/store";
 import { PageHeader, RowActions } from "../_components/page-header";
 import { CrudDialog, ConfirmDialog, type FieldDef } from "../_components/crud-dialog";
+import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../../components/ui/table";
+import { Card, CardContent } from "../../../../components/ui/card";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "../../../../components/ui/empty";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../../../components/ui/table";
 
 const FIELDS: FieldDef[] = [
   { name: "company", label: "Perusahaan", required: true, placeholder: "cth: Library UMC" },
@@ -15,7 +33,7 @@ const FIELDS: FieldDef[] = [
   { name: "logoUrl", label: "Logo (URL/path)", placeholder: "/logo-perusahaan.png" },
   { name: "start", label: "Mulai", required: true, placeholder: "cth: Jan 2025" },
   { name: "end", label: "Selesai", required: true, placeholder: "cth: Present / Des 2025" },
-  { name: "description", label: "Deskripsi", type: "textarea", required: true, placeholder: "Tugas utama dan hasil yang dicapai…" },
+  { name: "description", label: "Deskripsi", type: "textarea", required: true, placeholder: "Tugas utama dan pencapaian..." },
 ];
 
 export default function ExperiencePage() {
@@ -35,55 +53,92 @@ export default function ExperiencePage() {
     <div className="@container/main flex flex-col gap-6">
       <PageHeader
         title="Experience"
-        desc="Riwayat pekerjaan yang tampil di portofolio."
-        addLabel="Tambah pengalaman"
+        desc="Riwayat pengalaman kerja dan rekam jejak karier yang tampil di portofolio."
+        count={rows.length}
+        addLabel="Tambah Pengalaman"
         onAdd={() => setForm({ open: true })}
       />
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Jabatan</TableHead>
-            <TableHead>Perusahaan</TableHead>
-            <TableHead>Periode</TableHead>
-            <TableHead className="text-right">Aksi</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {rows.map((r) => (
-            <TableRow key={r.id}>
-              <TableCell className="font-medium">{r.title}</TableCell>
-              <TableCell>{r.company}</TableCell>
-              <TableCell className="whitespace-nowrap text-muted-foreground">
-                {r.start} – {r.end}
-              </TableCell>
-              <TableCell>
-                <RowActions
-                  item={`${r.title} di ${r.company}`}
-                  onEdit={() => setForm({ open: true, id: r.id })}
-                  onDelete={() => setDel(r.id)}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
+
+      <Card className="overflow-hidden border-border/80 shadow-xs">
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader className="bg-muted/40">
+              <TableRow>
+                <TableHead className="w-[30%]">Jabatan & Peran</TableHead>
+                <TableHead className="w-[28%]">Perusahaan & Lokasi</TableHead>
+                <TableHead className="w-[24%]">Periode Waktu</TableHead>
+                <TableHead className="text-right">Aksi</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {rows.map((r) => (
+                <TableRow key={r.id} className="transition-colors hover:bg-muted/30">
+                  <TableCell className="font-semibold text-foreground">
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <Briefcase className="size-4" />
+                      </div>
+                      <span className="truncate">{r.title}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-medium text-foreground flex items-center gap-1.5">
+                        <Building2 className="size-3.5 text-muted-foreground" />
+                        {r.company}
+                      </span>
+                      {r.location && (
+                        <span className="text-xs text-muted-foreground flex items-center gap-1">
+                          <MapPin className="size-3 text-muted-foreground/70" />
+                          {r.location}
+                        </span>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="secondary" className="font-medium text-xs tabular-nums">
+                      {r.start} – {r.end}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <RowActions
+                      item={`${r.title} di ${r.company}`}
+                      onEdit={() => setForm({ open: true, id: r.id })}
+                      onDelete={() => setDel(r.id)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
           {rows.length === 0 && (
-            <TableRow>
-              <TableCell colSpan={4} className="py-8 text-center">
-                <p className="text-sm font-medium">Belum ada pengalaman</p>
-                <p className="mt-0.5 text-sm text-muted-foreground">
-                  Data belum diisi, jadi bagian experience di situs masih kosong.
-                </p>
-                <Button size="sm" className="mt-3" onClick={() => setForm({ open: true })}>
-                  Tambah pengalaman pertama
-                </Button>
-              </TableCell>
-            </TableRow>
+            <div className="p-8">
+              <Empty>
+                <EmptyMedia variant="icon">
+                  <Briefcase className="size-5" />
+                </EmptyMedia>
+                <EmptyHeader>
+                  <EmptyTitle>Belum ada data pengalaman</EmptyTitle>
+                  <EmptyDescription>
+                    Tambahkan riwayat pekerjaan profesional Anda untuk memperkuat portofolio.
+                  </EmptyDescription>
+                </EmptyHeader>
+                <EmptyContent>
+                  <Button size="sm" onClick={() => setForm({ open: true })}>
+                    <Plus className="size-4 mr-1.5" />
+                    Tambah Pengalaman Pertama
+                  </Button>
+                </EmptyContent>
+              </Empty>
+            </div>
           )}
-        </TableBody>
-      </Table>
+        </CardContent>
+      </Card>
 
       <CrudDialog
         open={form.open}
-        title={form.id ? "Ubah pengalaman" : "Tambah pengalaman"}
+        title={form.id ? "Ubah Pengalaman Kerja" : "Tambah Pengalaman Kerja"}
         fields={FIELDS}
         initial={(rows.find((r) => r.id === form.id) ?? {}) as Record<string, unknown>}
         onClose={() => setForm({ open: false })}
@@ -92,16 +147,13 @@ export default function ExperiencePage() {
       <ConfirmDialog
         open={del !== null}
         title={`Hapus ${delRow ? `${delRow.title} di ${delRow.company}` : "pengalaman"}?`}
-        message="Data yang dihapus tidak bisa dikembalikan dan langsung hilang dari situs."
+        message="Data pengalaman ini akan dihapus permanen dan tidak lagi tampil di situs."
         onClose={() => setDel(null)}
         onConfirm={() => {
           dispatch({ type: "remove", table: "experiences", id: del! });
           setDel(null);
         }}
       />
-      <p className="mt-4 text-xs text-muted-foreground">
-        ponytail: belum ada drag-reorder; urutan via sortOrder, tambah saat dibutuhkan.
-      </p>
     </div>
   );
 }

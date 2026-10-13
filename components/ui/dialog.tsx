@@ -31,29 +31,29 @@ export function Dialog({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in duration-150"
       role="dialog"
       aria-modal="true"
       aria-label={title}
     >
       <div
-        className="absolute inset-0 bg-black/50"
+        className="fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
       <div
         className={cn(
-          "relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border bg-background p-6 shadow-lg",
+          "relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-2xl ring-1 ring-border/50 transition-all",
           className
         )}
       >
-        <div className="mb-4 flex items-center justify-between gap-2">
-          <h2 className="text-base font-semibold">{title}</h2>
+        <div className="mb-5 flex items-center justify-between gap-3 border-b border-border/60 pb-3.5">
+          <h2 className="text-base font-bold tracking-tight text-foreground">{title}</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Tutup dialog"
-            className="rounded-md p-1 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+            className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
           >
             <X className="size-4" />
           </button>

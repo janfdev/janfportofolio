@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Eye, FolderGit2, LayoutGrid } from "lucide-react";
+import { Eye, FolderGit2, LayoutGrid, Play, RotateCcw } from "lucide-react";
 import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
@@ -18,27 +18,31 @@ export default function KunjunganPage() {
     project: p,
     views: state.projectViews.find((v) => v.projectId === p.id)?.views ?? 0,
   })).sort((a, b) => b.views - a.views);
+  const maxProjectViews = Math.max(1, ...byProject.map((x) => x.views));
   const projectClicks = state.visits.filter((v) => v.projectId).length;
   const uniquePages = new Set(state.visits.map((v) => v.path)).size;
 
   const stats = [
     {
-      label: "Total kunjungan",
+      label: "Total Kunjungan",
       value: state.visits.length,
       icon: Eye,
-      ctx: state.visits.length === 0 ? "Belum ada kunjungan tercatat." : "Semua halaman yang tercatat lokal.",
+      color: "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400",
+      ctx: state.visits.length === 0 ? "Belum ada kunjungan tercatat." : "Akumulasi sesi yang tersimpan di perangkat.",
     },
     {
-      label: "Klik project",
+      label: "Klik Proyek",
       value: projectClicks,
       icon: FolderGit2,
-      ctx: projectClicks === 0 ? "Belum ada klik ke project." : "Kunjungan yang membuka project.",
+      color: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
+      ctx: projectClicks === 0 ? "Belum ada klik ke proyek." : "Interaksi pengunjung membuka detail karya.",
     },
     {
-      label: "Halaman unik",
+      label: "Halaman Unik",
       value: uniquePages,
       icon: LayoutGrid,
-      ctx: uniquePages === 0 ? "Belum ada halaman dikunjungi." : "Jalur berbeda yang dikunjungi.",
+      color: "bg-violet-500/15 text-violet-600 dark:text-violet-400",
+      ctx: uniquePages === 0 ? "Belum ada rute dikunjungi." : "Jumlah variasi URL yang diakses pengunjung.",
     },
   ];
 
@@ -46,107 +50,132 @@ export default function KunjunganPage() {
     <div className="@container/main flex flex-col gap-6">
       <PageHeader
         title="Kunjungan"
-        desc="Statistik kunjungan situs yang tercatat lokal di perangkat ini."
+        desc="Statistik analitik dan log aktivitas pengunjung portofolio yang tersimpan secara lokal."
         extra={
-          <>
+          <div className="flex items-center gap-2">
             <Button
               size="sm"
               variant="outline"
+              className="gap-1.5"
               onClick={() => dispatch({ type: "record-visit", path: "/", projectId: state.projects[0]?.id })}
             >
-              Simulasi kunjungan
+              <Play className="size-3.5" />
+              Simulasi Kunjungan
             </Button>
-            <Button size="sm" variant="outline" onClick={() => setReset(true)}>
-              Reset data
+            <Button size="sm" variant="outline" className="gap-1.5" onClick={() => setReset(true)}>
+              <RotateCcw className="size-3.5" />
+              Reset Data
             </Button>
-          </>
+          </div>
         }
       />
 
-      <div className="grid grid-cols-3 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs dark:*:data-[slot=card]:bg-card">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {stats.map((s) => (
-          <Card key={s.label}>
-            <CardHeader>
-              <CardTitle>
-                <div className="flex size-7 items-center justify-center rounded-lg border bg-muted text-muted-foreground">
-                  <s.icon className="size-4" aria-hidden />
-                </div>
-              </CardTitle>
-              <CardDescription>{s.label}</CardDescription>
+          <Card key={s.label} className="border border-border/80 bg-gradient-to-br from-card via-card to-primary/5 shadow-xs">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardDescription className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {s.label}
+              </CardDescription>
+              <div className={`flex size-9 items-center justify-center rounded-xl ${s.color} shadow-2xs`}>
+                <s.icon className="size-4.5" aria-hidden />
+              </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-1">
-              <div className="text-3xl font-medium tabular-nums leading-none tracking-tight">{s.value}</div>
-              <p className="text-sm text-muted-foreground">{s.ctx}</p>
+              <div className="text-3xl font-extrabold tabular-nums tracking-tight text-foreground">
+                {s.value}
+              </div>
+              <p className="text-xs text-muted-foreground">{s.ctx}</p>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <div className="grid grid-cols-5 gap-4">
-      <Card className="col-span-2">
-        <CardHeader>
-          <CardTitle>Kunjungan per project</CardTitle>
-          <CardDescription>Project mana yang paling sering dibuka pengunjung.</CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-2">
-          {byProject.map(({ project, views }) => (
-            <div key={project.id} className="flex items-center justify-between gap-2 text-sm">
-              <span className="truncate">{project.title}</span>
-              <Badge variant="secondary" className="tabular-nums">{views} klik</Badge>
-            </div>
-          ))}
-          {byProject.length === 0 && (
-            <p className="text-sm text-muted-foreground">
-              Belum ada project, jadi belum ada statistik per project.
-            </p>
-          )}
-        </CardContent>
-      </Card>
-
-      <Card className="col-span-3">
-        <CardHeader>
-          <CardTitle>Kunjungan terakhir</CardTitle>
-          <CardDescription>15 kunjungan terbaru yang tercatat di perangkat ini.</CardDescription>
-        </CardHeader>
-        <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Waktu</TableHead>
-              <TableHead>Halaman</TableHead>
-              <TableHead>Project</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {state.visits.slice(0, 15).map((v) => (
-              <TableRow key={v.id}>
-                <TableCell className="whitespace-nowrap text-muted-foreground">
-                  {v.createdAt ? new Date(v.createdAt).toLocaleString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "-"}
-                </TableCell>
-                <TableCell>{v.path}</TableCell>
-                <TableCell>{state.projects.find((p) => p.id === v.projectId)?.title ?? "-"}</TableCell>
-              </TableRow>
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+        {/* Kunjungan per Proyek */}
+        <Card className="lg:col-span-2 border border-border/80 shadow-xs">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base font-bold">Kunjungan per Proyek</CardTitle>
+            <CardDescription className="text-xs">
+              Distribusi pembaca dan klik karya portofolio.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3">
+            {byProject.map(({ project, views }) => (
+              <div key={project.id} className="flex flex-col gap-1.5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-semibold text-foreground truncate max-w-[200px]">{project.title}</span>
+                  <span className="font-medium text-muted-foreground tabular-nums">{views} view</span>
+                </div>
+                <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                  <div
+                    className="h-full rounded-full bg-primary transition-all duration-300"
+                    style={{ width: `${Math.max(4, (views / maxProjectViews) * 100)}%` }}
+                  />
+                </div>
+              </div>
             ))}
-            {state.visits.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={3} className="py-8 text-center">
-                  <p className="text-sm font-medium">Belum ada kunjungan tercatat</p>
-                  <p className="mt-0.5 text-sm text-muted-foreground">
-                    Buka situs atau tekan Simulasi kunjungan untuk mencatat yang pertama.
-                  </p>
-                </TableCell>
-              </TableRow>
+            {byProject.length === 0 && (
+              <p className="text-xs text-muted-foreground py-4 text-center">
+                Belum ada data proyek tersimpan.
+              </p>
             )}
-          </TableBody>
-        </Table>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+
+        {/* Log Kunjungan Terakhir */}
+        <Card className="lg:col-span-3 border border-border/80 shadow-xs overflow-hidden">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base font-bold">Log Kunjungan Terbaru</CardTitle>
+            <CardDescription className="text-xs">
+              15 sesi kunjungan paling baru yang terekam pada aplikasi.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader className="bg-muted/40">
+                <TableRow>
+                  <TableHead className="w-[30%]">Waktu</TableHead>
+                  <TableHead className="w-[30%]">Rute Halaman</TableHead>
+                  <TableHead>Proyek Terkait</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {state.visits.slice(0, 15).map((v) => (
+                  <TableRow key={v.id} className="transition-colors hover:bg-muted/30">
+                    <TableCell className="whitespace-nowrap text-xs text-muted-foreground tabular-nums">
+                      {v.createdAt ? new Date(v.createdAt).toLocaleString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "-"}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className="font-mono text-[11px] font-normal">
+                        {v.path}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-xs font-medium text-foreground">
+                      {state.projects.find((p) => p.id === v.projectId)?.title ?? "-"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {state.visits.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={3} className="py-8 text-center">
+                      <p className="text-sm font-medium">Belum ada kunjungan tercatat</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        Buka situs publik atau klik tombol Simulasi Kunjungan di atas.
+                      </p>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       </div>
 
       <ConfirmDialog
         open={reset}
-        title="Reset data kunjungan?"
-        message="Statistik kunjungan dikembalikan ke seed awal dan tidak bisa dikembalikan."
+        title="Reset Data Kunjungan?"
+        message="Seluruh riwayat kunjungan akan dikembalikan ke data awal (seed) dan tidak dapat dibatalkan."
         onClose={() => setReset(false)}
         onConfirm={() => {
           dispatch({ type: "reset-visits" });
