@@ -75,11 +75,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/profiless.png", sizes: "any" },
-      { url: "/icon.png", type: "image/png" }
+      { url: "/profiless.png" },
+      { url: "/profiless.png", sizes: "32x32", type: "image/png" },
+      { url: "/profiless.png", sizes: "192x192", type: "image/png" }
     ],
+    shortcut: "/profiless.png",
     apple: [
-      { url: "/profiless.png" }
+      { url: "/profiless.png", sizes: "180x180", type: "image/png" }
     ]
   }
 };
@@ -91,6 +93,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="!scroll-smooth">
+      <head>
+        <link rel="icon" href="/profiless.png" />
+        <link rel="shortcut icon" href="/profiless.png" />
+        <link rel="apple-touch-icon" href="/profiless.png" />
+      </head>
       <body
         className={cn("antialiased min-h-screen bg-background", fontSans.variable)}
       >
