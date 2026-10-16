@@ -4,6 +4,7 @@ import { ThemeProvider } from "../components/theme-provider";
 import { TooltipProvider } from "../components/ui/tooltip";
 import { cn } from "../lib/utils";
 import { Inter as FontSans } from "next/font/google";
+import { DATA } from "../lib/data/resume";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -11,54 +12,75 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rizqinoorfauzan.my.id"),
+  metadataBase: new URL(DATA.url),
   title: {
-    default: "Rizqi Noor Fauzan | Fullstack Developer",
-    template: "%s | Rizqi Noor Fauzan"
+    default: `${DATA.name} | Fullstack Developer & System Architect`,
+    template: `%s | ${DATA.name}`
   },
   description:
-    "Portfolio Rizqi Noor Fauzan, Fullstack Developer yang membangun aplikasi web end-to-end dari frontend, API, hingga database.",
+    "Portfolio resmi Rizqi Noor Fauzan (janfdev) — Fullstack Developer yang membangun aplikasi web scalable end-to-end, RESTful APIs, dan modern interactive user experiences.",
   keywords: [
     "Rizqi Noor Fauzan",
-    "Fullstack Developer",
-    "Web Developer Indonesia",
+    "janfdev",
+    "Fullstack Developer Indonesia",
     "Next.js Developer",
     "React Developer",
+    "System Architect",
+    "TypeScript",
+    "Node.js",
+    "Tailwind CSS",
     "Portfolio Developer"
   ],
+  authors: [{ name: DATA.name, url: DATA.url }],
+  creator: DATA.name,
+  publisher: DATA.name,
   alternates: {
     canonical: "/"
   },
   openGraph: {
-    title: "Rizqi Noor Fauzan | Fullstack Developer",
+    title: `${DATA.name} | Fullstack Developer & System Architect`,
     description:
-      "Portfolio, pengalaman kerja, dan proyek Fullstack Developer berbasis Next.js, React, dan Node.js.",
-    url: "https://rizqinoorfauzan.my.id",
-    siteName: "Rizqi Noor Fauzan Portfolio",
+      "Jelajahi proyek web interaktif, pengalaman enterprise & kampus, serta arsitektur fullstack yang dibangun oleh Rizqi Noor Fauzan.",
+    url: DATA.url,
+    siteName: `${DATA.name} Portfolio`,
     locale: "id_ID",
     type: "website",
     images: [
       {
-        url: "/icon.jpeg",
-        width: 1200,
-        height: 630,
-        alt: "Rizqi Noor Fauzan Portfolio"
+        url: "/profiless.png",
+        width: 800,
+        height: 800,
+        alt: `${DATA.name} - Fullstack Developer`
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rizqi Noor Fauzan | Fullstack Developer",
+    title: `${DATA.name} | Fullstack Developer`,
     description:
-      "Portfolio, pengalaman kerja, dan proyek Fullstack Developer berbasis Next.js, React, dan Node.js.",
-    images: ["/icon.jpeg"]
+      "Portfolio resmi, proyek unggulan (Smartseum, Quavity, API Public), dan pengalaman kerja Fullstack Developer.",
+    images: ["/profiless.png"],
+    creator: "@janfdev"
   },
   robots: {
     index: true,
-    follow: true
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
   },
   icons: {
-    icon: "/icon.jpeg"
+    icon: [
+      { url: "/profiless.png", sizes: "any" },
+      { url: "/icon.png", type: "image/png" }
+    ],
+    apple: [
+      { url: "/profiless.png" }
+    ]
   }
 };
 
@@ -77,6 +99,30 @@ export default function RootLayout({
             {children}
           </TooltipProvider>
         </ThemeProvider>
+
+        {/* Structured Data (Schema.org JSON-LD for Search Engines) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: DATA.name,
+              url: DATA.url,
+              image: `${DATA.url}/profiless.png`,
+              sameAs: [
+                DATA.contact.social.GitHub.url,
+                DATA.contact.social.LinkedIn.url
+              ],
+              jobTitle: "Fullstack Developer",
+              worksFor: {
+                "@type": "Organization",
+                name: "Library UMC"
+              },
+              knowsAbout: DATA.skills
+            })
+          }}
+        />
       </body>
     </html>
   );
