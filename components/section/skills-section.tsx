@@ -6,7 +6,7 @@ import { Badge } from "../ui/badge";
 
 const SkillSection = () => {
   return (
-    <section id="skills" className="mt-10">
+    <section id="skills" className="mt-16 w-full max-w-4xl mx-auto">
       <div className="flex min-h-0 flex-col gap-y-3">
         <BlurFade delay={BLUR_FADE_DELAY * 9}>
           <h2 className="text-xl font-bold">Skills</h2>

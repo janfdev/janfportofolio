@@ -4,7 +4,6 @@ import React from "react";
 import { BackgroundCubesGrid } from "@/components/ui/background-cubes-grid";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { DATA } from "@/lib/data/resume";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ArrowUpRight, Github, Linkedin, Sparkles } from "lucide-react";
 
 export default function Intro() {
@@ -26,20 +25,6 @@ export default function Intro() {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
           </span>
           <span>Available for New Projects & Roles</span>
-        </div>
-
-        {/* Avatar with Subtle Glow */}
-        <div className="relative mb-6">
-          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-indigo-500 to-rose-500 opacity-40 blur-md" />
-          <Avatar className="relative size-24 border-2 border-white/60 shadow-xl dark:border-white/10 sm:size-28">
-            <AvatarImage
-              draggable={false}
-              alt={DATA.name}
-              src={DATA.avatarUrl}
-              className="object-cover"
-            />
-            <AvatarFallback className="font-bold text-lg">{DATA.initials}</AvatarFallback>
-          </Avatar>
         </div>
 
         {/* Text Flip Animated Heading */}

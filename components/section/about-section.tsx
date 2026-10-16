@@ -6,8 +6,8 @@ import Markdown from "react-markdown";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="mt-10">
-      <div className="max-w-3xl mx-auto">
+    <section id="about" className="mt-16 w-full">
+      <div className="max-w-4xl mx-auto">
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
           <h2 className="text-xl font-bold">About Me</h2>
         </BlurFade>

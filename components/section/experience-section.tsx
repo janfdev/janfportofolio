@@ -6,7 +6,7 @@ import { ResumeCard } from "../resume-card";
 
 const ExperienceSection = () => {
   return (
-    <section id="work" className="mt-10">
+    <section id="work" className="mt-16 w-full max-w-4xl mx-auto">
       <div className="flex min-h-0 flex-col gap-y-3">
         <BlurFade delay={BLUR_FADE_DELAY * 5}>
           <h2 className="text-xl font-bold">Work Experience</h2>
