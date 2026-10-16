@@ -4,7 +4,7 @@ import React from "react";
 import { CloudShader } from "@/components/ui/cloud-shader";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { DATA } from "@/lib/data/resume";
-import { ArrowUpRight, Github, Linkedin, Sparkles, FolderGit2 } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { ModeToggle } from "@/components/mode-toggle";
 
@@ -121,55 +121,6 @@ export default function Intro() {
           Crafting <span className="font-bold underline decoration-sky-300 underline-offset-4">resilient web architectures</span>, 
           modular APIs, and modern interactive user experiences from database design to production deployment.
         </p>
-
-        {/* Action Buttons */}
-        <div className="mt-8 flex w-full max-w-md flex-col items-stretch justify-center gap-3 px-4 sm:max-w-none sm:w-auto sm:flex-row sm:items-center">
-          <a
-            href="#projects"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-bold text-sky-950 shadow-xl transition hover:-translate-y-0.5 hover:bg-white/95"
-          >
-            <Sparkles className="size-4 text-amber-500" />
-            <span>Lihat Proyek Unggulan</span>
-          </a>
-
-          <div className="flex gap-2 justify-center">
-            <a
-              href={DATA.contact.social.GitHub.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-12 flex-1 sm:flex-initial items-center justify-center gap-2 rounded-full border border-white/40 bg-white/15 px-6 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/25"
-            >
-              <Github className="size-4" />
-              <span>GitHub</span>
-              <ArrowUpRight className="size-3.5 opacity-80" />
-            </a>
-
-            <a
-              href={DATA.contact.social.LinkedIn.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-12 flex-1 sm:flex-initial items-center justify-center gap-2 rounded-full border border-white/40 bg-white/15 px-6 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/25"
-            >
-              <Linkedin className="size-4 text-sky-300" />
-              <span>LinkedIn</span>
-              <ArrowUpRight className="size-3.5 opacity-80" />
-            </a>
-          </div>
-        </div>
-
-        {/* Live Project Anchor Stat Button */}
-        <div className="mt-10">
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-2 text-xs sm:text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 hover:scale-105"
-          >
-            <FolderGit2 className="size-4 text-sky-300" />
-            <span>5+ Production Projects Ready to Explore</span>
-            <span className="rounded-full bg-sky-400/30 px-2 py-0.5 text-[10px] uppercase font-bold text-sky-200">
-              Live
-            </span>
-          </a>
-        </div>
       </div>
 
       {/* Subtle bottom fade transition into page content */}
