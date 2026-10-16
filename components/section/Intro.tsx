@@ -92,20 +92,13 @@ export default function Intro() {
       </header>
 
       {/* Main Hero Body */}
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-4 py-12 text-center antialiased">
-        {/* Availability Badge */}
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur-md shadow-md">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-80" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-          </span>
-          <span>Available for New Projects & Full-Time Roles</span>
-        </div>
-
-        {/* Flip Text Heading */}
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-4 py-16 text-center antialiased">
+        {/* Flip Text Heading with high-contrast text */}
         <div className="flex flex-col items-center justify-center gap-3 sm:flex-row flex-wrap max-w-full px-2">
           <LayoutTextFlip
             text="Hi, I'm"
+            textClassName="text-neutral-900 dark:text-neutral-50 drop-shadow-sm font-extrabold"
+            className="border-neutral-200/80 bg-white/95 text-neutral-900 shadow-lg dark:border-neutral-700 dark:bg-neutral-900/95 dark:text-white"
             words={[
               "Rizqi Noor Fauzan",
               "Fullstack Engineer",
@@ -116,9 +109,9 @@ export default function Intro() {
           />
         </div>
 
-        {/* Subtitle / Value Proposition */}
-        <p className="mt-6 max-w-3xl text-balance px-4 text-sm sm:text-base md:text-xl font-medium text-white/95 drop-shadow-md leading-relaxed">
-          Crafting <span className="font-bold underline decoration-sky-300 underline-offset-4">resilient web architectures</span>, 
+        {/* Subtitle / Value Proposition in crisp readable slate */}
+        <p className="mt-6 max-w-3xl text-balance px-4 text-sm sm:text-base md:text-xl font-medium text-slate-800 dark:text-slate-200 drop-shadow-sm leading-relaxed">
+          Crafting <span className="font-bold text-slate-950 dark:text-white underline decoration-sky-500 underline-offset-4">resilient web architectures</span>, 
           modular APIs, and modern interactive user experiences from database design to production deployment.
         </p>
       </div>
