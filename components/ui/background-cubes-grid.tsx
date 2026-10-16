@@ -61,8 +61,6 @@ const isoVertexShader = `
   void main() {
     vec3 p = position;
     p.xz += aOffset;
-    // Crests round off softly; troughs have no limit and sink deeper than crests rise.
-    // The two curves blend smoothly around zero, so cubes never change speed as they pass rest.
     float x = aHeight;
     vHeight = mix( x * 1.5, tanh( x ), smoothstep( -0.6, 0.6, x ) );
     p.y += vHeight * uAmplitude;
