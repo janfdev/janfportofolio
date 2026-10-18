@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CloudShader } from "@/components/ui/cloud-shader";
+import { DotPattern } from "@/components/ui/dot-pattern";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { DATA } from "@/lib/data/resume";
 import { Github, Linkedin } from "lucide-react";
@@ -11,44 +11,44 @@ import { ModeToggle } from "@/components/mode-toggle";
 export default function Intro() {
   return (
     <section id="hero" className="relative isolate flex min-h-[100dvh] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex-col justify-between overflow-hidden">
-      {/* Dynamic Animated Cloud Shader Background */}
-      <CloudShader
-        className="absolute inset-0 -z-10 h-full w-full"
-        speed={0.8}
-        count={4}
-        cloudColor="#ffffff"
-        skyTopColor="#0f172a"
-        skyBottomColor="#38bdf8"
+      {/* Background SVG Dot Pattern with soft radial mask */}
+      <DotPattern
+        width={32}
+        height={32}
+        cx={1}
+        cy={1}
+        cr={1}
+        className="[mask-image:radial-gradient(ellipse_at_center,white,transparent_80%)] opacity-70"
       />
 
       {/* Top Navbar Header */}
-      <header className="relative z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 md:px-12">
+      <header className="relative z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 md:px-12 border-b border-border/40 backdrop-blur-xs">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/95 text-sky-900 font-display font-black text-sm shadow-md transition-transform group-hover:scale-105">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-foreground text-background font-display font-black text-sm shadow-sm transition-transform group-hover:scale-105">
             {DATA.initials}
           </div>
           <div className="flex flex-col text-left">
-            <span className="text-base font-bold tracking-tight text-white drop-shadow-md leading-none">
+            <span className="text-base font-bold tracking-tight text-foreground leading-none">
               {DATA.name}
             </span>
-            <span className="text-[11px] font-medium text-white/80 drop-shadow-sm tracking-wide mt-0.5">
+            <span className="text-[11px] font-medium text-muted-foreground tracking-wide mt-0.5">
               Fullstack Developer
             </span>
           </div>
         </Link>
 
         {/* Center Nav Links */}
-        <nav className="hidden items-center gap-8 text-sm font-semibold text-white/90 drop-shadow-sm md:flex">
-          <a href="#about" className="transition hover:text-white hover:underline underline-offset-8">
+        <nav className="hidden items-center gap-8 text-sm font-medium text-muted-foreground md:flex">
+          <a href="#about" className="transition hover:text-foreground">
             About
           </a>
-          <a href="#work" className="transition hover:text-white hover:underline underline-offset-8">
+          <a href="#work" className="transition hover:text-foreground">
             Experience
           </a>
-          <a href="#skills" className="transition hover:text-white hover:underline underline-offset-8">
+          <a href="#skills" className="transition hover:text-foreground">
             Skills
           </a>
-          <a href="#projects" className="transition hover:text-white hover:underline underline-offset-8">
+          <a href="#projects" className="transition hover:text-foreground">
             Projects
           </a>
         </nav>
@@ -61,7 +61,7 @@ export default function Intro() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition hover:bg-white/20"
+              className="rounded-full border border-border bg-background p-2 text-foreground transition hover:bg-muted"
             >
               <Github className="size-4" />
             </a>
@@ -70,13 +70,13 @@ export default function Intro() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition hover:bg-white/20"
+              className="rounded-full border border-border bg-background p-2 text-foreground transition hover:bg-muted"
             >
               <Linkedin className="size-4" />
             </a>
           </div>
 
-          <div className="rounded-full bg-white/15 p-1 backdrop-blur-md border border-white/20 shadow-sm">
+          <div className="rounded-full border border-border bg-background p-0.5 shadow-2xs">
             <ModeToggle />
           </div>
 
@@ -84,7 +84,7 @@ export default function Intro() {
             href={DATA.contact.social.GitHub.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-white px-4 py-2 text-xs sm:text-sm font-bold text-sky-900 shadow-md transition hover:bg-white/90 hover:scale-105"
+            className="rounded-full bg-foreground px-4 py-2 text-xs sm:text-sm font-semibold text-background shadow-xs transition hover:opacity-90 active:scale-95"
           >
             Connect
           </a>
@@ -110,8 +110,8 @@ export default function Intro() {
         </div>
 
         {/* Subtitle / Value Proposition in crisp readable slate */}
-        <p className="mt-6 max-w-3xl text-balance px-4 text-sm sm:text-base md:text-xl font-medium text-slate-800 dark:text-slate-200 drop-shadow-sm leading-relaxed">
-          Crafting <span className="font-bold text-slate-950 dark:text-white underline decoration-sky-500 underline-offset-4">resilient web architectures</span>, 
+        <p className="mt-6 max-w-3xl text-balance px-4 text-sm sm:text-base md:text-xl font-medium text-muted-foreground leading-relaxed">
+          Crafting <span className="font-bold text-foreground underline decoration-primary underline-offset-4">resilient web architectures</span>, 
           modular APIs, and modern interactive user experiences from database design to production deployment.
         </p>
       </div>

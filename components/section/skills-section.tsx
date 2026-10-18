@@ -10,11 +10,29 @@ import { Icons } from "../icons";
 
 const techLogos: { name: string; icon: React.ReactNode }[] = [
   {
-    name: "React",
+    name: "Hermes Agent",
     icon: (
       <div className="flex items-center gap-2">
-        <Icons.react className="h-6 w-6" />
-        <span className="text-sm font-medium tracking-tight">React</span>
+        <Icons.hermes className="h-5 w-5 text-amber-500" />
+        <span className="text-sm font-semibold tracking-tight">Hermes</span>
+      </div>
+    ),
+  },
+  {
+    name: "Claude Code",
+    icon: (
+      <div className="flex items-center gap-2">
+        <Icons.claudecode className="h-5 w-5" />
+        <span className="text-sm font-semibold tracking-tight">Claude Code</span>
+      </div>
+    ),
+  },
+  {
+    name: "OpenAI Codex",
+    icon: (
+      <div className="flex items-center gap-2">
+        <Icons.codex className="h-5 w-5 text-emerald-500" />
+        <span className="text-sm font-semibold tracking-tight">Codex</span>
       </div>
     ),
   },
@@ -22,8 +40,17 @@ const techLogos: { name: string; icon: React.ReactNode }[] = [
     name: "Next.js",
     icon: (
       <div className="flex items-center gap-2">
-        <Icons.nextjs className="h-6 w-6" />
-        <span className="text-sm font-medium tracking-tight">Next.js</span>
+        <Icons.nextjs className="h-5 w-5" />
+        <span className="text-sm font-semibold tracking-tight">Next.js</span>
+      </div>
+    ),
+  },
+  {
+    name: "React",
+    icon: (
+      <div className="flex items-center gap-2">
+        <Icons.react className="h-5 w-5 text-sky-400" />
+        <span className="text-sm font-semibold tracking-tight">React</span>
       </div>
     ),
   },
@@ -31,8 +58,35 @@ const techLogos: { name: string; icon: React.ReactNode }[] = [
     name: "TypeScript",
     icon: (
       <div className="flex items-center gap-2">
-        <Icons.typescript className="h-6 w-6" />
-        <span className="text-sm font-medium tracking-tight">TypeScript</span>
+        <Icons.typescript className="h-5 w-5" />
+        <span className="text-sm font-semibold tracking-tight">TypeScript</span>
+      </div>
+    ),
+  },
+  {
+    name: "OpenCode",
+    icon: (
+      <div className="flex items-center gap-2">
+        <Icons.opencode className="h-5 w-5" />
+        <span className="text-sm font-semibold tracking-tight">OpenCode</span>
+      </div>
+    ),
+  },
+  {
+    name: "Antigravity",
+    icon: (
+      <div className="flex items-center gap-2">
+        <Icons.antigravity className="h-5 w-5" />
+        <span className="text-sm font-semibold tracking-tight">Antigravity</span>
+      </div>
+    ),
+  },
+  {
+    name: "9Router",
+    icon: (
+      <div className="flex items-center gap-2">
+        <Icons.router9 className="h-5 w-5 rounded-sm" />
+        <span className="text-sm font-semibold tracking-tight">9Router</span>
       </div>
     ),
   },
@@ -40,62 +94,8 @@ const techLogos: { name: string; icon: React.ReactNode }[] = [
     name: "Tailwind CSS",
     icon: (
       <div className="flex items-center gap-2">
-        <Icons.tailwindcss className="h-6 w-6" />
-        <span className="text-sm font-medium tracking-tight">Tailwind CSS</span>
-      </div>
-    ),
-  },
-  {
-    name: "Framer Motion",
-    icon: (
-      <div className="flex items-center gap-2">
-        <Icons.framermotion className="h-6 w-6" />
-        <span className="text-sm font-medium tracking-tight">Framer Motion</span>
-      </div>
-    ),
-  },
-  {
-    name: "Node.js",
-    icon: (
-      <div className="flex items-center gap-2">
-        <span className="font-mono text-xs font-bold border border-current px-1 py-0.5 rounded">NODE</span>
-        <span className="text-sm font-medium tracking-tight">Node.js</span>
-      </div>
-    ),
-  },
-  {
-    name: "Prisma & Drizzle",
-    icon: (
-      <div className="flex items-center gap-2">
-        <span className="font-mono text-xs font-bold border border-current px-1 py-0.5 rounded">ORM</span>
-        <span className="text-sm font-medium tracking-tight">Prisma & Drizzle</span>
-      </div>
-    ),
-  },
-  {
-    name: "PostgreSQL & SQL",
-    icon: (
-      <div className="flex items-center gap-2">
-        <span className="font-mono text-xs font-bold border border-current px-1 py-0.5 rounded">SQL</span>
-        <span className="text-sm font-medium tracking-tight">PostgreSQL</span>
-      </div>
-    ),
-  },
-  {
-    name: "Express.js",
-    icon: (
-      <div className="flex items-center gap-2">
-        <span className="font-mono text-xs font-bold border border-current px-1 py-0.5 rounded">EX</span>
-        <span className="text-sm font-medium tracking-tight">Express.js</span>
-      </div>
-    ),
-  },
-  {
-    name: "Docker",
-    icon: (
-      <div className="flex items-center gap-2">
-        <span className="font-mono text-xs font-bold border border-current px-1 py-0.5 rounded">DOCKER</span>
-        <span className="text-sm font-medium tracking-tight">Containerization</span>
+        <Icons.tailwindcss className="h-5 w-5 text-teal-400" />
+        <span className="text-sm font-semibold tracking-tight">Tailwind CSS</span>
       </div>
     ),
   },
@@ -107,9 +107,9 @@ const SkillSection = () => {
       <div className="flex min-h-0 flex-col gap-y-4">
         <BlurFade delay={BLUR_FADE_DELAY * 9}>
           <div className="space-y-1">
-            <h2 className="text-xl font-bold tracking-tight">Skills & Tech Stack</h2>
+            <h2 className="text-xl font-bold tracking-tight">Ecosystem & Technologies</h2>
             <p className="text-sm text-muted-foreground">
-              Technologies and frameworks I use to build scalable web applications.
+              Autonomous AI agent orchestration, developer tooling, and modern web frameworks.
             </p>
           </div>
         </BlurFade>
@@ -130,7 +130,7 @@ const SkillSection = () => {
         <div className="flex flex-wrap gap-1.5 pt-1">
           {DATA.skills.map((skill, id) => (
             <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.04}>
-              <Badge variant="secondary" className="px-2.5 py-1 text-xs">
+              <Badge variant="secondary" className="px-2.5 py-1 text-xs font-medium">
                 {skill}
               </Badge>
             </BlurFade>
