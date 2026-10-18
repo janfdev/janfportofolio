@@ -82,7 +82,7 @@ export function LogoMarquee({ logos, speed = 36, gap = 56, direction = "left", p
       <li
         key={`${copy}-${i}`}
         aria-hidden={copy > 0 || undefined}
-        className="flex shrink-0 items-center text-muted-foreground transition-[opacity,color,filter] duration-500 group-hover/marquee:opacity-35 hover:!opacity-100 hover:text-foreground"
+        className="flex shrink-0 items-center transition-[opacity,transform] duration-500 group-hover/marquee:opacity-40 hover:!opacity-100 hover:scale-105"
         style={{ marginRight: gap }}
       >
         {logo}
@@ -94,7 +94,7 @@ export function LogoMarquee({ logos, speed = 36, gap = 56, direction = "left", p
       <div className={`w-full ${className}`} {...props}>
         <ul className="flex flex-wrap items-center justify-center gap-y-6" style={{ columnGap: gap }}>
           {logos.map((logo, i) => (
-            <li key={i} className="flex items-center text-muted-foreground">
+            <li key={i} className="flex items-center">
               {logo}
             </li>
           ))}

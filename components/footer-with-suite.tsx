@@ -38,7 +38,7 @@ const defaultSocialLinks: NavLink[] = [
 ];
 
 export default function FooterWithSuite({
-  brandName = DATA.initials || "JANF",
+  brandName = "Fauzan",
   tagline = "Architecting resilient web systems & autonomous AI agent workflows.",
   navLinks = defaultNavLinks,
   socialLinks = defaultSocialLinks,

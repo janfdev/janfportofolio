@@ -10,90 +10,90 @@ const techLogos: { name: string; icon: React.ReactNode }[] = [
   {
     name: "Hermes Agent",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.hermes className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight">Hermes</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">Hermes</span>
       </div>
     ),
   },
   {
     name: "Claude Code",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.claudecode className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight">Claude Code</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">Claude Code</span>
       </div>
     ),
   },
   {
     name: "OpenAI Codex",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.codex className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight">Codex</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">Codex</span>
       </div>
     ),
   },
   {
     name: "Next.js",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.nextjs className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight">Next.js</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">Next.js</span>
       </div>
     ),
   },
   {
     name: "React",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.react className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight">React</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">React</span>
       </div>
     ),
   },
   {
     name: "TypeScript",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.typescript className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight">TypeScript</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">TypeScript</span>
       </div>
     ),
   },
   {
     name: "OpenCode",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.opencode className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight">OpenCode</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">OpenCode</span>
       </div>
     ),
   },
   {
     name: "Antigravity",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.antigravity className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight">Antigravity</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">Antigravity</span>
       </div>
     ),
   },
   {
     name: "9Router",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.router9 className="h-5 w-5 rounded-sm" />
-        <span className="text-sm font-semibold tracking-tight">9Router</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">9Router</span>
       </div>
     ),
   },
   {
     name: "Tailwind CSS",
     icon: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <Icons.tailwindcss className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight">Tailwind CSS</span>
+        <span className="text-sm font-semibold tracking-tight text-foreground">Tailwind CSS</span>
       </div>
     ),
   },
