@@ -281,7 +281,7 @@ function ActivityHeatmap({
                       data-date={toKey(day)}
                       onClick={onCellClick ? () => onCellClick(datum) : undefined}
                       className={cn(
-                        "focus-visible:ring-ring/60 ring-inset rounded-[2px] outline-none transition-[filter] duration-100 hover:brightness-110 focus-visible:ring-2 dark:hover:brightness-125",
+                        "focus-visible:ring-ring/60 ring-inset rounded-[3px] outline-none transition-[filter] duration-100 hover:brightness-110 focus-visible:ring-2 dark:hover:brightness-125",
                         "inset-ring-foreground/6 inset-ring",
                         onCellClick ? "cursor-pointer" : "cursor-default"
                       )}
