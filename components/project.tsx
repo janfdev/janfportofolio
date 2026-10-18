@@ -4,14 +4,45 @@ import Image from "next/image";
 import Link from "next/link";
 import { Github, Globe, ArrowUpRight } from "lucide-react";
 import { DATA } from "../lib/data/resume";
-import { Badge } from "./ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 type ProjectProps = (typeof DATA.projects)[number];
+
+// Helper to format clean label from icon path
+function formatTechLabel(iconPath: string): string {
+  const filename = iconPath.split("/").pop()?.replace(/\.(svg|png|webp|jpg)$/i, "") || "";
+  const cleaned = filename.replace(/(_dark|_light|-ui|-orm|-js|\.svg)/gi, "").trim();
+  
+  const map: Record<string, string> = {
+    nextjs: "Next.js",
+    react: "React",
+    tailwindcss: "Tailwind CSS",
+    nodejs: "Node.js",
+    expressjs: "Express.js",
+    prisma: "Prisma ORM",
+    "drizzle-orm": "Drizzle ORM",
+    drizzle: "Drizzle ORM",
+    mongodb: "MongoDB",
+    supabase: "Supabase",
+    neon: "Neon Postgres",
+    "better-auth": "Better Auth",
+    gemini: "Google Gemini AI",
+    groq: "Groq LPU",
+    cloudinary: "Cloudinary",
+    shadcn: "shadcn/ui",
+  };
+
+  return map[cleaned.toLowerCase()] || cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+}
 
 export default function ProjectCard({
   title,
   description,
-  tags,
   tagsIcon,
   imageUrl,
   url,
@@ -55,44 +86,38 @@ export default function ProjectCard({
             {description}
           </p>
 
-          {/* Tech Stack Visual Icons */}
+          {/* Tech Stack Visual Icons with Tooltip (No Raw Text) */}
           {tagsIcon && tagsIcon.length > 0 && (
-            <div className="space-y-1.5 pt-1">
+            <div className="space-y-2 pt-1">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/80">
                 Tech Stack
               </span>
-              <div className="flex flex-wrap items-center gap-1.5">
-                {tagsIcon.map((icon, index) => (
-                  <div
-                    key={index}
-                    className="flex size-7 items-center justify-center rounded-md border border-border/60 bg-muted/40 p-1.5 shadow-2xs transition hover:scale-110 hover:border-border"
-                  >
-                    <Image
-                      src={icon}
-                      alt="tech icon"
-                      width={18}
-                      height={18}
-                      className="size-4.5 object-contain"
-                      unoptimized
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Text Badges */}
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-1 pt-1">
-              {tags.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant="secondary"
-                  className="px-2 py-0.5 text-[10px] font-medium tracking-tight bg-muted/60 text-muted-foreground"
-                >
-                  {tag}
-                </Badge>
-              ))}
+              <TooltipProvider delayDuration={150}>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {tagsIcon.map((icon, index) => {
+                    const label = formatTechLabel(icon);
+                    return (
+                      <Tooltip key={index}>
+                        <TooltipTrigger asChild>
+                          <div className="flex size-7.5 items-center justify-center rounded-lg border border-border/60 bg-muted/40 p-1.5 shadow-2xs transition-all duration-200 hover:scale-110 hover:border-border hover:bg-muted/80 cursor-pointer">
+                            <Image
+                              src={icon}
+                              alt={label}
+                              width={18}
+                              height={18}
+                              className="size-4.5 object-contain"
+                              unoptimized
+                            />
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs font-semibold px-2.5 py-1">
+                          <p>{label}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    );
+                  })}
+                </div>
+              </TooltipProvider>
             </div>
           )}
         </div>
