@@ -1,101 +1,51 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { BlurFade } from "../ui/blur-fade";
 import { BLUR_FADE_DELAY } from "../../lib/type";
 import { LogoMarquee } from "../logo-marquee";
-import { Icons } from "../icons";
 
-const techLogos: { name: string; icon: React.ReactNode }[] = [
+const techLogos: { name: string; src: string }[] = [
   {
     name: "Hermes Agent",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.hermes className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">Hermes</span>
-      </div>
-    ),
+    src: "/icons/hermes.svg",
   },
   {
     name: "Claude Code",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.claudecode className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">Claude Code</span>
-      </div>
-    ),
+    src: "/icons/claudecode.svg",
   },
   {
     name: "OpenAI Codex",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.codex className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">Codex</span>
-      </div>
-    ),
+    src: "/icons/codex.svg",
   },
   {
     name: "Next.js",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.nextjs className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">Next.js</span>
-      </div>
-    ),
+    src: "/icons/nextjs.svg",
   },
   {
     name: "React",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.react className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">React</span>
-      </div>
-    ),
+    src: "/icons/react.svg",
   },
   {
     name: "TypeScript",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.typescript className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">TypeScript</span>
-      </div>
-    ),
+    src: "/icons/typescript.svg",
   },
   {
     name: "OpenCode",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.opencode className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">OpenCode</span>
-      </div>
-    ),
+    src: "/icons/opencode.svg",
   },
   {
     name: "Antigravity",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.antigravity className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">Antigravity</span>
-      </div>
-    ),
+    src: "/icons/antigravity.svg",
   },
   {
     name: "9Router",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.router9 className="h-5 w-5 rounded-sm" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">9Router</span>
-      </div>
-    ),
+    src: "/icons/9router.svg",
   },
   {
     name: "Tailwind CSS",
-    icon: (
-      <div className="flex items-center gap-2.5">
-        <Icons.tailwindcss className="h-5 w-5" />
-        <span className="text-sm font-semibold tracking-tight text-foreground">Tailwind CSS</span>
-      </div>
-    ),
+    src: "/icons/tailwindcss.svg",
   },
 ];
 
@@ -112,11 +62,27 @@ const SkillSection = () => {
           </div>
         </BlurFade>
 
-        {/* Quiet Infinite Logo Marquee Strip with soft mask overlay */}
+        {/* Quiet Infinite Logo Marquee Strip with Official Standalone Image SVGs */}
         <BlurFade delay={BLUR_FADE_DELAY * 9.5}>
           <div className="relative my-2 py-6 w-full">
             <LogoMarquee
-              logos={techLogos.map((item) => item.icon)}
+              logos={techLogos.map((item) => (
+                <div key={item.name} className="flex items-center gap-3">
+                  <div className="relative flex items-center justify-center size-7 shrink-0">
+                    <Image
+                      src={item.src}
+                      alt={item.name}
+                      width={28}
+                      height={28}
+                      className="size-7 object-contain"
+                      unoptimized
+                    />
+                  </div>
+                  <span className="text-sm font-semibold tracking-tight text-foreground select-none">
+                    {item.name}
+                  </span>
+                </div>
+              ))}
               speed={42}
               gap={56}
               pauseOnHover={true}
