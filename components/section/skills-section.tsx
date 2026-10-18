@@ -3,8 +3,6 @@
 import React from "react";
 import { BlurFade } from "../ui/blur-fade";
 import { BLUR_FADE_DELAY } from "../../lib/type";
-import { DATA } from "../../lib/data/resume";
-import { Badge } from "../ui/badge";
 import { LogoMarquee } from "../logo-marquee";
 import { Icons } from "../icons";
 
@@ -103,39 +101,28 @@ const techLogos: { name: string; icon: React.ReactNode }[] = [
 
 const SkillSection = () => {
   return (
-    <section id="skills" className="mt-16 w-full max-w-4xl mx-auto">
-      <div className="flex min-h-0 flex-col gap-y-4">
+    <section id="skills" className="mt-20 w-full max-w-7xl mx-auto">
+      <div className="flex min-h-0 flex-col gap-y-6">
         <BlurFade delay={BLUR_FADE_DELAY * 9}>
-          <div className="space-y-1">
-            <h2 className="text-xl font-bold tracking-tight">Ecosystem & Technologies</h2>
-            <p className="text-sm text-muted-foreground">
-              Autonomous AI agent orchestration, developer tooling, and modern web frameworks.
+          <div className="space-y-1.5 text-center sm:text-left">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">AI & Tech Ecosystem</h2>
+            <p className="text-sm text-muted-foreground max-w-2xl">
+              Autonomous AI agent orchestration, developer telemetry, and modern fullstack tooling.
             </p>
           </div>
         </BlurFade>
 
-        {/* Quiet Infinite Logo Marquee Strip */}
+        {/* Quiet Infinite Logo Marquee Strip with soft mask overlay */}
         <BlurFade delay={BLUR_FADE_DELAY * 9.5}>
-          <div className="my-3 py-4 rounded-xl border border-border/40 bg-muted/20 backdrop-blur-xs">
+          <div className="relative my-2 py-6 w-full">
             <LogoMarquee
               logos={techLogos.map((item) => item.icon)}
               speed={42}
-              gap={48}
+              gap={56}
               pauseOnHover={true}
             />
           </div>
         </BlurFade>
-
-        {/* Detailed Skill Badges */}
-        <div className="flex flex-wrap gap-1.5 pt-1">
-          {DATA.skills.map((skill, id) => (
-            <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.04}>
-              <Badge variant="secondary" className="px-2.5 py-1 text-xs font-medium">
-                {skill}
-              </Badge>
-            </BlurFade>
-          ))}
-        </div>
       </div>
     </section>
   );

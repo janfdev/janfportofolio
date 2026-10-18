@@ -23,7 +23,7 @@ export default function Navbar() {
 
   if (!mounted) return null;
   return (
-    <div className="fixed inset-x-0 bottom-5 z-50 flex justify-center pointer-events-none">
+    <div className="fixed inset-x-0 bottom-5 z-50 flex justify-center pointer-events-none md:hidden">
       <TooltipProvider>
         <Dock
           direction="middle"

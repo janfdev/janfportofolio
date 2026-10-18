@@ -105,7 +105,7 @@ export function LogoMarquee({ logos, speed = 36, gap = 56, direction = "left", p
 
   return (
     <div
-      className={`group/marquee w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)] ${className}`}
+      className={`group/marquee w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] ${className}`}
       onPointerEnter={() => pauseOnHover && easeTo(0)}
       onPointerLeave={() => pauseOnHover && easeTo(1)}
       {...props}

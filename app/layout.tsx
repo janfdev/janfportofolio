@@ -34,12 +34,9 @@ export const metadata: Metadata = {
     "Rizqi Noor Fauzan",
     "janfdev",
     "Fullstack Developer Indonesia",
-    "Next.js Developer",
-    "React Developer",
+    "AI Agent Systems",
     "System Architect",
-    "TypeScript",
-    "Node.js",
-    "Tailwind CSS",
+    "Next.js Craftsman",
     "Portfolio Developer"
   ],
   authors: [{ name: DATA.name, url: DATA.url }],
@@ -137,7 +134,14 @@ export default function RootLayout({
                 "@type": "Organization",
                 name: "Library UMC"
               },
-              knowsAbout: DATA.skills
+              knowsAbout: [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Autonomous AI Agents",
+                "NestJS",
+                "PostgreSQL"
+              ]
             })
           }}
         />

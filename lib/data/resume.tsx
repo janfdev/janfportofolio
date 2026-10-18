@@ -15,19 +15,7 @@ I build **end-to-end web applications**, from crafting responsive user interface
 
 Currently, I’m exploring **deployment** and **containerization** to strengthen my ability to build production-ready applications.`,
   avatarUrl: "/profiless.png",
-  skills: [
-    "React",
-    "Next.js",
-    "Javascript",
-    "Typescript",
-    "Drizzle ORM",
-    "Prisma",
-    "Express.js",
-    "SQL",
-    "NoSQL",
-    "Node.js",
-    "Tailwind CSS"
-  ],
+  skills: [],
   navbar: [
     {
       href: "/",

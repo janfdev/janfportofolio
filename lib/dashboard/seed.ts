@@ -67,7 +67,11 @@ export function buildSeed(): DashboardState {
     })
   );
 
-  const skills: DashboardState["skills"] = DATA.skills.map((name, i) => ({
+  const skills: DashboardState["skills"] = (
+    DATA.skills.length > 0
+      ? DATA.skills
+      : ["Autonomous Agents", "Next.js", "TypeScript", "System Architecture", "API Design"]
+  ).map((name, i) => ({
     id: id++,
     name,
     sortOrder: i,
