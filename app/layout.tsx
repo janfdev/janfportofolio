@@ -3,12 +3,23 @@ import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import { TooltipProvider } from "../components/ui/tooltip";
 import { cn } from "../lib/utils";
-import { Inter as FontSans } from "next/font/google";
+import { Inter as FontSans, Plus_Jakarta_Sans as FontDashboard, JetBrains_Mono as FontMono } from "next/font/google";
 import { DATA } from "../lib/data/resume";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans"
+});
+
+const fontDashboard = FontDashboard({
+  subsets: ["latin"],
+  variable: "--font-dashboard",
+  weight: ["400", "500", "600", "700", "800"]
+});
+
+const fontMono = FontMono({
+  subsets: ["latin"],
+  variable: "--font-mono"
 });
 
 export const metadata: Metadata = {
@@ -99,7 +110,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/profiless.png" />
       </head>
       <body
-        className={cn("antialiased min-h-screen bg-background", fontSans.variable)}
+        className={cn("antialiased min-h-screen bg-background", fontSans.variable, fontDashboard.variable, fontMono.variable)}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>

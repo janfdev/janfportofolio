@@ -385,7 +385,7 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div
       data-theme="dashboard"
-      className="dashboard-theme flex min-h-screen w-full bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary"
+      className="dashboard-theme font-sans flex min-h-screen w-full bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary"
     >
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
 
