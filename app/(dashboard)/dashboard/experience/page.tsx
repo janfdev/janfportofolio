@@ -97,7 +97,7 @@ export default function ExperiencePage() {
                   </TableCell>
                   <TableCell>
                     <Badge variant="secondary" className="font-medium text-xs tabular-nums">
-                      {r.start} – {r.end}
+                      {r.start} - {r.end}
                     </Badge>
                   </TableCell>
                   <TableCell>

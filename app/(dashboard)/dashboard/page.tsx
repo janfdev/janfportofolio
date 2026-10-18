@@ -13,7 +13,6 @@ import {
   MessageSquare,
   MousePointerClick,
   Search,
-  Sparkles,
   TrendingUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -162,17 +161,11 @@ export default function DashboardPage() {
       {/* 1. Header Banner & Quick Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-border/80 bg-card p-6 shadow-xs">
         <div className="flex flex-col gap-1.5">
-          <div className="flex items-center gap-2.5">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">
-              Portfolio Control Center
-            </h1>
-            <span className="flex items-center gap-1 rounded-full bg-primary/10 border border-primary/20 px-3 py-0.5 text-xs font-semibold text-primary">
-              <Sparkles className="size-3" />
-              Live Telemetry
-            </span>
-          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            Portfolio Control Center
+          </h1>
           <p className="text-sm text-muted-foreground">
-            Overview performa web, kunjungan pengunjung, dan moderasi pesan untuk{" "}
+            Ringkasan metrik performa web, kunjungan pengunjung, dan status moderasi pesan untuk{" "}
             <span className="text-foreground font-semibold">{state.profile.name || "Rizqi Noor Fauzan"}</span>.
           </p>
         </div>
@@ -372,8 +365,9 @@ export default function DashboardPage() {
 
           <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
             <span>Rata-rata: ~{Math.round(weekTotal / 7)} sesi / hari</span>
-            <Link href="/dashboard/kunjungan" className="text-primary hover:underline font-medium">
-              Eksplorasi log IP & browser &rarr;
+            <Link href="/dashboard/kunjungan" className="text-primary hover:underline font-medium inline-flex items-center gap-1">
+              <span>Eksplorasi log IP dan browser</span>
+              <ArrowRight className="size-3" />
             </Link>
           </div>
         </div>

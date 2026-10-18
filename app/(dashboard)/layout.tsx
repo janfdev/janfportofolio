@@ -17,7 +17,6 @@ import {
   MessageSquare,
   PanelLeft,
   Search,
-  Sparkles,
   UserRound,
   Wrench,
   X,
@@ -236,12 +235,9 @@ function SidebarBody({ collapsed }: { collapsed?: boolean }) {
             <p className="truncate text-sm font-semibold text-foreground tracking-tight leading-none">
               {p.name}
             </p>
-            <div className="mt-1 flex items-center gap-1.5">
-              <span className="inline-flex items-center gap-1 rounded bg-primary/15 px-1.5 py-0.5 text-[10px] font-medium text-primary">
-                <Sparkles className="size-2.5" />
-                Admin Studio
-              </span>
-            </div>
+            <p className="mt-1 text-xs text-muted-foreground truncate">
+              {p.description || "Fullstack Developer"}
+            </p>
           </div>
         )}
       </div>
@@ -436,7 +432,7 @@ function Shell({ children }: { children: React.ReactNode }) {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                aria-label="Pencarian cepat modul (⌘K)"
+                aria-label="Pencarian cepat modul (Ctrl+K)"
                 className="hidden md:flex h-9 items-center gap-2 rounded-lg border border-border/80 bg-card/60 px-3 text-xs text-muted-foreground shadow-2xs transition-colors hover:border-border hover:bg-card hover:text-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Search className="size-3.5" />
