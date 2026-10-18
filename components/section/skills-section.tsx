@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { BlurFade } from "../ui/blur-fade";
-import { BLUR_FADE_DELAY } from "../docs/";
+import { BLUR_FADE_DELAY } from "@/lib/type";
 import { LogoMarquee } from "../logo-marquee";
 
 const techLogos: { name: string; src: string }[] = [

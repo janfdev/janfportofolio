@@ -19,7 +19,7 @@ export default function ProfilPage() {
   const [saved, setSaved] = useState(false);
 
   const set = (k: string) => (e: { target: { value: string } }) => {
-    setV((prev) => ({ ...prev, [k]: e.target.value }));
+    setV((prev: typeof v) => ({ ...prev, [k]: e.target.value }));
     setSaved(false);
   };
 
