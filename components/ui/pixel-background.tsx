@@ -1,89 +1,280 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
 
-export interface PixelBackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
-  gridSize?: number;
-  pixelColor?: string;
-  animationSpeed?: number;
-  variance?: number;
+class Pixel {
+  width: number;
+  height: number;
+  ctx: CanvasRenderingContext2D;
+  x: number;
+  y: number;
+  color: string;
+  speed: number;
+  size: number;
+  sizeStep: number;
+  minSize: number;
+  maxSizeInteger: number;
+  maxSize: number;
+  delay: number;
+  counter: number;
+  counterStep: number;
+  isIdle: boolean;
+  isReverse: boolean;
+  isShimmer: boolean;
+
+  constructor(
+    canvas: HTMLCanvasElement,
+    context: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    color: string,
+    speed: number,
+    delay: number
+  ) {
+    this.width = canvas.width;
+    this.height = canvas.height;
+    this.ctx = context;
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.speed = this.getRandomValue(0.1, 0.9) * speed;
+    this.size = 0;
+    this.sizeStep = Math.random() * 0.4;
+    this.minSize = 0.5;
+    this.maxSizeInteger = 2;
+    this.maxSize = this.getRandomValue(this.minSize, this.maxSizeInteger);
+    this.delay = delay;
+    this.counter = 0;
+    this.counterStep = Math.random() * 4 + (this.width + this.height) * 0.01;
+    this.isIdle = false;
+    this.isReverse = false;
+    this.isShimmer = false;
+  }
+
+  getRandomValue(min: number, max: number) {
+    return Math.random() * (max - min) + min;
+  }
+
+  draw() {
+    const centerOffset = this.maxSizeInteger * 0.5 - this.size * 0.5;
+    this.ctx.fillStyle = this.color;
+    this.ctx.fillRect(
+      this.x + centerOffset,
+      this.y + centerOffset,
+      this.size,
+      this.size
+    );
+  }
+
+  appear() {
+    this.isIdle = false;
+    if (this.counter <= this.delay) {
+      this.counter += this.counterStep;
+      return;
+    }
+    if (this.size >= this.maxSize) {
+      this.isShimmer = true;
+    }
+    if (this.isShimmer) {
+      this.shimmer();
+    } else {
+      this.size += this.sizeStep;
+    }
+    this.draw();
+  }
+
+  shimmer() {
+    if (this.size >= this.maxSize) {
+      this.isReverse = true;
+    } else if (this.size <= this.minSize) {
+      this.isReverse = false;
+    }
+    if (this.isReverse) {
+      this.size -= this.speed;
+    } else {
+      this.size += this.speed;
+    }
+  }
 }
 
-export function PixelBackground({
-  gridSize = 28,
-  pixelColor = "rgba(120, 120, 120, 0.15)",
-  animationSpeed = 1,
-  variance = 0.6,
-  className,
+function getEffectiveSpeed(value: number, reducedMotion: boolean) {
+  const min = 0;
+  const max = 100;
+  const throttle = 0.001;
+  if (value <= min || reducedMotion) {
+    return min;
+  } else if (value >= max) {
+    return max * throttle;
+  } else {
+    return value * throttle;
+  }
+}
+
+interface PixelBackgroundProps {
+  gap?: number;
+  speed?: number;
+  colors?: string;
+  opacity?: number;
+  direction?:
+    | "center"
+    | "top"
+    | "bottom"
+    | "left"
+    | "right"
+    | "top-left"
+    | "top-right"
+    | "bottom-left"
+    | "bottom-right";
+  className?: string;
+  canvasClassName?: string;
+  children?: React.ReactNode;
+}
+
+export default function PixelBackground({
+  gap = 6,
+  speed = 80,
+  colors = "#1a1a1a,#2a2a2a,#333333,#111111,#d4d4d4,#e5e5e5,#c4c4c4,#bababa",
+  opacity = 1,
+  direction = "center",
+  className = "",
+  canvasClassName = "",
   children,
-  ...props
 }: PixelBackgroundProps) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pixelsRef = useRef<Pixel[]>([]);
+  const animationRef = useRef<number | null>(null);
+  const timePreviousRef = useRef<number>(0);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const reducedMotionValue = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-    let animationFrameId: number;
-    let width = 0;
-    let height = 0;
-
-    const resize = () => {
-      const parent = canvas.parentElement;
-      if (!parent) return;
-      width = parent.clientWidth;
-      height = parent.clientHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.scale(dpr, dpr);
+    const getOriginPoint = (width: number, height: number) => {
+      switch (direction) {
+        case "top":
+          return { x: width / 2, y: 0 };
+        case "bottom":
+          return { x: width / 2, y: height };
+        case "left":
+          return { x: 0, y: height / 2 };
+        case "right":
+          return { x: width, y: height / 2 };
+        case "top-left":
+          return { x: 0, y: 0 };
+        case "top-right":
+          return { x: width, y: 0 };
+        case "bottom-left":
+          return { x: 0, y: height };
+        case "bottom-right":
+          return { x: width, y: height };
+        case "center":
+        default:
+          return { x: width / 2, y: height / 2 };
+      }
     };
 
-    resize();
-    window.addEventListener("resize", resize);
+    const initPixels = () => {
+      if (!containerRef.current || !canvasRef.current) return;
 
-    let time = 0;
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height);
+      const rect = containerRef.current.getBoundingClientRect();
+      const width = Math.floor(rect.width);
+      const height = Math.floor(rect.height);
+      const ctx = canvasRef.current.getContext("2d");
 
-      const cols = Math.ceil(width / gridSize);
-      const rows = Math.ceil(height / gridSize);
+      canvasRef.current.width = width;
+      canvasRef.current.height = height;
+      canvasRef.current.style.width = `${width}px`;
+      canvasRef.current.style.height = `${height}px`;
 
-      for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-          const x = i * gridSize;
-          const y = j * gridSize;
-          // Simple procedural wave for noise shimmer
-          const noise = Math.sin(i * 0.2 + time) * Math.cos(j * 0.2 + time);
-          const alpha = Math.max(0.02, Math.min(0.25, 0.08 + noise * variance * 0.1));
+      const origin = getOriginPoint(width, height);
+      const colorsArray = colors.split(",");
+      const pxs: Pixel[] = [];
 
-          ctx.fillStyle = pixelColor.replace(/[\d\.]+\)$/g, `${alpha})`);
-          ctx.fillRect(x + 1, y + 1, gridSize - 2, gridSize - 2);
+      for (let x = 0; x < width; x += parseInt(gap.toString(), 10)) {
+        for (let y = 0; y < height; y += parseInt(gap.toString(), 10)) {
+          const color =
+            colorsArray[Math.floor(Math.random() * colorsArray.length)].trim();
+          const dx = x - origin.x;
+          const dy = y - origin.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const delay = reducedMotionValue ? 0 : distance;
+
+          if (!ctx) return;
+          pxs.push(
+            new Pixel(
+              canvasRef.current,
+              ctx,
+              x,
+              y,
+              color,
+              getEffectiveSpeed(speed, reducedMotionValue),
+              delay
+            )
+          );
         }
       }
 
-      time += 0.02 * animationSpeed;
-      animationFrameId = requestAnimationFrame(draw);
+      pixelsRef.current = pxs;
     };
 
-    draw();
+    const doAnimate = (fnName: "appear") => {
+      animationRef.current = requestAnimationFrame(() => doAnimate(fnName));
+      const timeNow = performance.now();
+      if (timePreviousRef.current === 0) timePreviousRef.current = timeNow;
+      const timePassed = timeNow - timePreviousRef.current;
+      const timeInterval = 1000 / 60;
+
+      if (timePassed < timeInterval) return;
+      timePreviousRef.current = timeNow - (timePassed % timeInterval);
+
+      const ctx = canvasRef.current?.getContext("2d");
+      if (!ctx || !canvasRef.current) return;
+
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+      let allIdle = true;
+      for (let i = 0; i < pixelsRef.current.length; i++) {
+        const pixel = pixelsRef.current[i];
+        pixel[fnName]();
+        if (!pixel.isIdle) {
+          allIdle = false;
+        }
+      }
+
+      if (allIdle && animationRef.current !== null) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+
+    const handleAnimation = (name: "appear") => {
+      if (animationRef.current !== null) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      animationRef.current = requestAnimationFrame(() => doAnimate(name));
+    };
+
+    initPixels();
+    handleAnimation("appear");
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", resize);
+      if (animationRef.current !== null) {
+        cancelAnimationFrame(animationRef.current);
+      }
     };
-  }, [gridSize, pixelColor, animationSpeed, variance]);
+  }, [gap, speed, colors, direction]);
 
   return (
-    <div className={cn("relative overflow-hidden w-full", className)} {...props}>
+    <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
       <canvas
         ref={canvasRef}
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-60 dark:opacity-40"
+        className={`absolute inset-0 z-0 pointer-events-none ${canvasClassName}`}
+        style={{ opacity }}
       />
-      {children}
+      {children && <div className="relative z-10">{children}</div>}
     </div>
   );
 }
+
+export { PixelBackground };

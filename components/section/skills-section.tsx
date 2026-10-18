@@ -11,7 +11,7 @@ const techLogos: { name: string; icon: React.ReactNode }[] = [
     name: "Hermes Agent",
     icon: (
       <div className="flex items-center gap-2">
-        <Icons.hermes className="h-5 w-5 text-amber-500" />
+        <Icons.hermes className="h-5 w-5" />
         <span className="text-sm font-semibold tracking-tight">Hermes</span>
       </div>
     ),
@@ -29,7 +29,7 @@ const techLogos: { name: string; icon: React.ReactNode }[] = [
     name: "OpenAI Codex",
     icon: (
       <div className="flex items-center gap-2">
-        <Icons.codex className="h-5 w-5 text-emerald-500" />
+        <Icons.codex className="h-5 w-5" />
         <span className="text-sm font-semibold tracking-tight">Codex</span>
       </div>
     ),
@@ -47,7 +47,7 @@ const techLogos: { name: string; icon: React.ReactNode }[] = [
     name: "React",
     icon: (
       <div className="flex items-center gap-2">
-        <Icons.react className="h-5 w-5 text-sky-400" />
+        <Icons.react className="h-5 w-5" />
         <span className="text-sm font-semibold tracking-tight">React</span>
       </div>
     ),
@@ -92,7 +92,7 @@ const techLogos: { name: string; icon: React.ReactNode }[] = [
     name: "Tailwind CSS",
     icon: (
       <div className="flex items-center gap-2">
-        <Icons.tailwindcss className="h-5 w-5 text-teal-400" />
+        <Icons.tailwindcss className="h-5 w-5" />
         <span className="text-sm font-semibold tracking-tight">Tailwind CSS</span>
       </div>
     ),

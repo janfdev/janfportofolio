@@ -1,74 +1,130 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
+import { Timeline, TimelineText } from "@/components/ui/timeline";
+import PixelBackground from "@/components/ui/pixel-background";
 import { DATA } from "@/lib/data/resume";
-import { PixelBackground } from "@/components/ui/pixel-background";
-import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
-import { ArrowRight, Terminal } from "lucide-react";
 import Link from "next/link";
+import { ArrowRight, Terminal } from "lucide-react";
 
-export default function Intro() {
+export default function HeroSectionwithPixelBackground() {
   return (
-    <PixelBackground
-      gridSize={30}
-      pixelColor="rgba(100, 116, 139, 0.22)"
-      className="relative isolate flex min-h-[85vh] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex-col justify-between overflow-hidden border-b border-border/40 bg-background/50 pt-24 pb-14 transition-colors duration-300 md:pt-32"
-    >
-      {/* Background Soft Radial Vignette */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,hsl(var(--background))_85%)]" />
-
-      {/* Hero Content Section */}
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-4 text-center sm:px-6">
-        {/* Availability Badge */}
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/80 px-3.5 py-1.5 text-xs font-semibold text-foreground shadow-2xs backdrop-blur-md">
-          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span>Autonomous AI Orchestration & Fullstack Systems</span>
-        </div>
-
-        {/* Main Display Title with Flip Animation */}
-        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row flex-wrap max-w-full px-2">
-          <LayoutTextFlip
-            text="Hi, I'm"
-            textClassName="text-foreground drop-shadow-sm font-extrabold text-3xl sm:text-4xl md:text-5xl"
-            className="border-border/80 bg-background/95 text-foreground shadow-lg"
-            words={[
-              DATA.name,
-              "AI Systems Architect",
-              "Fullstack Craftsman",
-              "Next.js Specialist",
-            ]}
-            duration={2800}
-          />
-        </div>
-
-        {/* Subtitle / Value Proposition */}
-        <p className="mt-6 max-w-2xl text-balance px-4 text-sm sm:text-base md:text-lg font-medium text-muted-foreground leading-relaxed">
-          Crafting <span className="font-bold text-foreground underline decoration-primary underline-offset-4">resilient web architectures</span>, 
-          modular APIs, and modern autonomous agent workflows from system design to production deployment.
-        </p>
-
-        {/* Action Buttons */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-xs sm:text-sm font-semibold text-background shadow-sm transition hover:opacity-90 active:scale-95"
-          >
-            <span>Explore Projects</span>
-            <ArrowRight className="size-4" />
-          </a>
-
-          <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-background/90 px-6 py-3 text-xs sm:text-sm font-semibold text-foreground shadow-2xs backdrop-blur-md transition hover:bg-muted active:scale-95"
-          >
-            <Terminal className="size-4 text-muted-foreground" />
-            <span>Developer Telemetry</span>
-          </Link>
-        </div>
+    <div className="relative min-h-[92vh] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white dark:bg-[#0a0a0a] overflow-hidden border-b border-border/40">
+      {/* Top pixel shimmer header overlay with mask */}
+      <div
+        className="absolute inset-x-0 top-0 h-80 pointer-events-none"
+        style={{
+          maskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 0%, transparent 100%)",
+        }}
+      >
+        <PixelBackground
+          gap={6}
+          speed={60}
+          colors="#1a1a1a,#2a2a2a,#333333,#111111,#d4d4d4,#e5e5e5,#c4c4c4,#bababa"
+          opacity={0.85}
+          direction="top"
+          className="w-full h-full absolute inset-0"
+        />
       </div>
 
-      {/* Bottom subtle edge divider */}
-      <div className="relative z-10 w-full" />
-    </PixelBackground>
+      <div className="relative flex min-h-[92vh] flex-col justify-center items-center px-6 py-20 md:py-28">
+        {/* Eyebrow Label */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8 flex items-center gap-2.5 rounded-full border border-border/60 bg-background/80 px-4 py-1.5 backdrop-blur-md shadow-2xs"
+        >
+          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+            Autonomous Systems
+          </span>
+          <span className="h-px w-4 bg-border" />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+            Fullstack
+          </span>
+        </motion.div>
+
+        {/* Display Title with Timeline Highlight */}
+        <div className="flex flex-col items-center gap-2 max-w-5xl">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.2,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="text-zinc-900 dark:text-white text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-none text-center"
+          >
+            We Architect
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.35,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mt-2"
+          >
+            <Timeline
+              rotation={-1.2}
+              initialLeft={12}
+              minWidth={56}
+              containerClassName="bg-white dark:bg-[#0a0a0a]"
+              handleClassName="bg-white dark:bg-[#0a0a0a] border-yellow-400"
+              handleIndicatorClassName="bg-yellow-400"
+            >
+              <TimelineText className="text-yellow-500 dark:text-yellow-400 text-3xl sm:text-6xl md:text-7xl font-black tracking-tight py-3">
+                Agent Workflows
+              </TimelineText>
+            </Timeline>
+          </motion.div>
+        </div>
+
+        {/* Value Proposition Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+          className="mt-10 max-w-xl text-center text-sm sm:text-base leading-relaxed text-zinc-600 dark:text-zinc-400"
+        >
+          {DATA.description ||
+            "Crafting digital architectures that live at the intersection of autonomous agents, precision APIs, and uncompromising visual intent."}
+        </motion.p>
+
+        {/* Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.65, ease: "easeOut" }}
+          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+        >
+          <a
+            href="#projects"
+            className="border-2 border-yellow-400 bg-yellow-400 px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-black transition-all duration-300 hover:bg-yellow-300 hover:border-yellow-300 hover:-translate-y-0.5 shadow-sm active:scale-95 flex items-center gap-2"
+          >
+            <span>View Projects</span>
+            <ArrowRight className="size-3.5" />
+          </a>
+          <Link
+            href="/dashboard"
+            className="border-2 border-zinc-300 dark:border-zinc-700 bg-background/80 px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-zinc-700 dark:text-zinc-300 transition-all duration-300 hover:border-zinc-500 dark:hover:border-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 backdrop-blur-xs"
+          >
+            <Terminal className="size-3.5" />
+            <span>Telemetry</span>
+          </Link>
+        </motion.div>
+      </div>
+
+      {/* Subtle bottom dividing line */}
+      <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-zinc-300/60 dark:via-zinc-700/40 to-transparent" />
+    </div>
   );
 }

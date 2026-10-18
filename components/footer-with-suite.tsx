@@ -1,125 +1,147 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
 import { DATA } from "@/lib/data/resume";
-import { Icons } from "@/components/icons";
 
-export function FooterWithSuite() {
-  const currentYear = new Date().getFullYear();
+interface NavLink {
+  text: string;
+  url: string;
+}
 
+interface FooterWithSuiteProps {
+  brandName?: string;
+  tagline?: string;
+  navLinks?: NavLink[];
+  socialLinks?: NavLink[];
+  description?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  email?: string;
+  copyright?: string;
+  className?: string;
+}
+
+const defaultNavLinks: NavLink[] = [
+  { text: "Home", url: "/" },
+  { text: "Experience", url: "#work" },
+  { text: "Ecosystem", url: "#skills" },
+  { text: "Projects", url: "#projects" },
+  { text: "Dashboard", url: "/dashboard" },
+  { text: "Virtual Office", url: "https://office.fizaa.me" },
+];
+
+const defaultSocialLinks: NavLink[] = [
+  { text: "GitHub", url: DATA.contact.social.GitHub.url },
+  { text: "LinkedIn", url: DATA.contact.social.LinkedIn.url },
+  { text: "Dahono", url: "https://office.fizaa.me" },
+];
+
+export default function FooterWithSuite({
+  brandName = DATA.initials || "JANF",
+  tagline = "Architecting resilient web systems & autonomous AI agent workflows.",
+  navLinks = defaultNavLinks,
+  socialLinks = defaultSocialLinks,
+  description = "Fullstack Developer & System Architect specializing in autonomous agent workflows, modular backend architectures, and high-performance frontend interfaces.",
+  ctaText = "Initiate Collaboration",
+  ctaUrl = `mailto:${DATA.contact.email}`,
+  email = DATA.contact.email,
+  copyright = `© ${new Date().getFullYear()} ${DATA.name}. All rights reserved.`,
+  className,
+}: FooterWithSuiteProps) {
   return (
-    <footer className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] border-t border-border/40 bg-muted/20 backdrop-blur-xs mt-24">
-      <div className="mx-auto w-full max-w-7xl px-6 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Brand Suite Col */}
-          <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-foreground text-background font-display font-black text-sm">
-                {DATA.initials}
-              </div>
-              <span className="text-base font-bold tracking-tight text-foreground">
-                {DATA.name}
-              </span>
-            </div>
-            <p className="max-w-md text-sm text-muted-foreground leading-relaxed">
-              Designing and engineering resilient web platforms, autonomous AI agent workflows, and modern cloud telemetry systems.
-            </p>
-            <div className="flex items-center gap-2 pt-2">
-              <a
-                href={DATA.contact.social.GitHub.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-foreground transition hover:bg-muted"
-              >
-                <Icons.github className="size-4" />
-              </a>
-              <a
-                href={DATA.contact.social.LinkedIn.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-foreground transition hover:bg-muted"
-              >
-                <Icons.linkedin className="size-4" />
-              </a>
-            </div>
-          </div>
+    <footer
+      className={cn(
+        "w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden bg-white dark:bg-neutral-950 select-none border-t border-neutral-200 dark:border-neutral-800 mt-28",
+        className
+      )}
+    >
+      <div className="grid grid-cols-2 gap-8 px-8 pt-12 pb-4 md:px-14">
+        {/* Navigation Column */}
+        <div className="flex flex-col gap-0">
+          {navLinks.map((link, i) => (
+            <a
+              key={i}
+              href={link.url}
+              className="py-1 text-[11px] tracking-[0.14em] uppercase text-neutral-900 dark:text-neutral-100 hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors duration-200"
+            >
+              {link.text}
+            </a>
+          ))}
 
-          {/* Navigation Col */}
-          <div className="space-y-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
-              Navigation
-            </h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <a href="#about" className="transition hover:text-foreground">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#work" className="transition hover:text-foreground">
-                  Experience
-                </a>
-              </li>
-              <li>
-                <a href="#skills" className="transition hover:text-foreground">
-                  Ecosystem
-                </a>
-              </li>
-              <li>
-                <a href="#projects" className="transition hover:text-foreground">
-                  Projects
-                </a>
-              </li>
-            </ul>
-          </div>
+          <div className="h-6" />
 
-          {/* Ecosystem / Suite Col */}
-          <div className="space-y-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
-              Developer Suite
-            </h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/dashboard" className="transition hover:text-foreground">
-                  Telemetry Dashboard
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="https://office.fizaa.me"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition hover:text-foreground"
-                >
-                  Virtual Office
-                </a>
-              </li>
-              <li>
-                <a
-                  href={DATA.contact.social.GitHub.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition hover:text-foreground"
-                >
-                  GitHub Repositories
-                </a>
-              </li>
-            </ul>
-          </div>
+          {socialLinks.map((link, i) => (
+            <a
+              key={i}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="py-1 text-[11px] tracking-[0.14em] uppercase text-neutral-900 dark:text-neutral-100 hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors duration-200"
+            >
+              {link.text}
+            </a>
+          ))}
         </div>
 
-        {/* Bottom Line */}
-        <div className="flex flex-col sm:flex-row items-center justify-between border-t border-border/40 pt-6 text-xs text-muted-foreground gap-4">
-          <p>© {currentYear} {DATA.name}. Built with Next.js, Tailwind CSS, & AI Agent Tooling.</p>
-          <p className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            <span>Systems operational & active</span>
+        {/* Narrative & Contact Column */}
+        <div className="flex flex-col gap-0">
+          <p className="text-[11px] tracking-[0.12em] uppercase text-neutral-900 dark:text-neutral-100 leading-relaxed max-w-md">
+            {description}
+          </p>
+
+          <div className="h-6" />
+
+          <p className="text-[11px] tracking-[0.12em] uppercase text-neutral-400 dark:text-neutral-500 leading-relaxed">
+            Have a project, autonomous agent integration, or architecture review?
+          </p>
+
+          <div className="h-4" />
+
+          <a
+            href={ctaUrl}
+            className="text-[11px] tracking-[0.14em] uppercase text-neutral-900 dark:text-neutral-100 hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors duration-200 font-semibold"
+          >
+            {ctaText} &rarr;
+          </a>
+
+          <div className="h-4" />
+
+          <a
+            href={`mailto:${email}`}
+            className="text-[11px] tracking-[0.14em] uppercase text-neutral-900 dark:text-neutral-100 hover:text-neutral-400 dark:hover:text-neutral-500 transition-colors duration-200 break-all"
+          >
+            {email}
+          </a>
+
+          <div className="h-4" />
+
+          <p className="text-[11px] tracking-[0.12em] uppercase text-neutral-400 dark:text-neutral-500">
+            {copyright}
           </p>
         </div>
+      </div>
+
+      {/* Oversized Brand Typography */}
+      <p
+        className="inset-x-0 text-center font-black tracking-tighter text-neutral-900 dark:text-neutral-100 leading-none select-none my-2"
+        style={{ fontSize: "clamp(4rem, 16vw, 15rem)" }}
+      >
+        {brandName}
+      </p>
+
+      {/* Bottom Legal / Tagline Strip */}
+      <div className="flex items-center justify-between px-8 md:px-14 py-4 border-t border-neutral-200 dark:border-neutral-800">
+        <p className="text-[10px] tracking-[0.14em] uppercase text-neutral-400 dark:text-neutral-500">
+          {tagline}
+        </p>
+        <p className="text-[10px] tracking-[0.14em] uppercase text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5">
+          <span className="size-1.5 rounded-full bg-emerald-500" />
+          <span>Active on Dahono Cloud</span>
+        </p>
       </div>
     </footer>
   );
 }
+
+export { FooterWithSuite };
