@@ -12,6 +12,7 @@ export default function ProjectCard({
   title,
   description,
   tags,
+  tagsIcon,
   imageUrl,
   url,
   github,
@@ -32,7 +33,7 @@ export default function ProjectCard({
 
       {/* Content Container */}
       <div className="flex flex-col flex-1 p-5 sm:p-6 justify-between">
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div className="flex items-start justify-between gap-2">
             <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
               {title}
@@ -54,9 +55,35 @@ export default function ProjectCard({
             {description}
           </p>
 
-          {/* Tags */}
+          {/* Tech Stack Visual Icons */}
+          {tagsIcon && tagsIcon.length > 0 && (
+            <div className="space-y-1.5 pt-1">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/80">
+                Tech Stack
+              </span>
+              <div className="flex flex-wrap items-center gap-1.5">
+                {tagsIcon.map((icon, index) => (
+                  <div
+                    key={index}
+                    className="flex size-7 items-center justify-center rounded-md border border-border/60 bg-muted/40 p-1.5 shadow-2xs transition hover:scale-110 hover:border-border"
+                  >
+                    <Image
+                      src={icon}
+                      alt="tech icon"
+                      width={18}
+                      height={18}
+                      className="size-4.5 object-contain"
+                      unoptimized
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Text Badges */}
           {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 pt-1">
+            <div className="flex flex-wrap gap-1 pt-1">
               {tags.map((tag) => (
                 <Badge
                   key={tag}
@@ -71,7 +98,7 @@ export default function ProjectCard({
         </div>
 
         {/* Action Link Footer */}
-        <div className="flex items-center gap-2 pt-5 mt-4 border-t border-border/40 text-xs">
+        <div className="flex items-center gap-2 pt-5 mt-5 border-t border-border/40 text-xs">
           {url && (
             <Link
               href={url}
