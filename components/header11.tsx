@@ -52,17 +52,17 @@ export function Header11() {
 
         {/* Center Links */}
         <div className="flex items-center gap-7 text-xs font-semibold text-muted-foreground">
-          <Link href="/#about" className="transition-colors hover:text-foreground">
+          <Link href="/" className="transition-colors hover:text-foreground">
+            Home
+          </Link>
+          <Link href="/work" className="transition-colors hover:text-foreground">
+            Work
+          </Link>
+          <Link href="/about" className="transition-colors hover:text-foreground">
             About
           </Link>
-          <Link href="/#work" className="transition-colors hover:text-foreground">
-            Experience
-          </Link>
-          <Link href="/#skills" className="transition-colors hover:text-foreground">
-            Ecosystem
-          </Link>
-          <Link href="/#projects" className="transition-colors hover:text-foreground">
-            Projects
+          <Link href="/contact" className="transition-colors hover:text-foreground">
+            Contact
           </Link>
         </div>
 

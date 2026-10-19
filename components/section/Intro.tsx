@@ -105,13 +105,13 @@ export default function HeroSectionwithPixelBackground() {
           transition={{ duration: 0.6, delay: 0.65, ease: "easeOut" }}
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
-          <a
-            href="#projects"
+          <Link
+            href="/work"
             className="border-2 border-emerald-500 bg-emerald-500 px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white dark:text-zinc-950 transition-all duration-300 hover:bg-emerald-600 hover:border-emerald-600 dark:hover:bg-emerald-400 dark:hover:border-emerald-400 hover:-translate-y-0.5 shadow-sm active:scale-95 flex items-center gap-2"
           >
-            <span>View Projects</span>
+            <span>Explore Work</span>
             <ArrowRight className="size-3.5" />
-          </a>
+          </Link>
           <Link
             href="/contact"
             className="border-2 border-zinc-300 dark:border-zinc-700 bg-background/80 px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-zinc-700 dark:text-zinc-300 transition-all duration-300 hover:border-emerald-500 dark:hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 backdrop-blur-xs"

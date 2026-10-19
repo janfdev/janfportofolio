@@ -40,17 +40,14 @@ export default function FooterWithSuite({ className }: FooterSimpleProps) {
 
           {/* Quick Nav Links */}
           <nav aria-label="Footer Nav" className="flex flex-wrap items-center justify-center gap-6 text-xs font-medium text-muted-foreground">
-            <Link href="/#about" className="transition-colors hover:text-foreground">
+            <Link href="/" className="transition-colors hover:text-foreground">
+              Home
+            </Link>
+            <Link href="/work" className="transition-colors hover:text-foreground">
+              Work
+            </Link>
+            <Link href="/about" className="transition-colors hover:text-foreground">
               About
-            </Link>
-            <Link href="/#work" className="transition-colors hover:text-foreground">
-              Experience
-            </Link>
-            <Link href="/#skills" className="transition-colors hover:text-foreground">
-              Ecosystem
-            </Link>
-            <Link href="/#projects" className="transition-colors hover:text-foreground">
-              Projects
             </Link>
             <Link href="/contact" className="transition-colors hover:text-foreground">
               Contact

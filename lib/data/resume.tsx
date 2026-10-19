@@ -1,5 +1,5 @@
 import { Icons } from "../../components/icons";
-import { HomeIcon, Code, Mail } from "lucide-react";
+import { HomeIcon, Briefcase, User, Mail } from "lucide-react";
 
 export type ProjectCategory = "All" | "Fullstack" | "Backend & API" | "AI & Systems";
 
@@ -24,15 +24,15 @@ Currently, I’m exploring **deployment** and **containerization** to strengthen
       icon: HomeIcon,
       label: "Home"
     },
-    // {
-    //   href: "/blog",
-    //   icon: BookText,
-    //   label: "Blog",
-    // },
     {
-      href: "/#projects",
-      icon: Code,
-      label: "Projects"
+      href: "/work",
+      icon: Briefcase,
+      label: "Work"
+    },
+    {
+      href: "/about",
+      icon: User,
+      label: "About"
     },
     {
       href: "/contact",
