@@ -1,6 +1,8 @@
 import { Icons } from "../../components/icons";
 import { HomeIcon, Code, Mail } from "lucide-react";
 
+export type ProjectCategory = "All" | "Fullstack" | "Backend & API" | "AI & Systems";
+
 export const DATA = {
   name: "Rizqi Noor Fauzan",
   initials: "RF",
@@ -28,7 +30,7 @@ Currently, I’m exploring **deployment** and **containerization** to strengthen
     //   label: "Blog",
     // },
     {
-      href: "#projects",
+      href: "/#projects",
       icon: Code,
       label: "Projects"
     },
@@ -123,8 +125,26 @@ Implemented REST API integration to handle dynamic data rendering and user inter
   projects: [
     {
       title: "Smartseum",
-      description: "Platform Museum Interaktif 3D",
-      tags: ["Express JS", "Node JS", "Prisma", "PostgreSQL"],
+      slug: "smartseum",
+      description: "Interactive 3D Museum & Heritage Exploration Platform with Real-time AI Assistant",
+      category: "Fullstack" as const,
+      role: "Lead Fullstack & AI Engineer",
+      year: "2024",
+      problem: "Museum visitors and students struggle to engage with static artifacts without interactive historical context or personalized guides.",
+      solution: "Engineered an immersive web platform combining 3D interactive exhibit viewers, QR code point-of-interest scanning, and Google Gemini AI conversational retrieval.",
+      architectureHighlights: [
+        "Role-based multi-tenant architecture for Curators, Educators, and Public Visitors",
+        "Better-Auth session management with Drizzle ORM on Neon Serverless Postgres",
+        "AI conversational layer powered by Google Gemini and Groq LPU with sub-400ms context streaming",
+        "Cloudinary dynamic image transformation for high-resolution artifact galleries"
+      ],
+      metrics: [
+        { label: "AI Latency", value: "< 400ms" },
+        { label: "Exhibit Assets", value: "3D + WebP" },
+        { label: "Auth Flow", value: "OAuth & Session" }
+      ],
+      overview: "Smartseum bridges physical museum curation with modern digital experiences. Visitors explore museum galleries through interactive 3D models and consult an AI conversational companion capable of explaining historical provenance and cultural significance in real time.",
+      tags: ["Next.js", "React 19", "Drizzle ORM", "Neon Postgres", "Better-Auth", "Gemini AI"],
       tagsIcon: [
         "/assets/icon/nextjs.svg",
         "/assets/icon/better-auth.svg",
@@ -141,8 +161,26 @@ Implemented REST API integration to handle dynamic data rendering and user inter
     },
     {
       title: "Quavity",
-      description: "AI Project Management Platform",
-      tags: ["Express JS", "Node JS", "Prisma", "PostgreSQL"],
+      slug: "quavity",
+      description: "AI-Augmented Collaborative Project Management Platform",
+      category: "Fullstack" as const,
+      role: "Fullstack Architect",
+      year: "2024",
+      problem: "Cross-functional engineering teams suffer from fragmented project planning, repetitive task breakdown, and manual sprint backlog grooming.",
+      solution: "Designed a high-velocity project management platform with automated sprint planning, AI ticket decomposition, and real-time kanban workflow execution.",
+      architectureHighlights: [
+        "Next.js App Router with React 19 Server Components and optimistic UI mutations",
+        "Drizzle ORM schema migrations over Neon PostgreSQL with transactional rollbacks",
+        "Automated task synthesis and sub-task estimation powered by Google Gemini 1.5",
+        "Modular UI system built on shadcn/ui and Tailwind CSS with light and dark mode parity"
+      ],
+      metrics: [
+        { label: "Task Breakdown", value: "Instant AI" },
+        { label: "Database", value: "Neon Serverless" },
+        { label: "UI Response", value: "Optimistic" }
+      ],
+      overview: "Quavity simplifies team project workflows from ideation to delivery. It combines intuitive task boards with AI-driven task estimation and sprint summary generation.",
+      tags: ["Next.js", "Drizzle ORM", "Neon Postgres", "Better-Auth", "Gemini AI", "Tailwind"],
       tagsIcon: [
         "/assets/icon/nextjs.svg",
         "/assets/icon/better-auth.svg",
@@ -158,8 +196,26 @@ Implemented REST API integration to handle dynamic data rendering and user inter
     },
     {
       title: "API PUBLIC",
-      description: "API Public for testing",
-      tags: ["Express JS", "Node JS", "Prisma", "PostgreSQL"],
+      slug: "api-public",
+      description: "High-Throughput Open REST API Gateway & Developer Testing Sandbox",
+      category: "Backend & API" as const,
+      role: "Backend Engineer",
+      year: "2024",
+      problem: "Frontend and mobile developers frequently need reliable, documented, and CORS-friendly mock endpoints for testing auth, pagination, and file payloads without spinning up complex local backends.",
+      solution: "Engineered a hardened Express.js and Node.js REST API gateway with auto-generated OpenAPI/Swagger documentation, rate limiting, and Supabase PostgreSQL persistence.",
+      architectureHighlights: [
+        "Express.js backend with Prisma ORM and strict TypeScript domain DTO validation",
+        "Comprehensive OpenAPI (Swagger) interactive documentation at /docs",
+        "Token bucket rate limiting, CORS configuration, and security headers via Helmet",
+        "Supabase PostgreSQL database with automated seed data matrices"
+      ],
+      metrics: [
+        { label: "Documentation", value: "100% Swagger" },
+        { label: "Throughput", value: "Low Latency" },
+        { label: "Persistence", value: "Supabase PG" }
+      ],
+      overview: "API Public provides a robust sandbox environment for developers building modern client applications, featuring complete endpoints for authentication, resource CRUD, file simulation, and paginated datasets.",
+      tags: ["Express.js", "Node.js", "Prisma ORM", "PostgreSQL", "Swagger"],
       tagsIcon: [
         "/assets/icon/expressjs_dark.svg",
         "/assets/icon/nodejs.svg",
@@ -172,8 +228,26 @@ Implemented REST API integration to handle dynamic data rendering and user inter
     },
     {
       title: "ReciVerse",
-      description: "Recipe App - Find Your Family's Favorite Recipes",
-      tags: ["React", "NextJS", "Prisma", "NextAuth", "Neon", "Tailwind"],
+      slug: "reciverse",
+      description: "Social Culinary Community & Recipe Discovery Platform",
+      category: "Fullstack" as const,
+      role: "Fullstack Developer",
+      year: "2024",
+      problem: "Home chefs and cooking enthusiasts need a clean, distraction-free platform to curate family recipes, calculate nutritional portions, and share step-by-step guides.",
+      solution: "Built a responsive culinary platform with Next.js, NextAuth authentication, Neon PostgreSQL database, and dynamic portion scaling algorithms.",
+      architectureHighlights: [
+        "Next.js App Router with server-rendered search and tag filtering",
+        "Prisma ORM schema with relational bookmarks, ratings, and ingredient taxonomies",
+        "NextAuth session-based access control protecting user recipe workbenches",
+        "Tailwind CSS responsive design with mobile-first layout and high-contrast typography"
+      ],
+      metrics: [
+        { label: "Render Mode", value: "SSR + SSG" },
+        { label: "Auth Provider", value: "NextAuth.js" },
+        { label: "Search Index", value: "Instant Filter" }
+      ],
+      overview: "ReciVerse makes discovering and publishing home-cooked meals effortless. Users can bookmark favorite creations, adjust ingredient portions dynamically, and follow step-by-step cooking timers.",
+      tags: ["Next.js", "Prisma ORM", "Neon Postgres", "NextAuth", "Tailwind CSS"],
       tagsIcon: [
         "/assets/icon/nextjs.svg",
         "/assets/icon/prisma_dark.svg",
@@ -187,8 +261,26 @@ Implemented REST API integration to handle dynamic data rendering and user inter
     },
     {
       title: "Nota-Wota",
-      description: "Note-taking App - Organize Your Thoughts",
-      tags: ["Mongo DB", "Express JS", "React JS", "Node JS"],
+      slug: "nota-wota",
+      description: "Minimalist Distraction-Free Note & Knowledge Workspace",
+      category: "Fullstack" as const,
+      role: "Fullstack Developer",
+      year: "2023",
+      problem: "Users often get overwhelmed by bloated note-taking applications with excessive formatting buttons when all they need is fast, reliable markdown-friendly capture.",
+      solution: "Constructed an agile MERN-stack note system offering instant search, colored label organization, and resilient MongoDB document storage.",
+      architectureHighlights: [
+        "React client with responsive state transitions and rapid search indexing",
+        "Express.js RESTful API handling note categorization, pinned notes, and archiving",
+        "MongoDB Atlas document database with indexing on search tokens and timestamps",
+        "Node.js runtime with JWT token authentication and CORS protection"
+      ],
+      metrics: [
+        { label: "Architecture", value: "MERN Stack" },
+        { label: "Search Engine", value: "Token-Indexed" },
+        { label: "Note Capture", value: "Sub-second" }
+      ],
+      overview: "Nota-Wota focuses on speed and simplicity. It provides an uncluttered workspace where ideas, to-do lists, and quick code snippets can be organized with minimal friction.",
+      tags: ["React", "Express.js", "Node.js", "MongoDB", "Tailwind"],
       tagsIcon: [
         "/assets/icon/mongodb.svg",
         "/assets/icon/expressjs_dark.svg",
@@ -201,3 +293,6 @@ Implemented REST API integration to handle dynamic data rendering and user inter
     }
   ]
 };
+
+export type ProjectItem = (typeof DATA.projects)[number];
+

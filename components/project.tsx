@@ -42,16 +42,22 @@ function formatTechLabel(iconPath: string): string {
 
 export default function ProjectCard({
   title,
+  slug,
   description,
+  category,
+  role,
+  year,
   tagsIcon,
   imageUrl,
   url,
   github,
 }: ProjectProps) {
+  const detailHref = slug ? `/projects/${slug}` : url || "#";
+
   return (
     <div className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/60 bg-card/50 transition-all duration-300 hover:border-border hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1">
       {/* Thumbnail Container */}
-      <div className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border/40">
+      <Link href={detailHref} className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border/40 block">
         <Image
           src={imageUrl}
           alt={`${title} project preview`}
@@ -60,35 +66,49 @@ export default function ProjectCard({
           className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      </div>
+        {category && (
+          <div className="absolute top-3 left-3 z-10">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold bg-background/80 backdrop-blur-md text-foreground border border-border/60 shadow-xs">
+              {category}
+            </span>
+          </div>
+        )}
+      </Link>
 
       {/* Content Container */}
       <div className="flex flex-col flex-1 p-5 sm:p-6 justify-between">
-        <div className="space-y-4">
-          <div className="flex items-start justify-between gap-2">
-            <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
-              {title}
-            </h3>
-            {url && (
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Visit ${title}`}
-                className="text-muted-foreground transition hover:text-foreground p-1"
-              >
-                <ArrowUpRight className="size-4" />
-              </a>
+        <div className="space-y-3.5">
+          <div className="space-y-1">
+            <div className="flex items-start justify-between gap-2">
+              <Link href={detailHref} className="text-lg sm:text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                {title}
+              </Link>
+              {url && (
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit ${title}`}
+                  className="text-muted-foreground transition hover:text-foreground p-1"
+                >
+                  <ArrowUpRight className="size-4" />
+                </a>
+              )}
+            </div>
+            {(role || year) && (
+              <p className="text-[11px] font-medium text-muted-foreground/80">
+                {role} {year && `(${year})`}
+              </p>
             )}
           </div>
 
-          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 leading-relaxed">
             {description}
           </p>
 
           {/* Tech Stack Visual Icons with Tooltip (No Raw Text) */}
           {tagsIcon && tagsIcon.length > 0 && (
-            <div className="space-y-2 pt-1">
+            <div className="space-y-1.5 pt-1">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/80">
                 Tech Stack
               </span>
@@ -123,30 +143,40 @@ export default function ProjectCard({
         </div>
 
         {/* Action Link Footer */}
-        <div className="flex items-center gap-2 pt-5 mt-5 border-t border-border/40 text-xs">
-          {url && (
-            <Link
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-foreground px-3.5 py-1.5 font-semibold text-background transition hover:opacity-90 active:scale-95"
-            >
-              <Globe className="size-3.5" />
-              <span>Preview</span>
-            </Link>
-          )}
+        <div className="flex items-center justify-between pt-4 mt-4 border-t border-border/40 text-xs">
+          <Link
+            href={detailHref}
+            className="inline-flex items-center gap-1 font-semibold text-primary hover:underline transition-colors"
+          >
+            <span>Studi Kasus</span>
+            <ArrowUpRight className="size-3.5" />
+          </Link>
 
-          {github && (
-            <Link
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-background px-3.5 py-1.5 font-semibold text-foreground transition hover:bg-muted active:scale-95"
-            >
-              <Github className="size-3.5" />
-              <span>Code</span>
-            </Link>
-          )}
+          <div className="flex items-center gap-2">
+            {url && (
+              <Link
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-foreground px-3 py-1.5 font-semibold text-background transition hover:opacity-90 active:scale-95 text-[11px]"
+              >
+                <Globe className="size-3" />
+                <span>Demo</span>
+              </Link>
+            )}
+
+            {github && (
+              <Link
+                href={github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-background px-3 py-1.5 font-semibold text-foreground transition hover:bg-muted active:scale-95 text-[11px]"
+              >
+                <Github className="size-3" />
+                <span>Code</span>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>
