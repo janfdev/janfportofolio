@@ -29,7 +29,7 @@ export default function Home() {
         <GithubContribution />
       </div>
 
-      {/* 6. CareMetric Footer */}
+      {/* 6. janfdev Animated Footer */}
       <CaremetricFooter />
     </main>
   );
