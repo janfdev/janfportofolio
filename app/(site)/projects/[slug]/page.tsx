@@ -61,7 +61,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5 rounded-full border border-border/60 bg-muted/20 hover:bg-muted/50"
           >
             <ArrowLeft className="size-3.5" />
-            <span>Kembali ke Galeri Proyek</span>
+            <span>Back to Projects</span>
           </Link>
         </div>
 
@@ -73,10 +73,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               {project.category}
             </span>
             <span className="text-xs text-muted-foreground font-medium px-2.5 py-1 rounded-md bg-muted/40 border border-border/40">
-              Tahun {project.year}
+              {project.year}
             </span>
             <span className="text-xs text-muted-foreground font-medium px-2.5 py-1 rounded-md bg-muted/40 border border-border/40">
-              Peran: {project.role}
+              Role: {project.role}
             </span>
           </div>
 
@@ -97,7 +97,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-foreground text-background font-semibold text-xs sm:text-sm hover:opacity-90 transition-opacity shadow-sm"
               >
-                <span>Kunjungi Platform Live</span>
+                <span>Live Demo</span>
                 <ArrowUpRight className="size-4" />
               </a>
             )}
@@ -109,7 +109,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border/80 bg-card font-semibold text-xs sm:text-sm text-foreground hover:bg-muted/50 transition-colors shadow-sm"
               >
                 <Github className="size-4" />
-                <span>Lihat Kode di GitHub</span>
+                <span>Source Code</span>
               </a>
             )}
           </div>
@@ -131,7 +131,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         {project.metrics && project.metrics.length > 0 && (
           <section className="mb-12">
             <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">
-              Metrik & Keunggulan Rekayasa
+              Key Metrics & Engineering Highlights
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {project.metrics.map((metric, idx) => (
@@ -161,10 +161,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           >
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
               <span className="size-2 rounded-full bg-amber-500" />
-              Latar Belakang & Masalah
+              Problem Statement
             </div>
             <h3 className="text-lg font-bold text-foreground">
-              Tantangan Nyata yang Dihadapi
+              Challenge & Context
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {project.problem}
@@ -178,10 +178,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           >
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
               <span className="size-2 rounded-full bg-emerald-500" />
-              Pendekatan Solusi
+              Engineering Solution
             </div>
             <h3 className="text-lg font-bold text-foreground">
-              Strategi Rekayasa Sistem
+              Technical Strategy
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {project.solution}
@@ -197,10 +197,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
               <Layers className="size-3.5" />
-              Arsitektur Sistem
+              System Architecture
             </div>
             <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-              Sorotan Implementasi Teknis
+              Technical Implementation Highlights
             </h3>
             <p className="text-sm text-muted-foreground">
               {project.overview}
@@ -223,7 +223,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         {/* Tech Stack Chips */}
         <section className="space-y-4 mb-16">
           <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
-            Tumpukan Teknologi yang Digunakan
+            Technologies Used
           </h3>
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
@@ -247,7 +247,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               >
                 <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground group-hover:text-foreground">
                   <ArrowLeft className="size-3 transition-transform group-hover:-translate-x-1" />
-                  <span>Proyek Sebelumnya</span>
+                  <span>Previous Project</span>
                 </span>
                 <span className="text-sm font-bold text-foreground mt-0.5">
                   {prevProject.title}
@@ -263,7 +263,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 className="group flex flex-col items-end w-full sm:w-auto p-4 rounded-xl border border-border/40 hover:border-border bg-card/30 hover:bg-card/60 transition-colors text-right"
               >
                 <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground group-hover:text-foreground">
-                  <span>Proyek Selanjutnya</span>
+                  <span>Next Project</span>
                   <ArrowRight className="size-3 transition-transform group-hover:translate-x-1" />
                 </span>
                 <span className="text-sm font-bold text-foreground mt-0.5">

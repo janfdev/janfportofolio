@@ -7,7 +7,6 @@ import PixelBackground from "@/components/ui/pixel-background";
 import { DATA } from "@/lib/data/resume";
 import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
-import { HeroMotionShowcase } from "@/components/hero-motion-showcase";
 
 export default function HeroSectionwithPixelBackground() {
   return (
@@ -121,9 +120,6 @@ export default function HeroSectionwithPixelBackground() {
             <span>Get in Touch</span>
           </Link>
         </motion.div>
-
-        {/* Interactive Motion Project Showcase Carousel */}
-        <HeroMotionShowcase />
       </div>
 
       {/* Subtle bottom dividing line */}

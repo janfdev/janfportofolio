@@ -188,10 +188,10 @@ export default function ProjectCard({
         <div className="flex items-center justify-between pt-4 mt-4 border-t border-border/40 text-xs">
           <Link
             href={detailHref}
-            className="inline-flex items-center gap-1 font-semibold text-primary hover:underline transition-colors"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline decoration-emerald-500/50 underline-offset-4"
           >
-            <span>Studi Kasus</span>
-            <ArrowUpRight className="size-3.5" />
+            <span>Case Study</span>
+            <ArrowUpRight className="size-3" />
           </Link>
 
           <div className="flex items-center gap-2">

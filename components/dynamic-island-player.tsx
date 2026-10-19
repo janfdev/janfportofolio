@@ -180,7 +180,7 @@ export function DynamicIslandPlayer({
                 type="button"
                 onClick={handleTogglePlay}
                 className="shrink-0 p-1 rounded-full bg-white/10 hover:bg-white/20 text-emerald-400 active:scale-90 transition-transform"
-                aria-label={isPlaying ? "Jeda musik" : "Putar musik"}
+                aria-label={isPlaying ? "Pause music" : "Play music"}
               >
                 {isPlaying ? (
                   <Pause className="size-3 fill-emerald-400" />
@@ -231,7 +231,7 @@ export function DynamicIslandPlayer({
                     setIsExpanded(false);
                   }}
                   className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-zinc-400 hover:text-white transition-colors"
-                  aria-label="Tutup island"
+                  aria-label="Minimize player"
                 >
                   <ChevronUp className="size-4" />
                 </button>
@@ -262,7 +262,7 @@ export function DynamicIslandPlayer({
                   type="button"
                   onClick={handlePrev}
                   className="p-2 rounded-full text-zinc-300 hover:text-white hover:bg-white/10 active:scale-95 transition-all"
-                  aria-label="Lagu sebelumnya"
+                  aria-label="Previous track"
                 >
                   <SkipBack className="size-5 fill-current" />
                 </button>
@@ -271,7 +271,7 @@ export function DynamicIslandPlayer({
                   type="button"
                   onClick={handleTogglePlay}
                   className="size-11 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 flex items-center justify-center shadow-lg shadow-emerald-500/25 active:scale-95 transition-all"
-                  aria-label={isPlaying ? "Jeda musik" : "Putar musik"}
+                  aria-label={isPlaying ? "Pause music" : "Play music"}
                 >
                   {isPlaying ? (
                     <Pause className="size-5 fill-current" />
@@ -284,7 +284,7 @@ export function DynamicIslandPlayer({
                   type="button"
                   onClick={handleNext}
                   className="p-2 rounded-full text-zinc-300 hover:text-white hover:bg-white/10 active:scale-95 transition-all"
-                  aria-label="Lagu berikutnya"
+                  aria-label="Next track"
                 >
                   <SkipForward className="size-5 fill-current" />
                 </button>
@@ -293,7 +293,7 @@ export function DynamicIslandPlayer({
               {/* Playlist Quick Switcher */}
               <div className="flex flex-col gap-1.5 pt-2 border-t border-white/10">
                 <span className="text-[10px] uppercase tracking-wider font-semibold text-zinc-400 px-1">
-                  Pilih Lagu ({tracks.length})
+                  Playlist ({tracks.length})
                 </span>
                 <div className="flex flex-col gap-1">
                   {tracks.map((track, idx) => {
@@ -316,7 +316,7 @@ export function DynamicIslandPlayer({
                         <span className="truncate">{track.title}</span>
                         {isSelected && isPlaying && (
                           <span className="shrink-0 text-[10px] text-emerald-400">
-                            Memutar
+                            Playing
                           </span>
                         )}
                       </button>

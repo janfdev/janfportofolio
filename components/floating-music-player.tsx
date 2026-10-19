@@ -226,7 +226,7 @@ export function FloatingMusicPlayer() {
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
           className="size-12 rounded-full border border-border/60 bg-background/80 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all text-foreground cursor-pointer group"
-          aria-label={isOpen ? "Tutup pemutar musik" : "Buka pemutar musik"}
+          aria-label={isOpen ? "Close music player" : "Open music player"}
         >
           <Disc3
             className={`size-6 text-emerald-500 transition-transform duration-700 ${

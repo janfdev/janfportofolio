@@ -49,21 +49,21 @@ export default function ContactPage() {
     setErrorMessage("");
 
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setErrorMessage("Harap lengkapi semua kolom yang wajib diisi.");
+      setErrorMessage("Please fill in all required fields.");
       return;
     }
 
     // Basic email check
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email.trim())) {
-      setErrorMessage("Format email tidak valid. Silakan periksa kembali.");
+      setErrorMessage("Invalid email format. Please verify and try again.");
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      // Simpan ke local storage dashboard (janfporto-dashboard-v1) agar langsung sinkron ke dashboard/pesan
+      // Save to local storage dashboard (janfporto-dashboard-v1)
       const KEY = "janfporto-dashboard-v1";
       const raw = localStorage.getItem(KEY);
       if (raw) {
@@ -84,20 +84,17 @@ export default function ContactPage() {
           parsed.seq = nextId;
           localStorage.setItem(KEY, JSON.stringify(parsed));
         } catch {
-          // Abaikan kesalahan parse
+          // Ignore parse errors
         }
       }
 
-      // Hook point: Tempat konfigurasi integrasi email eksternal (Resend, Nodemailer, dsb.)
-      // Contoh: await fetch("/api/send-email", { method: "POST", body: JSON.stringify(formData) });
-
-      // Simulasi delay pengiriman
+      // Simulated dispatch latency
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       setIsSubmitted(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch {
-      setErrorMessage("Gagal mengirim pesan. Silakan coba kembali nanti.");
+      setErrorMessage("Failed to send message. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
@@ -113,23 +110,23 @@ export default function ContactPage() {
             className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors group"
           >
             <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-1" />
-            <span>Kembali ke Beranda</span>
+            <span>Back to Home</span>
           </Link>
 
           {/* Availability Status Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
             <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Terbuka untuk Peluang Kerja & Kolaborasi</span>
+            <span>Available for New Opportunities & Collaboration</span>
           </div>
         </div>
 
         {/* Header Section */}
         <div className="flex flex-col gap-3 max-w-2xl">
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
-            Hubungi Saya
+            Get in Touch
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Punya ide proyek, tawaran kerja, pertanyaan teknis, atau ingin sekadar berdiskusi tentang software engineering? Kirimkan pesan Anda melalui formulir di bawah ini atau melalui kanal kontak langsung.
+            Have a project in mind, an engineering inquiry, or want to discuss fullstack architecture? Drop a message using the form below or connect through direct channels.
           </p>
         </div>
 
@@ -147,7 +144,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                        Email Resmi
+                        Official Email
                       </p>
                       <a
                         href={`mailto:${DATA.contact.email}`}
@@ -170,12 +167,12 @@ export default function ContactPage() {
                     {copied ? (
                       <>
                         <Check className="size-3.5 text-emerald-500" />
-                        <span className="text-emerald-500 font-medium">Tersalin!</span>
+                        <span className="text-emerald-500 font-medium">Copied!</span>
                       </>
                     ) : (
                       <>
                         <Copy className="size-3.5" />
-                        <span>Salin Email</span>
+                        <span>Copy Email</span>
                       </>
                     )}
                   </Button>
@@ -185,7 +182,7 @@ export default function ContactPage() {
                     size="sm"
                     className="flex-1 text-xs gap-1.5 h-8 bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-600 dark:text-zinc-950 font-semibold"
                   >
-                    <a href={`mailto:${DATA.contact.email}`}>Kirim Email</a>
+                    <a href={`mailto:${DATA.contact.email}`}>Send Email</a>
                   </Button>
                 </div>
               </CardContent>
@@ -198,7 +195,7 @@ export default function ContactPage() {
                   <MapPin className="size-4" />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Lokasi</p>
+                  <p className="text-xs text-muted-foreground">Location</p>
                   <p className="text-sm font-semibold text-foreground">{DATA.location}</p>
                 </div>
               </div>
@@ -208,8 +205,8 @@ export default function ContactPage() {
                   <Clock className="size-4" />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Waktu Respons</p>
-                  <p className="text-sm font-semibold text-foreground">Biasanya 1x24 jam</p>
+                  <p className="text-xs text-muted-foreground">Response Time</p>
+                  <p className="text-sm font-semibold text-foreground">Within 24 hours</p>
                 </div>
               </div>
             </div>
@@ -217,7 +214,7 @@ export default function ContactPage() {
             {/* Social Media Links */}
             <div className="flex flex-col gap-2.5 p-5 rounded-xl border border-border/50 bg-card/40">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                Kanal Profesional
+                Professional Channels
               </p>
               <div className="flex flex-col gap-2">
                 <a
@@ -263,9 +260,9 @@ export default function ContactPage() {
                       <Sparkles className="size-7" />
                     </div>
                     <div className="flex flex-col gap-1.5 max-w-md">
-                      <h3 className="text-xl font-bold text-foreground">Pesan Terkirim!</h3>
+                      <h3 className="text-xl font-bold text-foreground">Message Delivered!</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        Terima kasih sudah menghubungi. Pesan Anda telah tersimpan dan akan segera saya balas melalui email yang Anda cantumkan.
+                        Thank you for reaching out. Your message has been received and I will get back to you shortly.
                       </p>
                     </div>
                     <Button
@@ -275,14 +272,14 @@ export default function ContactPage() {
                       onClick={() => setIsSubmitted(false)}
                       className="mt-2 text-xs cursor-pointer"
                     >
-                      Kirim Pesan Lain
+                      Send Another Message
                     </Button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     <div className="flex items-center gap-2 border-b border-border/40 pb-3">
                       <MessageSquare className="size-4.5 text-emerald-500" />
-                      <h2 className="text-base font-semibold text-foreground">Kirim Pesan Langsung</h2>
+                      <h2 className="text-base font-semibold text-foreground">Send a Message</h2>
                     </div>
 
                     {errorMessage && (
@@ -294,12 +291,12 @@ export default function ContactPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Name Field */}
                       <div>
-                        <Label htmlFor="contact-name">Nama Lengkap *</Label>
+                        <Label htmlFor="contact-name">Full Name *</Label>
                         <Input
                           id="contact-name"
                           type="text"
                           required
-                          placeholder="Nama Anda"
+                          placeholder="Your Name"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           className="mt-1"
@@ -308,7 +305,7 @@ export default function ContactPage() {
 
                       {/* Email Field */}
                       <div>
-                        <Label htmlFor="contact-email">Alamat Email *</Label>
+                        <Label htmlFor="contact-email">Email Address *</Label>
                         <Input
                           id="contact-email"
                           type="email"
@@ -323,11 +320,11 @@ export default function ContactPage() {
 
                     {/* Subject Field */}
                     <div>
-                      <Label htmlFor="contact-subject">Subjek atau Topik (Opsional)</Label>
+                      <Label htmlFor="contact-subject">Subject (Optional)</Label>
                       <Input
                         id="contact-subject"
                         type="text"
-                        placeholder="Contoh: Diskusi Proyek Web / Tawaran Kolaborasi"
+                        placeholder="e.g. Distributed System Architecture / Fullstack Role"
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         className="mt-1"
@@ -336,12 +333,12 @@ export default function ContactPage() {
 
                     {/* Message Field */}
                     <div>
-                      <Label htmlFor="contact-message">Isi Pesan *</Label>
+                      <Label htmlFor="contact-message">Message *</Label>
                       <Textarea
                         id="contact-message"
                         required
                         rows={5}
-                        placeholder="Tuliskan detail pertanyaan atau deskripsi proyek yang ingin Anda bicarakan..."
+                        placeholder="Write your project scope, inquiry, or question here..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         className="mt-1 resize-y"
@@ -351,7 +348,7 @@ export default function ContactPage() {
                     {/* Submit Button */}
                     <div className="flex items-center justify-between pt-2">
                       <p className="text-[11px] text-muted-foreground">
-                        * Kolom wajib diisi
+                        * Required fields
                       </p>
                       <Button
                         type="submit"
@@ -359,10 +356,10 @@ export default function ContactPage() {
                         className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-600 dark:text-zinc-950 font-semibold px-5 cursor-pointer shadow-sm active:scale-95 transition-all"
                       >
                         {isSubmitting ? (
-                          <span>Mengirim...</span>
+                          <span>Sending...</span>
                         ) : (
                           <>
-                            <span>Kirim Pesan</span>
+                            <span>Send Message</span>
                             <Send className="size-3.5" />
                           </>
                         )}
