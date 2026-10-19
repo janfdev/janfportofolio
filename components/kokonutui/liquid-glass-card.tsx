@@ -213,6 +213,8 @@ export interface NowPlayingTrack {
   duration: number;
   /** Which built-in label design is printed on the disc (0, 1 or 2). */
   artwork?: number;
+  /** YouTube video ID */
+  youtubeId?: string;
 }
 
 const DEFAULT_TRACKS: NowPlayingTrack[] = [
@@ -715,6 +717,7 @@ export interface NowPlayingProps {
   /** Wraps the card in the glass shadow and SVG refraction (Chromium only). */
   glassEffect?: boolean;
   onTrackChange?: (index: number) => void;
+  onPlayStateChange?: (playing: boolean) => void;
   className?: string;
 }
 
@@ -727,10 +730,11 @@ const FRAME =
 export function NowPlaying({
   tracks = DEFAULT_TRACKS,
   defaultTrack = 0,
-  autoPlay = true,
+  autoPlay = false,
   accent = "#f97316",
   glassEffect = false,
   onTrackChange,
+  onPlayStateChange,
   className,
 }: NowPlayingProps) {
   const list = tracks.length > 0 ? tracks : DEFAULT_TRACKS;
@@ -764,6 +768,8 @@ export function NowPlaying({
   trackIndexRef.current = trackIndex;
   const onTrackChangeRef = React.useRef(onTrackChange);
   onTrackChangeRef.current = onTrackChange;
+  const onPlayStateChangeRef = React.useRef(onPlayStateChange);
+  onPlayStateChangeRef.current = onPlayStateChange;
 
   const loadTrack = React.useCallback((index: number) => {
     const all = listRef.current;
@@ -776,6 +782,9 @@ export function NowPlaying({
     trackIndexRef.current = nextIndex;
     setTrackIndex(nextIndex);
     onTrackChangeRef.current?.(nextIndex);
+    if (e?.playing) {
+      onPlayStateChangeRef.current?.(true);
+    }
     wakeRef.current();
   }, []);
 
@@ -900,6 +909,7 @@ export function NowPlaying({
       stopCruise(e, discRef.current);
     }
     setPlaying(nextPlaying);
+    onPlayStateChangeRef.current?.(nextPlaying);
     wakeRef.current();
   };
 
