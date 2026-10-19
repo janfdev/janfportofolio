@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, MotionConfig, useReducedMotion, type Variants } from "motion/react";
 import { Geist } from "next/font/google";
 import { DATA } from "@/lib/data/resume";
+import { TECH_STACK_ITEMS } from "./tech-stack-data";
 import "./partylabs-hero.css";
 
 /**
@@ -17,8 +18,6 @@ import "./partylabs-hero.css";
 const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--plh-geist", display: "swap" });
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const PHOTO_DIR = "/blocx/partylabs-hero";
-const PHOTO_COUNT = 30;
 
 const TITLE = "Architecting Web & AI Systems";
 
@@ -139,11 +138,11 @@ export default function PartylabsHero() {
 
   const cards = useMemo(() => {
     return coords.map((c, i) => {
-      const pad = String((i % PHOTO_COUNT) + 1).padStart(2, "0");
+      const item = TECH_STACK_ITEMS[i % TECH_STACK_ITEMS.length];
       return {
         c,
         i,
-        src: `${PHOTO_DIR}/${pad}.webp`,
+        item,
         order: Math.round(c[2] * 10),
       };
     });
@@ -221,7 +220,7 @@ export default function PartylabsHero() {
     <MotionConfig reducedMotion="user">
       <section ref={heroRef} className={`plh ${geist.variable}`} id="plh-top">
         <div ref={fieldRef} className="plh-field" aria-hidden>
-          {cards.map(({ c, i, src, order }) => {
+          {cards.map(({ c, i, item, order }) => {
             const [x, y, d, r, p] = c;
             const portrait = p === 1;
             const style = {
@@ -229,23 +228,28 @@ export default function PartylabsHero() {
               "--y": `${y}%`,
               "--d": d,
               "--r": `${r}deg`,
-              "--ar": portrait ? "3 / 4" : "4 / 3",
-              "--o": (0.28 + d * 0.72).toFixed(2),
-              "--b": `${d < 0.6 ? ((0.6 - d) * 6).toFixed(1) : 0}px`,
-              "--s": (0.55 + d * 0.5).toFixed(2),
+              "--ar": portrait ? "3 / 3.6" : "4 / 3.2",
+              "--o": (0.35 + d * 0.65).toFixed(2),
+              "--b": `${d < 0.6 ? ((0.6 - d) * 5).toFixed(1) : 0}px`,
+              "--s": (0.6 + d * 0.45).toFixed(2),
               "--z": Math.round(d * 10),
               "--dur": `${7 + (i % 5) * 1.3}s`,
               "--delay": `-${(i * 0.7).toFixed(1)}s`,
               "--amp": `${(4 + d * 7).toFixed(1)}px`,
-              "--w": `calc(var(--plh-unit) * ${((0.55 + d * 0.65) * (portrait ? 0.82 : 1)).toFixed(3)})`,
+              "--w": `calc(var(--plh-unit) * ${((0.62 + d * 0.68) * (portrait ? 0.88 : 1)).toFixed(3)})`,
             } as React.CSSProperties;
 
             return (
               <div key={i} className={`plh-card ${d > 0.65 ? "is-near" : ""}`} data-order={order} style={style}>
                 <div className="plh-float">
-                  <div className="plh-photo">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img alt="" src={src} decoding="async" draggable={false} fetchPriority={d > 0.65 ? "high" : "auto"} />
+                  <div className="plh-tech-card">
+                    <div className="plh-tech-icon" style={{ color: item.color }}>
+                      {item.icon}
+                    </div>
+                    <div className="plh-tech-info">
+                      <span className="plh-tech-name">{item.name}</span>
+                      <span className="plh-tech-cat">{item.category}</span>
+                    </div>
                   </div>
                 </div>
               </div>
