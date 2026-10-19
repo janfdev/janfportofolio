@@ -83,7 +83,8 @@ Mentransformasikan portofolio menjadi sebuah **Engineering Showcase** interaktif
     url?: string;
     github?: string;
 
-    // Properti baru (studi kasus & showcase)
+    // Properti baru (studi kasus & slug routing)
+    slug: string;                  // URL-friendly identifier (contoh: "smartseum", "quavity")
     category: "Fullstack" | "Backend & API" | "AI & Systems" | "Frontend";
     role: string;                  // Contoh: "Sole Fullstack Engineer"
     problem: string;               // 1-2 kalimat masalah nyata
@@ -91,15 +92,27 @@ Mentransformasikan portofolio menjadi sebuah **Engineering Showcase** interaktif
     architectureHighlights: string[]; // 2-3 poin teknis utama
     featured?: boolean;
     year?: string;
+    metrics?: { label: string; value: string }[];
   }
   ```
 - **Komponen Kartu Proyek (`components/project.tsx`)**:
   - Tampilan *two-tier*:
-    1. Header Visual: Thumbnail gambar dengan rasio 16:9, rounded border, hover scale `1.03`, dan badge kategori di pojok.
-    2. Body Spesifikasi: Judul proyek, peran & tahun, Problem vs Solution block dengan tipografi kontras bersih, deretan tag teknologi interaktif, dan action bar (Demo, Code, View Details).
+    1. Header Visual: Thumbnail gambar dengan rasio 16:9, rounded border, hover scale `1.03`, dan badge kategori di pojok. Klik pada gambar atau judul akan mengarahkan ke halaman detail `/projects/[slug]`.
+    2. Body Spesifikasi: Judul proyek, peran & tahun, Problem vs Solution block dengan tipografi kontras bersih, deretan tag teknologi interaktif, dan action bar (Live Demo, Source Code, dan link "Detail Studi Kasus ->" ke `/projects/[slug]`).
   - Tidak menghapus komponen lama; komponen lama di-upgrade secara proporsional.
 
-#### C. Navigasi & Scroll-Spy
+#### C. Halaman Detail Projek Berbasis Slug (`app/(site)/projects/[slug]/page.tsx`)
+- Menggunakan dynamic route Next.js App Router dengan `generateStaticParams()` sehingga seluruh halaman detail ter-render secara statis (SSG) pada saat build tanpa runtime server overhead.
+- Struktur Halaman Detail:
+  1. **Breadcrumb & Header**: Tombol kembali ke `#projects` di beranda, badge status, tahun, kategori, dan peran.
+  2. **Hero Preview**: Banner media / mockup UI layar penuh dengan aspect ratio proporsional.
+  3. **Latar Belakang & Masalah (Problem Statement)**: Konteks bisnis dan tantangan teknis yang dihadapi pengguna/organisasi.
+  4. **Arsitektur Sistem & Solusi (System Architecture)**: Penjelasan alur data, diagram alur (Flow ASCII/Mermaid), dan alasan pemilihan teknologi.
+  5. **Tantangan Rekayasa & Resolusi**: Bottleneck teknis dan cara penyelesaiannya (misal: penanganan cold-start AI, optimasi query database, multi-tenant RBAC).
+  6. **Hasil & Dampak (Key Metrics)**: Kartu metrik kuantitatif (*latency*, *concurrency*, *penghematan waktu*).
+  7. **Action Bar & Navigasi Proyek**: Tombol *Live Demo*, *GitHub*, serta navigasi *Next Project* / *Previous Project* di bagian bawah.
+
+#### D. Navigasi & Scroll-Spy
 - Pada `Header11`, tambahkan pendeteksi seksi aktif berbasis `IntersectionObserver` untuk tautan `#about`, `#work`, `#skills`, dan `#projects`.
 - Tautan aktif diberi indikator pill lembut beraksen emerald atau warna teks foreground kontras tinggi.
 - Navigasi `/contact` tetap menjadi tombol CTA utama di sisi kanan header.
@@ -299,7 +312,7 @@ PREVIEW 3: HALAMAN KONTAK (/contact)
 
 ```
 ================================================================================
-PREVIEW 4: PREVIEW DEEP-DIVE CASE STUDY (Drawer / Dedicated View)
+PREVIEW 4: HALAMAN DETAIL PROJEK BERBASIS SLUG (/projects/[slug])
 ================================================================================
 +------------------------------------------------------------------------------+
 | [ <- Kembali ke Showcase ]                       Tahun: 2024 | Status: Live  |
