@@ -108,7 +108,7 @@ export default function GithubContribution() {
         </BlurFade>
 
         <BlurFade delay={BLUR_FADE_DELAY * 5.5}>
-          <div className="overflow-x-auto rounded-2xl border border-border/40 bg-card/40 p-6 sm:p-8 backdrop-blur-xs">
+          <div className="overflow-x-auto rounded-2xl border border-border/40 bg-card/40 p-3.5 sm:p-8 backdrop-blur-xs">
             {loading ? (
               <div className="h-44 w-full animate-pulse rounded-xl bg-muted/20" />
             ) : (

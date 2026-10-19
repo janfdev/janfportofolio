@@ -18,7 +18,7 @@ const ProjectSection = () => {
       : DATA.projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="projects" className="scroll-mt-28 mt-24 mb-28 w-full max-w-7xl mx-auto">
+    <section id="projects" className="scroll-mt-28 mt-8 sm:mt-12 mb-16 sm:mb-24 w-full max-w-7xl mx-auto">
       <BlurFade delay={BLUR_FADE_DELAY * 11}>
         <div className="flex flex-col items-center justify-center space-y-2 text-center mb-8">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/30 px-3 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-widest">

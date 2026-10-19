@@ -47,14 +47,14 @@ export function Header11() {
               </span>
               <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </div>
-            <span className="text-[10px] font-medium text-muted-foreground tracking-wide mt-0.5">
+            <span className="hidden lg:block text-[10px] font-medium text-muted-foreground tracking-wide mt-0.5">
               Rizqi Noor Fauzan · Systems & AI
             </span>
           </div>
         </Link>
 
         {/* Center Links */}
-        <div className="flex items-center gap-7 text-xs font-semibold text-muted-foreground">
+        <div className="flex items-center gap-4.5 lg:gap-7 text-xs font-semibold text-muted-foreground">
           <Link href="/" className="transition-colors hover:text-foreground">
             Home
           </Link>

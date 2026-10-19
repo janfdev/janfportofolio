@@ -75,7 +75,7 @@ export function AboutContent() {
   };
 
   return (
-    <div className="space-y-28">
+    <div className="space-y-16 sm:space-y-24 lg:space-y-28">
       {/* 1. Hero Split: Portrait + Bio */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left Column: Portrait with 3D Tilt */}
@@ -201,7 +201,7 @@ export function AboutContent() {
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.45, delay: idx * 0.1 }}
                 whileHover={{ y: -4 }}
-                className="p-7 rounded-2xl border border-border/70 bg-card/50 backdrop-blur-xs space-y-3.5 hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all"
+                className="p-5 sm:p-7 rounded-2xl border border-border/70 bg-card/50 backdrop-blur-xs space-y-3.5 hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all"
               >
                 <div className="size-11 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
                   <IconComponent className="size-5" />
@@ -230,7 +230,7 @@ export function AboutContent() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="p-8 sm:p-12 rounded-3xl border border-border/70 bg-linear-to-b from-card/80 to-muted/30 text-center space-y-4 shadow-xl shadow-black/5"
+        className="p-6 sm:p-12 rounded-3xl border border-border/70 bg-linear-to-b from-card/80 to-muted/30 text-center space-y-4 shadow-xl shadow-black/5"
       >
         <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
           Let’s Build Something Exceptional

@@ -7,8 +7,8 @@ import { motion } from "motion/react";
 
 export function ExperienceTimeline() {
   return (
-    <section className="mt-24 mb-24 w-full">
-      <div className="space-y-4 mb-12">
+    <section className="mt-12 sm:mt-24 mb-12 sm:mb-24 w-full">
+      <div className="space-y-4 mb-10 sm:mb-12">
         <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-600 uppercase tracking-widest">
           <Briefcase className="size-3.5" />
           <span>Career Journey</span>
@@ -41,7 +41,7 @@ export function ExperienceTimeline() {
               {/* Timeline Indicator Dot */}
               <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 size-4 rounded-full border-2 border-background bg-zinc-400 group-hover:bg-emerald-500 group-hover:scale-125 transition-all duration-300 ring-4 ring-card" />
 
-              <div className="p-6 sm:p-8 rounded-2xl border border-border/70 bg-card/50 backdrop-blur-xs transition-all duration-300 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5 space-y-4">
+              <div className="p-5 sm:p-8 rounded-2xl border border-border/70 bg-card/50 backdrop-blur-xs transition-all duration-300 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5 space-y-4">
                 {/* Header Row */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/40 pb-4">
                   <div className="space-y-1">

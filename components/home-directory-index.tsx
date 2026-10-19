@@ -74,7 +74,7 @@ export function HomeDirectoryIndex() {
       </div>
 
       {/* 3 Large Route Gateway Panels */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {DIRECTORY_ITEMS.map((item, idx) => {
           const IconComponent = item.icon;
           return (
@@ -84,7 +84,7 @@ export function HomeDirectoryIndex() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="h-full"
+              className={`h-full ${idx === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}
             >
               <Link
                 href={item.href}

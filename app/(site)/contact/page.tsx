@@ -117,8 +117,8 @@ export default function ContactPage() {
             <span>Back to Home</span>
           </Link>
 
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
-            <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+            <span className="size-2 shrink-0 rounded-full bg-emerald-500 animate-pulse" />
             <span>Available for New Roles & Architecture Projects</span>
           </div>
         </motion.div>
