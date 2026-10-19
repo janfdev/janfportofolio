@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, MotionConfig, useReducedMotion, type Variants } from "motion/react";
 import { Geist } from "next/font/google";
 import { DATA } from "@/lib/data/resume";
@@ -243,8 +244,15 @@ export default function PartylabsHero() {
               <div key={i} className={`plh-card ${d > 0.65 ? "is-near" : ""}`} data-order={order} style={style}>
                 <div className="plh-float">
                   <div className="plh-tech-card">
-                    <div className="plh-tech-icon" style={{ color: item.color }}>
-                      {item.icon}
+                    <div className="plh-tech-icon">
+                      <Image
+                        src={item.iconSrc}
+                        alt={item.name}
+                        width={32}
+                        height={32}
+                        className="size-full object-contain pointer-events-none select-none"
+                        unoptimized
+                      />
                     </div>
                     <div className="plh-tech-info">
                       <span className="plh-tech-name">{item.name}</span>
