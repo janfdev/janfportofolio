@@ -64,9 +64,6 @@ export function Header11() {
           <a href="#projects" className="transition-colors hover:text-foreground">
             Projects
           </a>
-          <Link href="/dashboard" className="transition-colors hover:text-foreground">
-            Dashboard
-          </Link>
         </div>
 
         {/* Actions */}
