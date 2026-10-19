@@ -4,7 +4,7 @@ import { FeaturedProjectsPreview } from "@/components/featured-projects-preview"
 import { HomeAboutTeaser } from "@/components/home-about-teaser";
 import SkillSection from "../../components/section/skills-section";
 import GithubContribution from "../../components/GithubContribution";
-import { FooterWithSuite } from "../../components/footer-with-suite";
+import CaremetricFooter from "@/components/blocx/CaremetricFooter";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
 export default function Home() {
@@ -27,10 +27,10 @@ export default function Home() {
 
         {/* 5. GitHub Contributions / Telemetry */}
         <GithubContribution />
-
-        {/* 6. Footer */}
-        <FooterWithSuite />
       </div>
+
+      {/* 6. CareMetric Footer */}
+      <CaremetricFooter />
     </main>
   );
 }
