@@ -1,6 +1,7 @@
 import React from "react";
 import PartylabsHero from "@/components/blocx/PartylabsHero";
 import { FeaturedProjectsPreview } from "@/components/featured-projects-preview";
+import { ExperienceTimeline } from "@/components/experience-timeline";
 import { HomeAboutTeaser } from "@/components/home-about-teaser";
 import SkillSection from "../../components/section/skills-section";
 import GithubContribution from "../../components/GithubContribution";
@@ -19,17 +20,20 @@ export default function Home() {
         {/* 2. Selected Work (Top 3 Flagship Projects) */}
         <FeaturedProjectsPreview />
 
-        {/* 3. Tech & AI Agent Tooling Ecosystem */}
+        {/* 3. Professional Work Experience */}
+        <ExperienceTimeline />
+
+        {/* 4. Tech & AI Agent Tooling Ecosystem */}
         <SkillSection />
 
-        {/* 4. About Teaser with Authentic Portrait */}
+        {/* 5. About Teaser with Authentic Portrait */}
         <HomeAboutTeaser />
 
-        {/* 5. GitHub Contributions / Telemetry */}
+        {/* 6. GitHub Contributions / Telemetry */}
         <GithubContribution />
       </div>
 
-      {/* 6. janfdev Animated Footer */}
+      {/* 7. janfdev Animated Footer */}
       <CaremetricFooter />
     </main>
   );

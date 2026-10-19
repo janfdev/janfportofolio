@@ -30,21 +30,25 @@ export function Header11() {
         )}
       >
         {/* Brand Logomark */}
-        <Link href="/" className="flex items-center gap-2.5 group">
+        <Link href="/" className="flex items-center gap-3 group">
           <div
             className={cn(
-              "flex items-center justify-center rounded-xl bg-foreground text-background font-display font-black text-sm transition-all duration-300 group-hover:scale-105",
+              "relative flex items-center justify-center rounded-xl bg-zinc-950 text-white shadow-xs transition-all duration-300 group-hover:scale-105 border border-black/10 shrink-0",
               scrolled ? "h-8 w-8 text-xs" : "h-9 w-9 text-sm"
             )}
           >
-            {DATA.initials}
+            <span className="font-mono font-black tracking-tighter text-zinc-100">jf</span>
+            <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-white" />
           </div>
           <div className="flex flex-col text-left">
-            <span className="text-sm font-bold tracking-tight text-foreground leading-none">
-              {DATA.name}
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-bold tracking-tight text-foreground leading-none">
+                janf<span className="text-emerald-600">.dev</span>
+              </span>
+              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
             <span className="text-[10px] font-medium text-muted-foreground tracking-wide mt-0.5">
-              Fullstack Engineer
+              Rizqi Noor Fauzan · Systems & AI
             </span>
           </div>
         </Link>

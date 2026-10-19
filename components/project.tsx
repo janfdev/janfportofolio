@@ -60,6 +60,8 @@ export default function ProjectCard({
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const pixelX = useMotionValue(0);
+  const pixelY = useMotionValue(0);
 
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), {
     stiffness: 280,
@@ -77,6 +79,8 @@ export default function ProjectCard({
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     mouseX.set(x);
     mouseY.set(y);
+    pixelX.set(e.clientX - rect.left);
+    pixelY.set(e.clientY - rect.top);
   };
 
   const handleMouseLeave = () => {
@@ -96,8 +100,18 @@ export default function ProjectCard({
       }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/60 bg-card/60 backdrop-blur-sm transition-colors duration-300 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5"
+      className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/50 hover:shadow-2xl hover:shadow-emerald-500/10"
     >
+      {/* Interactive Cursor Ambient Sheen */}
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-30"
+        style={{
+          background: useTransform(
+            [pixelX, pixelY],
+            ([x, y]) => `radial-gradient(350px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.12), transparent 80%)`
+          ),
+        }}
+      />
       {/* Thumbnail Container */}
       <Link href={detailHref} className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border/40 block">
         <Image

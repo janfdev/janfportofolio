@@ -5,6 +5,7 @@ import Link from "next/link";
 import { DATA } from "@/lib/data/resume";
 import ProjectCard from "./project";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { motion } from "motion/react";
 
 export function FeaturedProjectsPreview() {
   const featured = DATA.projects.slice(0, 3);
@@ -36,8 +37,17 @@ export function FeaturedProjectsPreview() {
 
       {/* 3-Column Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {featured.map((project) => (
-          <ProjectCard key={project.slug || project.title} {...project} />
+        {featured.map((project, idx) => (
+          <motion.div
+            key={project.slug || project.title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            className="h-full"
+          >
+            <ProjectCard {...project} />
+          </motion.div>
         ))}
       </div>
 
