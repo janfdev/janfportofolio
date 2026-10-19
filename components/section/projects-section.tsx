@@ -5,6 +5,7 @@ import ProjectCard from "../project";
 import { DATA, ProjectCategory } from "../../lib/data/resume";
 import { BlurFade } from "../ui/blur-fade";
 import { BLUR_FADE_DELAY } from "../../lib/type";
+import { AnimatePresence, motion } from "motion/react";
 
 const CATEGORIES: ProjectCategory[] = ["All", "Fullstack", "Backend & API"];
 
@@ -66,14 +67,23 @@ const ProjectSection = () => {
         </div>
       </BlurFade>
 
-      {/* 3-Column Responsive Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((project, index) => (
-          <BlurFade key={project.slug || project.title} delay={BLUR_FADE_DELAY * 12 + index * 0.05}>
-            <ProjectCard {...project} />
-          </BlurFade>
-        ))}
-      </div>
+      {/* 3-Column Responsive Grid with Fluid Layout Motion */}
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((project) => (
+            <motion.div
+              key={project.slug || project.title}
+              layout
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+              <ProjectCard {...project} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </section>
   );
 };

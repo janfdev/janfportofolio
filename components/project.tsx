@@ -1,8 +1,10 @@
 "use client";
 
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Globe, ArrowUpRight } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { DATA } from "../lib/data/resume";
 import {
   Tooltip,
@@ -54,8 +56,48 @@ export default function ProjectCard({
 }: ProjectProps) {
   const detailHref = slug ? `/projects/${slug}` : url || "#";
 
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), {
+    stiffness: 280,
+    damping: 24,
+  });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), {
+    stiffness: 280,
+    damping: 24,
+  });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   return (
-    <div className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/60 bg-card/50 transition-all duration-300 hover:border-border hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1">
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/60 bg-card/60 backdrop-blur-sm transition-colors duration-300 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5"
+    >
       {/* Thumbnail Container */}
       <Link href={detailHref} className="relative aspect-video w-full overflow-hidden bg-muted/30 border-b border-border/40 block">
         <Image
@@ -179,6 +221,6 @@ export default function ProjectCard({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

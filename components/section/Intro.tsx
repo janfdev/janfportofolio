@@ -6,7 +6,8 @@ import { Timeline, TimelineText } from "@/components/ui/timeline";
 import PixelBackground from "@/components/ui/pixel-background";
 import { DATA } from "@/lib/data/resume";
 import Link from "next/link";
-import { ArrowRight, Terminal } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
+import { HeroMotionShowcase } from "@/components/hero-motion-showcase";
 
 export default function HeroSectionwithPixelBackground() {
   return (
@@ -113,13 +114,16 @@ export default function HeroSectionwithPixelBackground() {
             <ArrowRight className="size-3.5" />
           </a>
           <Link
-            href="/dashboard"
+            href="/contact"
             className="border-2 border-zinc-300 dark:border-zinc-700 bg-background/80 px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-zinc-700 dark:text-zinc-300 transition-all duration-300 hover:border-emerald-500 dark:hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 backdrop-blur-xs"
           >
-            <Terminal className="size-3.5" />
-            <span>Dashboard</span>
+            <Mail className="size-3.5" />
+            <span>Get in Touch</span>
           </Link>
         </motion.div>
+
+        {/* Interactive Motion Project Showcase Carousel */}
+        <HeroMotionShowcase />
       </div>
 
       {/* Subtle bottom dividing line */}
