@@ -20,7 +20,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const PHOTO_DIR = "/blocx/partylabs-hero";
 const PHOTO_COUNT = 30;
 
-const TITLE = "Architecting resilient web applications, robust backends & autonomous AI systems";
+const TITLE = "Architecting Web & AI Systems";
 
 const IDEAS = [
   "Smartseum Platform",

@@ -464,13 +464,13 @@
 }
 
 .plh-title {
-  max-width: 11.5ch;
+  max-width: clamp(14ch, 75vw, 22ch);
   margin: 0;
   color: var(--plh-ink);
-  font-size: min(clamp(2.6rem, 6.6vw, 6.4rem), 11.5vh);
-  font-weight: 500;
-  line-height: 1.02;
-  letter-spacing: -0.048em;
+  font-size: min(clamp(2.2rem, 5vw, 4.2rem), 8.5vh);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 .plh-title__w {
