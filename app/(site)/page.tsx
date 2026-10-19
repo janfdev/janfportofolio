@@ -6,13 +6,10 @@ import { HomeAboutTeaser } from "@/components/home-about-teaser";
 import SkillSection from "../../components/section/skills-section";
 import GithubContribution from "../../components/GithubContribution";
 import CaremetricFooter from "@/components/blocx/CaremetricFooter";
-import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
 export default function Home() {
   return (
     <main className="flex flex-col overflow-x-hidden min-h-[100dvh]">
-      <SmoothCursor />
-      
       {/* 1. Hero Section: Partylabs 3D Depth Photo Field */}
       <PartylabsHero />
 

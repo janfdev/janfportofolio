@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import { TooltipProvider } from "../components/ui/tooltip";
+import { SmoothCursor } from "../components/ui/smooth-cursor";
 import { cn } from "../lib/utils";
 import { Inter as FontSans, Plus_Jakarta_Sans as FontDashboard, JetBrains_Mono as FontMono } from "next/font/google";
 import { DATA } from "../lib/data/resume";
@@ -111,6 +112,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false}>
           <TooltipProvider delayDuration={0}>
+            <SmoothCursor />
             {children}
           </TooltipProvider>
         </ThemeProvider>
