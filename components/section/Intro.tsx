@@ -40,11 +40,11 @@ export default function HeroSectionwithPixelBackground() {
         >
           <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-            Autonomous Systems
+            Fullstack Engineer
           </span>
           <span className="h-px w-4 bg-border" />
           <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-            Fullstack
+            System Orchestrator
           </span>
         </motion.div>
 
@@ -60,7 +60,7 @@ export default function HeroSectionwithPixelBackground() {
             }}
             className="text-zinc-900 dark:text-white text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-none text-center"
           >
-            We Architect
+            I Build & Architect
           </motion.h1>
 
           <motion.div
@@ -78,11 +78,11 @@ export default function HeroSectionwithPixelBackground() {
               initialLeft={12}
               minWidth={56}
               containerClassName="bg-white dark:bg-[#0a0a0a]"
-              handleClassName="bg-white dark:bg-[#0a0a0a] border-yellow-400"
-              handleIndicatorClassName="bg-yellow-400"
+              handleClassName="bg-white dark:bg-[#0a0a0a] border-emerald-500"
+              handleIndicatorClassName="bg-emerald-500"
             >
-              <TimelineText className="text-yellow-500 dark:text-yellow-400 text-3xl sm:text-6xl md:text-7xl font-black tracking-tight py-3">
-                Agent Workflows
+              <TimelineText className="text-emerald-600 dark:text-emerald-400 text-3xl sm:text-6xl md:text-7xl font-black tracking-tight py-3">
+                Modern Web & Systems
               </TimelineText>
             </Timeline>
           </motion.div>
@@ -95,8 +95,7 @@ export default function HeroSectionwithPixelBackground() {
           transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
           className="mt-10 max-w-xl text-center text-sm sm:text-base leading-relaxed text-zinc-600 dark:text-zinc-400"
         >
-          {DATA.description ||
-            "Crafting digital architectures that live at the intersection of autonomous agents, precision APIs, and uncompromising visual intent."}
+          Hi, I&apos;m {DATA.name}. Developing end-to-end web applications, scalable backends, robust database architectures, and autonomous AI-driven workflows.
         </motion.p>
 
         {/* Action Buttons */}
@@ -108,17 +107,17 @@ export default function HeroSectionwithPixelBackground() {
         >
           <a
             href="#projects"
-            className="border-2 border-yellow-400 bg-yellow-400 px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-black transition-all duration-300 hover:bg-yellow-300 hover:border-yellow-300 hover:-translate-y-0.5 shadow-sm active:scale-95 flex items-center gap-2"
+            className="border-2 border-emerald-500 bg-emerald-500 px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white dark:text-zinc-950 transition-all duration-300 hover:bg-emerald-600 hover:border-emerald-600 dark:hover:bg-emerald-400 dark:hover:border-emerald-400 hover:-translate-y-0.5 shadow-sm active:scale-95 flex items-center gap-2"
           >
             <span>View Projects</span>
             <ArrowRight className="size-3.5" />
           </a>
           <Link
             href="/dashboard"
-            className="border-2 border-zinc-300 dark:border-zinc-700 bg-background/80 px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-zinc-700 dark:text-zinc-300 transition-all duration-300 hover:border-zinc-500 dark:hover:border-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 backdrop-blur-xs"
+            className="border-2 border-zinc-300 dark:border-zinc-700 bg-background/80 px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-zinc-700 dark:text-zinc-300 transition-all duration-300 hover:border-emerald-500 dark:hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 backdrop-blur-xs"
           >
             <Terminal className="size-3.5" />
-            <span>Telemetry</span>
+            <span>Dashboard</span>
           </Link>
         </motion.div>
       </div>
