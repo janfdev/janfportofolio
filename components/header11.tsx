@@ -92,12 +92,12 @@ export function Header11() {
           <div className="flex items-center">
             <ModeToggle />
           </div>
-          <a
-            href={`mailto:${DATA.contact.email}`}
+          <Link
+            href="/contact"
             className="rounded-full bg-foreground px-3.5 py-1.5 text-xs font-semibold text-background shadow-xs transition hover:opacity-90 active:scale-95"
           >
             Contact
-          </a>
+          </Link>
         </div>
       </nav>
     </header>

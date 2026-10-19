@@ -1,5 +1,5 @@
 import { Icons } from "../../components/icons";
-import { HomeIcon, Code } from "lucide-react";
+import { HomeIcon, Code, Mail } from "lucide-react";
 
 export const DATA = {
   name: "Rizqi Noor Fauzan",
@@ -31,6 +31,11 @@ Currently, I’m exploring **deployment** and **containerization** to strengthen
       href: "#projects",
       icon: Code,
       label: "Projects"
+    },
+    {
+      href: "/contact",
+      icon: Mail,
+      label: "Contact"
     }
   ],
   contact: {
