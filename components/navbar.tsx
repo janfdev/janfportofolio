@@ -2,7 +2,6 @@
 
 import { Dock, DockIcon } from "./ui/dock";
 import { useState, useEffect } from "react";
-import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import {
@@ -75,19 +74,6 @@ export default function Navbar() {
                 </Tooltip>
               </DockIcon>
             ))}
-          <Separator orientation="vertical" className="h-full" />
-          <DockIcon>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div>
-                  <ModeToggle />
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Theme</p>
-              </TooltipContent>
-            </Tooltip>
-          </DockIcon>
         </Dock>
       </TooltipProvider>
     </div>

@@ -1,248 +1,178 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { animate, AnimatePresence, motion, MotionConfig, useReducedMotion, type Variants } from "motion/react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
+import { motion, MotionConfig, useReducedMotion, type Variants } from "motion/react";
 import { Geist } from "next/font/google";
+import { DATA } from "@/lib/data/resume";
 import "./partylabs-hero.css";
 
 /**
- * iPartyLabs Hero: a thesis floating in a 3-D field of party photos.
+ * janfdev Hero: a thesis floating in a 3D field of depth photos.
  *
- * One viewport: a glass nav with a search pill, a centred badge, headline and
- * two calls to action, and around them about thirty photos hand-placed at five
- * depths. Depth drives everything: size, blur, saturation, opacity, shadow and
- * how far a photo shifts as the pointer moves, so the field reads as space,
- * not a collage. On arrival the photos fly outward from the headline into
- * place and keep drifting; the headline blurs in a word at a time. The search
- * cycles through suggestions and "/" focuses it; on a phone the nav folds into
- * a sheet. Each breakpoint has its own hand-placed layout.
- *
- * Photos: Unsplash License, shipped in /blocx/partylabs-hero.
+ * One viewport: 3D photo field drifting at 5 depths around an editorial headline,
+ * responsive across desktop, tablet, and mobile.
  */
 
-const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--plh-geist", display: "swap" });
+const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--plh-geist", display: "swap" });
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
 const PHOTO_DIR = "/blocx/partylabs-hero";
+const PHOTO_COUNT = 30;
 
-/* ---------- hand-placed layouts: [x%, y%, depth 0..1, rotation°, portrait?] ---------- */
+const TITLE = "Architecting resilient web applications, robust backends & autonomous AI systems";
 
-type Spot = [number, number, number, number, 1?];
-type Layout = { u: number; max: number; cards: Spot[] };
-type LayoutName = "desktop" | "tablet" | "mobile";
+const IDEAS = [
+  "Smartseum Platform",
+  "Quavity Quality Engine",
+  "Autonomous AI Agents",
+  "Next.js 15 & React 19",
+  "NestJS Microservices",
+  "PostgreSQL & Prisma",
+];
 
-const LAYOUTS: Record<LayoutName, Layout> = {
-  desktop: {
-    u: 0.092,
-    max: 150,
-    cards: [
-      [15, 6, 0.5, -12], [8, 26, 1, 8], [25, 20, 0.8, 15], [42, 22, 0.28, -10, 1], [59, 6, 0.32, 10],
-      [70, 18, 0.6, -14], [83, 27, 0.85, -10], [98, 27, 1, -12], [94, 4, 0.5, 10], [19, 42, 0.3, 6],
-      [5, 50, 0.9, 4], [20, 66, 0.42, 8], [7, 74, 0.75, -15], [39, 82, 0.3, -18, 1], [27, 88, 0.55, 10],
-      [12, 96, 0.3, -12], [53, 92, 0.36, 0, 1], [64, 82, 0.5, 15], [81, 82, 0.72, -10], [87, 59, 0.85, 8],
-      [88, 36, 0.68, -6], [99, 51, 0.9, 12, 1], [97, 75, 0.8, 10], [74, 66, 0.26, -12], [76, 40, 0.26, 8],
-      [91, 95, 0.42, -10], [68, 98, 0.3, 8, 1],
-    ],
-  },
-  tablet: {
-    u: 0.15,
-    max: 140,
-    cards: [
-      [10, 15, 0.9, -10], [30, 12, 0.38, 8, 1], [52, 19, 0.58, -6], [74, 13, 0.85, 12], [94, 25, 0.7, -8],
-      [20, 29, 0.42, 10], [80, 32, 0.38, -12, 1], [4, 45, 0.58, 6], [97, 50, 0.58, -8], [6, 63, 0.4, -10, 1],
-      [12, 79, 0.85, 10], [33, 73, 0.33, -8], [51, 87, 0.58, 6, 1], [70, 76, 0.4, 12], [88, 83, 0.9, -10],
-      [28, 94, 0.5, -6], [78, 96, 0.44, 8], [96, 67, 0.33, 10],
-    ],
-  },
-  mobile: {
-    u: 0.27,
-    max: 130,
-    cards: [
-      [14, 15, 0.85, -10], [45, 12, 0.38, 8, 1], [82, 15, 0.9, 10], [28, 27, 0.48, 6], [66, 28, 0.52, -12],
-      [97, 31, 0.33, 8], [3, 31, 0.33, -8, 1], [12, 77, 0.85, 10], [48, 79, 0.38, -8, 1], [85, 76, 0.8, -10],
-      [30, 91, 0.52, 8], [70, 93, 0.58, 10], [97, 89, 0.33, -6],
-    ],
-  },
-};
+type CardTuple = [x: number, y: number, d: number, r: number, portrait: 0 | 1];
 
-/* the photos, best first: the nearest, sharpest cards get the top of the list (p = portrait) */
-const PHOTOS: { src: string; p: boolean }[] = (
-  [
-    [10, 0], [13, 1], [14, 0], [22, 0], [12, 1], [18, 0], [28, 1], [5, 0], [25, 1], [4, 0],
-    [7, 0], [23, 1], [16, 0], [30, 0], [17, 1], [20, 0], [2, 0], [15, 1], [24, 0], [11, 0],
-    [26, 1], [6, 0], [19, 1], [27, 0], [29, 0], [9, 1], [1, 0], [8, 1], [3, 0], [21, 0],
-  ] as const
-).map(([n, p]) => ({ src: `${PHOTO_DIR}/${String(n).padStart(2, "0")}.webp`, p: p === 1 }));
+const DESKTOP: CardTuple[] = [
+  [8, 14, 0.15, -4, 0],
+  [14, 28, 0.45, 3, 1],
+  [6, 46, 0.75, -5, 0],
+  [12, 64, 0.35, 4, 1],
+  [8, 82, 0.85, -3, 0],
+  [22, 10, 0.35, 2, 1],
+  [24, 40, 0.95, -2, 0],
+  [22, 72, 0.55, 3, 1],
+  [20, 92, 0.25, -4, 0],
+  [33, 6, 0.65, -3, 0],
+  [31, 88, 0.45, 4, 1],
+  [43, 8, 0.25, 2, 1],
+  [44, 94, 0.75, -3, 0],
+  [56, 6, 0.45, -2, 0],
+  [57, 92, 0.35, 3, 1],
+  [68, 8, 0.75, 4, 1],
+  [67, 90, 0.85, -2, 0],
+  [79, 10, 0.35, -3, 0],
+  [76, 38, 0.95, 3, 1],
+  [78, 68, 0.55, -4, 0],
+  [80, 92, 0.25, 2, 1],
+  [88, 16, 0.65, 3, 1],
+  [93, 34, 0.45, -3, 0],
+  [88, 54, 0.85, 2, 1],
+  [93, 74, 0.35, -4, 0],
+  [87, 88, 0.75, 3, 0],
+  [3, 28, 0.25, 3, 1],
+  [4, 70, 0.45, -2, 0],
+  [96, 18, 0.25, -4, 0],
+  [96, 62, 0.55, 3, 1],
+];
 
-/* nearest cards first; each takes the best unused photo of its own orientation */
-function assignPhotos(cards: Spot[]): string[] {
-  const used = new Set<number>();
-  const out: string[] = [];
-  cards
-    .map((c, i) => ({ c, i }))
-    .sort((a, b) => b.c[2] - a.c[2])
-    .forEach(({ c, i }) => {
-      const want = c[4] === 1;
-      let pick = PHOTOS.findIndex((ph, k) => !used.has(k) && ph.p === want);
-      if (pick < 0) pick = PHOTOS.findIndex((_, k) => !used.has(k));
-      used.add(pick);
-      out[i] = PHOTOS[pick].src;
-    });
-  return out;
-}
+const TABLET: CardTuple[] = [
+  [8, 10, 0.25, -3, 0],
+  [14, 24, 0.55, 3, 1],
+  [8, 40, 0.85, -4, 0],
+  [14, 60, 0.45, 2, 1],
+  [8, 78, 0.75, -3, 0],
+  [12, 92, 0.35, 4, 1],
+  [24, 8, 0.45, 2, 1],
+  [26, 88, 0.65, -3, 0],
+  [40, 6, 0.35, -2, 0],
+  [42, 94, 0.75, 3, 1],
+  [58, 6, 0.55, 3, 1],
+  [60, 94, 0.35, -2, 0],
+  [74, 8, 0.35, -3, 0],
+  [76, 88, 0.85, 2, 1],
+  [90, 10, 0.45, 3, 1],
+  [86, 26, 0.75, -4, 0],
+  [92, 44, 0.35, 2, 1],
+  [86, 62, 0.85, -3, 0],
+  [92, 80, 0.55, 4, 1],
+  [88, 94, 0.25, -2, 0],
+];
 
-function pickLayout(w: number, h: number): LayoutName {
-  if (w < 640) return "mobile";
-  if (w < 1024 || h > w * 1.05) return "tablet";
-  return "desktop";
-}
-
-const IDEAS = ["rooftop bars in Bandra", "birthday venues for 30", "live music tonight", "private dining rooms", "sundowners by the sea"];
+const PHONE: CardTuple[] = [
+  [10, 8, 0.35, -3, 0],
+  [12, 22, 0.65, 3, 1],
+  [10, 80, 0.75, -4, 0],
+  [12, 94, 0.35, 2, 1],
+  [88, 8, 0.45, 3, 1],
+  [86, 24, 0.75, -3, 0],
+  [90, 78, 0.85, 2, 1],
+  [88, 92, 0.45, -2, 0],
+  [30, 6, 0.25, 2, 1],
+  [70, 6, 0.35, -2, 0],
+  [32, 95, 0.55, -3, 0],
+  [68, 95, 0.65, 3, 1],
+];
 
 const reveal: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  show: (delay: number) => ({ opacity: 1, y: 0, transition: { duration: 0.85, ease: EASE, delay } }),
+  hidden: { opacity: 0, y: 14, filter: "blur(6px)" },
+  show: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: EASE, delay },
+  }),
 };
-const fromTop: Variants = {
-  hidden: { opacity: 0, y: -10 },
-  show: (delay: number) => ({ opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE, delay } }),
-};
-
-const TITLE = "Connecting you to experiences";
-
-/* ------------------------------------------------------------------ */
-
-function BrandMark() {
-  return (
-    <span className="plh-brand__mark" aria-hidden>
-      <i />
-      <i />
-      <i />
-      <i />
-    </span>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
-      <circle cx="11" cy="11" r="7" />
-      <path d="m20 20-3.5-3.5" />
-    </svg>
-  );
-}
-
-function Search({ id, idea, kbd }: { id: string; idea: number; kbd?: boolean }) {
-  const [value, setValue] = useState("");
-  return (
-    <form className={`plh-search${value ? " is-filled" : ""}`} role="search" onSubmit={(e) => e.preventDefault()}>
-      <SearchIcon />
-      <label className="plh-sr" htmlFor={id}>
-        Search venues and experiences
-      </label>
-      <div className="plh-search__field">
-        <input id={id} name="q" type="search" autoComplete="off" value={value} onChange={(e) => setValue(e.target.value)} />
-        <div className="plh-search__hint" aria-hidden>
-          <b>Try</b>
-          <span className="plh-search__words">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={idea}
-                className="plh-search__word"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: EASE }}
-              >
-                {IDEAS[idea]}
-              </motion.span>
-            </AnimatePresence>
-          </span>
-        </div>
-      </div>
-      {kbd && (
-        <span className="plh-kbd" aria-hidden>
-          /
-        </span>
-      )}
-    </form>
-  );
-}
 
 export default function PartylabsHero() {
   const reduce = useReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
-  const menuRef = useRef<HTMLButtonElement>(null);
-  const sheetRef = useRef<HTMLDivElement>(null);
-  const [layout, setLayout] = useState<LayoutName | null>(null);
+  const [layout, setLayout] = useState<"desktop" | "tablet" | "phone">("desktop");
   const [idea, setIdea] = useState(0);
-  const [sheet, setSheet] = useState(false);
-  const firstBuild = useRef(true);
 
-  /* which hand-placed layout, and the size unit the cards are drawn in */
-  useLayoutEffect(() => {
-    const hero = heroRef.current;
-    const field = fieldRef.current;
-    if (!hero || !field) return;
-    let t = 0;
-    const fit = () => {
-      const w = hero.clientWidth;
-      const h = hero.clientHeight;
-      const name = pickLayout(w, h);
-      const L = LAYOUTS[name];
-      const unit = Math.min(w * L.u, L.max) * Math.max(0.72, Math.min(1.1, h / 860));
-      field.style.setProperty("--plh-unit", `${unit.toFixed(1)}px`);
-      setLayout(name);
+  /* choose the layout from element width */
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const update = () => {
+      const w = el.clientWidth;
+      setLayout(w < 640 ? "phone" : w < 1024 ? "tablet" : "desktop");
     };
-    fit();
-    const ro = new ResizeObserver(() => {
-      clearTimeout(t);
-      t = window.setTimeout(fit, 120);
-    });
-    ro.observe(hero);
-    return () => {
-      clearTimeout(t);
-      ro.disconnect();
-    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
-  const cards = useMemo(() => {
-    if (!layout) return [];
-    const L = LAYOUTS[layout];
-    const photos = assignPhotos(L.cards);
-    // nearest the headline first, so the entrance ripples outward from it
-    return L.cards
-      .map((c, i) => ({ c, i, src: photos[i], dist: Math.hypot(c[0] - 50, (c[1] - 50) * 1.3) }))
-      .sort((a, b) => a.dist - b.dist)
-      .map((o, order) => ({ ...o, order }));
-  }, [layout]);
+  const coords = layout === "phone" ? PHONE : layout === "tablet" ? TABLET : DESKTOP;
 
-  /* the photos fly outward from the headline into place */
+  const cards = useMemo(() => {
+    return coords.map((c, i) => {
+      const pad = String((i % PHOTO_COUNT) + 1).padStart(2, "0");
+      return {
+        c,
+        i,
+        src: `${PHOTO_DIR}/${pad}.webp`,
+        order: Math.round(c[2] * 10),
+      };
+    });
+  }, [coords]);
+
+  /* entry animation: photos fly outward from the headline into place */
   useEffect(() => {
     const field = fieldRef.current;
-    if (!field || !cards.length || reduce) return;
-    const first = firstBuild.current;
-    firstBuild.current = false;
-    const w = field.clientWidth;
-    const h = field.clientHeight;
-    const controls = Array.from(field.querySelectorAll<HTMLElement>(".plh-photo")).map((el) => {
-      const x = +el.dataset.x!;
-      const y = +el.dataset.y!;
-      const order = +el.dataset.order!;
-      return animate(
-        el,
-        {
-          opacity: [0, 1],
-          scale: [0.55, 1],
-          x: [(((50 - x) * 0.6 * w) / 100) * 0.35, 0],
-          y: [(((50 - y) * 0.6 * h) / 100) * 0.35, 0],
-          filter: ["blur(10px)", "blur(0px)"],
-        },
-        { duration: first ? 1.4 : 0.8, delay: (first ? 0.35 : 0) + order * 0.035, ease: EASE },
-      );
+    if (!field || reduce) return;
+    const nodes = field.querySelectorAll<HTMLElement>(".plh-card");
+    if (!nodes.length) return;
+
+    let cancelled = false;
+    nodes.forEach((n) => {
+      const order = Number(n.dataset.order || 0);
+      const delay = 0.25 + order * 0.035;
+      n.style.opacity = "0";
+      n.style.transform = "translate(-50%, -50%) scale(0.65)";
+      setTimeout(() => {
+        if (cancelled) return;
+        n.style.transition = "transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1)";
+        n.style.opacity = "";
+        n.style.transform = "";
+      }, delay * 1000);
     });
-    return () => controls.forEach((c) => c.stop());
+
+    return () => {
+      cancelled = true;
+    };
   }, [cards, reduce]);
 
   /* pointer parallax: one rAF loop easing toward the pointer */
@@ -283,42 +213,13 @@ export default function PartylabsHero() {
   /* the search suggestions cycle */
   useEffect(() => {
     if (reduce) return;
-    const t = setInterval(() => setIdea((i) => (i + 1) % IDEAS.length), 2800);
+    const t = setInterval(() => setIdea((i) => (i + 1) % IDEAS.length), 2600);
     return () => clearInterval(t);
   }, [reduce]);
 
-  /* "/" focuses the search, Escape closes the sheet */
-  useEffect(() => {
-    const key = (e: KeyboardEvent) => {
-      const typing = document.activeElement instanceof HTMLInputElement || document.activeElement instanceof HTMLTextAreaElement;
-      if (e.key === "/" && !typing) {
-        e.preventDefault();
-        if ((heroRef.current?.clientWidth ?? innerWidth) >= 768) document.getElementById("plh-q")?.focus();
-        else {
-          setSheet(true);
-          requestAnimationFrame(() => document.getElementById("plh-q2")?.focus());
-        }
-      }
-      if (e.key === "Escape") setSheet(false);
-    };
-    addEventListener("keydown", key);
-    return () => removeEventListener("keydown", key);
-  }, []);
-
-  /* a press outside the sheet closes it */
-  useEffect(() => {
-    if (!sheet) return;
-    const away = (e: PointerEvent) => {
-      const t = e.target as Node;
-      if (!sheetRef.current?.contains(t) && !menuRef.current?.contains(t)) setSheet(false);
-    };
-    document.addEventListener("pointerdown", away);
-    return () => document.removeEventListener("pointerdown", away);
-  }, [sheet]);
-
   return (
     <MotionConfig reducedMotion="user">
-      <main ref={heroRef} className={`plh ${geist.variable}`} id="plh-top">
+      <section ref={heroRef} className={`plh ${geist.variable}`} id="plh-top">
         <div ref={fieldRef} className="plh-field" aria-hidden>
           {cards.map(({ c, i, src, order }) => {
             const [x, y, d, r, p] = c;
@@ -337,17 +238,12 @@ export default function PartylabsHero() {
               "--delay": `-${(i * 0.7).toFixed(1)}s`,
               "--amp": `${(4 + d * 7).toFixed(1)}px`,
               "--w": `calc(var(--plh-unit) * ${((0.55 + d * 0.65) * (portrait ? 0.82 : 1)).toFixed(3)})`,
-            } as CSSProperties;
+            } as React.CSSProperties;
+
             return (
-              <div key={`${layout}-${i}`} className={`plh-card${d > 0.65 ? " is-near" : ""}`} style={style}>
+              <div key={i} className={`plh-card ${d > 0.65 ? "is-near" : ""}`} data-order={order} style={style}>
                 <div className="plh-float">
-                  <div
-                    className="plh-photo"
-                    data-x={x}
-                    data-y={y}
-                    data-order={order}
-                    style={reduce ? undefined : { opacity: 0 }}
-                  >
+                  <div className="plh-photo">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img alt="" src={src} decoding="async" draggable={false} fetchPriority={d > 0.65 ? "high" : "auto"} />
                   </div>
@@ -357,121 +253,43 @@ export default function PartylabsHero() {
           })}
         </div>
 
-        <header className="plh-nav">
-          <motion.a
-            className="plh-brand"
-            href="#plh-top"
-            aria-label="iPartyLabs home"
-            variants={fromTop}
-            initial="hidden"
-            animate="show"
-            custom={0.45}
-            onClick={(e) => e.preventDefault()}
-          >
-            <BrandMark />
-            iPartyLabs
-          </motion.a>
-
-          <motion.div className="plh-nav__search" variants={fromTop} initial="hidden" animate="show" custom={0.5}>
-            <Search id="plh-q" idea={idea} kbd />
-          </motion.div>
-
-          <nav className="plh-nav__right" aria-label="Primary">
-            {["Home", "Partner"].map((label, i) => (
-              <motion.a
-                key={label}
-                className="plh-nav__link"
-                href="#plh-top"
-                aria-current={i === 0 ? "page" : undefined}
-                variants={fromTop}
-                initial="hidden"
-                animate="show"
-                custom={0.55 + i * 0.05}
-                onClick={(e) => e.preventDefault()}
-              >
-                {label}
-              </motion.a>
-            ))}
-            <motion.button className="plh-icon" type="button" aria-label="Cart" variants={fromTop} initial="hidden" animate="show" custom={0.65}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.4a1.5 1.5 0 0 0 1.5-1.1L21 8H6.2" />
-                <circle cx="9.5" cy="20" r="1.2" />
-                <circle cx="17" cy="20" r="1.2" />
-              </svg>
-            </motion.button>
-            <motion.button className="plh-btn plh-btn--dark plh-btn--sm" type="button" variants={fromTop} initial="hidden" animate="show" custom={0.7}>
-              Logout
-            </motion.button>
-            <motion.button
-              ref={menuRef}
-              className="plh-icon plh-menu"
-              type="button"
-              aria-label={sheet ? "Close menu" : "Open menu"}
-              aria-expanded={sheet}
-              aria-controls="plh-sheet"
-              onClick={() => setSheet((s) => !s)}
-              variants={fromTop}
-              initial="hidden"
-              animate="show"
-              custom={0.5}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
-                <motion.path d="M4 8h16" animate={sheet ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }} style={{ transformOrigin: "center", transformBox: "fill-box" }} />
-                <motion.path d="M4 16h16" animate={sheet ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }} style={{ transformOrigin: "center", transformBox: "fill-box" }} />
-              </svg>
-            </motion.button>
-          </nav>
-        </header>
-
-        <AnimatePresence>
-          {sheet && (
-            <motion.div
-              ref={sheetRef}
-              id="plh-sheet"
-              className="plh-sheet"
-              initial={{ opacity: 0, y: -8, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.3, ease: EASE }}
-            >
-              <Search id="plh-q2" idea={idea} />
-              <a href="#plh-top" aria-current="page" onClick={(e) => e.preventDefault()}>
-                Home
-              </a>
-              <a href="#plh-top" onClick={(e) => e.preventDefault()}>
-                Partner
-              </a>
-              <button className="plh-btn plh-btn--dark" type="button">
-                Logout
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <section className="plh-content" aria-labelledby="plh-title">
-          <motion.a
-            className="plh-badge"
-            href="#plh-top"
-            onClick={(e) => e.preventDefault()}
+        <div className="plh-content" aria-labelledby="plh-title">
+          {/* Eyebrow Status Badge */}
+          <motion.div
             initial={{ opacity: 0, y: 12, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
           >
-            <span className="plh-badge__icon" aria-hidden>
-              <span>
-                <i />
-                <i />
-                <i />
-                <i />
+            <Link className="plh-badge group" href="/about">
+              <span className="plh-badge__icon" aria-hidden>
+                <span>
+                  <i />
+                  <i />
+                  <i />
+                  <i />
+                </span>
               </span>
-            </span>
-            Announcing our Launch
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="m9 6 6 6-6 6" />
-            </svg>
-          </motion.a>
+              <span className="font-semibold text-emerald-800">Available for 2026 Engineering</span>
+              <span className="text-[var(--plh-muted)]">· Fullstack & AI Orchestrator</span>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+                className="transition-transform group-hover:translate-x-0.5"
+              >
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </Link>
+          </motion.div>
 
-          <h1 id="plh-title" className="plh-title" aria-label={TITLE}>
+          {/* Animated Display Title */}
+          <h1 id="plh-title" className="plh-title max-w-4xl" aria-label={TITLE}>
             {TITLE.split(" ").map((w, i) => (
               <motion.span
                 key={i}
@@ -479,26 +297,68 @@ export default function PartylabsHero() {
                 aria-hidden
                 initial={{ opacity: 0, y: "0.45em", filter: "blur(12px)" }}
                 animate={{ opacity: 1, y: "0em", filter: "blur(0px)" }}
-                transition={{ duration: 1.1, ease: EASE, delay: 0.2 + i * 0.08 }}
+                transition={{ duration: 1.1, ease: EASE, delay: 0.2 + i * 0.05 }}
               >
                 {w}
               </motion.span>
             ))}
           </h1>
 
+          {/* Author Subtitle */}
+          <motion.p
+            className="max-w-2xl text-center text-sm md:text-base text-[var(--plh-ink-2)] leading-relaxed mt-4 mb-2 font-normal"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.55 }}
+          >
+            Hi, I&apos;m {DATA.name}. Architecting end-to-end web applications, resilient backend microservices, and autonomous multi-agent engineering workflows.
+          </motion.p>
+
+          {/* Interactive Tech & Case Study Explorer Pill */}
+          <motion.div
+            className="my-4 w-full max-w-sm mx-auto"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.65 }}
+          >
+            <Link
+              href="/work"
+              className="flex items-center justify-between px-4 py-2 rounded-full border border-black/10 bg-white/80 hover:bg-white shadow-xs backdrop-blur-md transition group select-none"
+            >
+              <div className="flex items-center gap-2 text-xs text-[var(--plh-muted)]">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+                <span>Focus:</span>
+                <span className="font-semibold text-[var(--plh-ink)]">
+                  {IDEAS[idea]}
+                </span>
+              </div>
+              <span className="text-[11px] font-semibold text-emerald-700 group-hover:translate-x-0.5 transition-transform">
+                Explore Work →
+              </span>
+            </Link>
+          </motion.div>
+
+          {/* Action CTAs */}
           <div className="plh-ctas">
-            <motion.a className="plh-btn plh-btn--dark" href="#plh-top" variants={reveal} initial="hidden" animate="show" custom={0.6} onClick={(e) => e.preventDefault()}>
-              Browse Venues
-              <svg className="plh-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </motion.a>
-            <motion.a className="plh-btn plh-btn--light" href="#plh-top" variants={reveal} initial="hidden" animate="show" custom={0.68} onClick={(e) => e.preventDefault()}>
-              Contact Us
-            </motion.a>
+            <motion.div variants={reveal} initial="hidden" animate="show" custom={0.75}>
+              <Link className="plh-btn plh-btn--dark" href="/work">
+                View Selected Work
+                <svg className="plh-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </Link>
+            </motion.div>
+            <motion.div variants={reveal} initial="hidden" animate="show" custom={0.82}>
+              <Link className="plh-btn plh-btn--light" href="/contact">
+                Get in Touch
+              </Link>
+            </motion.div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </MotionConfig>
   );
 }

@@ -109,7 +109,7 @@ export default function RootLayout({
       <body
         className={cn("antialiased min-h-screen bg-background", fontSans.variable, fontDashboard.variable, fontMono.variable)}
       >
-        <ThemeProvider attribute="class" defaultTheme="light">
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false}>
           <TooltipProvider delayDuration={0}>
             {children}
           </TooltipProvider>

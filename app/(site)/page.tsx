@@ -1,5 +1,5 @@
 import React from "react";
-import Intro from "../../components/section/Intro";
+import PartylabsHero from "@/components/blocx/PartylabsHero";
 import { FeaturedProjectsPreview } from "@/components/featured-projects-preview";
 import { HomeAboutTeaser } from "@/components/home-about-teaser";
 import SkillSection from "../../components/section/skills-section";
@@ -12,10 +12,10 @@ export default function Home() {
     <main className="flex flex-col overflow-x-hidden min-h-[100dvh]">
       <SmoothCursor />
       
-      {/* 1. Hero Section */}
-      <Intro />
+      {/* 1. Hero Section: Partylabs 3D Depth Photo Field */}
+      <PartylabsHero />
 
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8 mt-8">
         {/* 2. Selected Work (Top 3 Flagship Projects) */}
         <FeaturedProjectsPreview />
 

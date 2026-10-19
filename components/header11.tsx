@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { DATA } from "@/lib/data/resume";
-import { ModeToggle } from "@/components/mode-toggle";
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
@@ -86,12 +85,9 @@ export function Header11() {
           >
             <Icons.linkedin className="size-3.5" />
           </a>
-          <div className="flex items-center">
-            <ModeToggle />
-          </div>
           <Link
             href="/contact"
-            className="rounded-full bg-foreground px-3.5 py-1.5 text-xs font-semibold text-background shadow-xs transition hover:opacity-90 active:scale-95"
+            className="rounded-full bg-foreground px-4 py-1.5 text-xs font-semibold text-background shadow-xs transition hover:opacity-90 active:scale-95 ml-1"
           >
             Contact
           </Link>
