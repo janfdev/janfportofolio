@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import NowPlaying, { NowPlayingTrack } from "@/components/kokonutui/liquid-glass-card";
 import { Disc3, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DynamicIslandPlayer } from "@/components/dynamic-island-player";
 
 const PLAYLIST: (NowPlayingTrack & { youtubeId: string })[] = [
   {
@@ -168,10 +169,7 @@ export function FloatingMusicPlayer() {
   };
 
   return (
-    <aside
-      aria-label="Floating Music Player"
-      className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-auto"
-    >
+    <>
       {/* Hidden YouTube Iframe Container */}
       <div
         className="pointer-events-none fixed -left-[9999px] -top-[9999px] opacity-0"
@@ -180,51 +178,68 @@ export function FloatingMusicPlayer() {
         <div id={containerId} />
       </div>
 
-      {/* Popover Music Card */}
-      {isOpen && (
-        <div className="mb-3 w-[320px] sm:w-[350px] transition-all duration-300 animate-in fade-in slide-in-from-bottom-4 shadow-2xl rounded-2xl overflow-hidden border border-border/40 backdrop-blur-md">
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="absolute top-3 right-3 z-30 p-1.5 rounded-full bg-black/30 text-white/80 hover:text-white hover:bg-black/50 transition-colors"
-              aria-label="Close music card"
-            >
-              <X className="size-4" />
-            </button>
-            <NowPlaying
-              tracks={PLAYLIST}
-              autoPlay={false}
-              glassEffect={true}
-              accent="#10b981"
-              className="w-full"
-              onPlayStateChange={handlePlayStateChange}
-              onTrackChange={handleTrackChange}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Floating Toggle Button */}
-      <Button
-        type="button"
-        variant="outline"
-        size="icon"
-        onClick={() => setIsOpen(!isOpen)}
-        className="size-12 rounded-full border border-border/60 bg-background/80 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all text-foreground cursor-pointer group"
-        aria-label={isOpen ? "Tutup pemutar musik" : "Buka pemutar musik"}
-      >
-        <Disc3
-          className={`size-6 text-emerald-500 transition-transform duration-700 ${
-            isPlaying
-              ? "animate-spin text-emerald-400"
-              : isOpen
-              ? "rotate-90 text-emerald-400"
-              : "group-hover:rotate-45"
-          }`}
-          style={isPlaying ? { animationDuration: "3s" } : undefined}
+      {/* Mobile Dynamic Island Music Player (< md) */}
+      <div className="block md:hidden">
+        <DynamicIslandPlayer
+          tracks={PLAYLIST}
+          currentTrackIndex={currentTrackIndex}
+          isPlaying={isPlaying}
+          onPlayStateChange={handlePlayStateChange}
+          onTrackChange={handleTrackChange}
         />
-      </Button>
-    </aside>
+      </div>
+
+      {/* Desktop Floating Music Player (>= md) */}
+      <aside
+        aria-label="Floating Music Player"
+        className="hidden md:flex fixed bottom-6 right-6 z-50 flex-col items-end pointer-events-auto"
+      >
+        {/* Popover Music Card */}
+        {isOpen && (
+          <div className="mb-3 w-[320px] sm:w-[350px] transition-all duration-300 animate-in fade-in slide-in-from-bottom-4 shadow-2xl rounded-2xl overflow-hidden border border-border/40 backdrop-blur-md">
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="absolute top-3 right-3 z-30 p-1.5 rounded-full bg-black/30 text-white/80 hover:text-white hover:bg-black/50 transition-colors"
+                aria-label="Close music card"
+              >
+                <X className="size-4" />
+              </button>
+              <NowPlaying
+                tracks={PLAYLIST}
+                autoPlay={false}
+                glassEffect={true}
+                accent="#10b981"
+                className="w-full"
+                onPlayStateChange={handlePlayStateChange}
+                onTrackChange={handleTrackChange}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Floating Toggle Button */}
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          onClick={() => setIsOpen(!isOpen)}
+          className="size-12 rounded-full border border-border/60 bg-background/80 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all text-foreground cursor-pointer group"
+          aria-label={isOpen ? "Tutup pemutar musik" : "Buka pemutar musik"}
+        >
+          <Disc3
+            className={`size-6 text-emerald-500 transition-transform duration-700 ${
+              isPlaying
+                ? "animate-spin text-emerald-400"
+                : isOpen
+                ? "rotate-90 text-emerald-400"
+                : "group-hover:rotate-45"
+            }`}
+            style={isPlaying ? { animationDuration: "3s" } : undefined}
+          />
+        </Button>
+      </aside>
+    </>
   );
 }
