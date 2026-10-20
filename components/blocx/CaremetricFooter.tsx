@@ -99,21 +99,10 @@ export default function CaremetricFooter() {
             animate="show"
             custom={0.35}
           >
-            <Link href="/" aria-label="janfdev home" className="group flex items-center gap-3.5 select-none">
-              <div className="relative flex items-center justify-center rounded-xl bg-zinc-950 text-white shadow-xs p-2.5 border border-black/10 shrink-0 group-hover:scale-105 transition-transform dark:border-white/10">
-                <LogoZ2 size={26} className="text-zinc-100" />
-                <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-950" />
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl sm:text-3xl font-black tracking-tight text-[var(--ink)] leading-none">
-                    janf<span className="text-[var(--green)]">dev</span>
-                  </span>
-                  <span className="inline-block w-2 h-2 rounded-full bg-[var(--green)] shadow-[0_0_8px_rgba(16,185,129,0.6)] animate-pulse" />
-                </div>
-                <p className="mt-1 text-[10px] sm:text-xs uppercase tracking-widest text-[var(--ink-60)] font-medium">
-                  Systems & AI Orchestrator
-                </p>
+            <Link href="/" aria-label="Home" className="group inline-flex items-center select-none">
+              <div className="relative flex items-center justify-center rounded-2xl bg-zinc-950 text-white shadow-xs p-3.5 border border-black/10 shrink-0 group-hover:scale-105 transition-transform dark:border-white/10">
+                <LogoZ2 size={32} className="text-zinc-100" />
+                <span className="absolute -top-1 -right-1 size-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-950" />
               </div>
             </Link>
           </motion.div>
@@ -172,28 +161,6 @@ export default function CaremetricFooter() {
               Designed with craft. Systems & Agent Architecture.
             </p>
           </motion.div>
-
-          {/* giant janfdev mark bleeding off the bottom edge */}
-          <svg className="cmf__mark" viewBox="0 0 1440 354" aria-hidden>
-            <motion.text
-              x="50%"
-              y="285"
-              textAnchor="middle"
-              className="cmf__mark-shape select-none font-black"
-              style={{
-                fontSize: "clamp(120px, 19vw, 255px)",
-                fontWeight: 900,
-                letterSpacing: "-0.06em",
-                fontFamily: "var(--font-sans), var(--cmf-geist), system-ui, sans-serif",
-                textTransform: "lowercase",
-              }}
-              initial={{ y: 120, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1.6, ease: EASE_OUT, delay: 0.9 }}
-            >
-              janfdev
-            </motion.text>
-          </svg>
         </div>
       </footer>
     </div>

@@ -25,19 +25,12 @@ export default function FooterWithSuite({ className }: FooterSimpleProps) {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Identity & Tagline */}
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2.5 group">
+            <Link href="/" aria-label="Home" className="flex items-center group">
               <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-zinc-950 text-white shadow-2xs transition-transform group-hover:scale-105 border border-black/10 dark:border-white/10 shrink-0">
                 <LogoZ2 size={18} className="text-zinc-100" />
                 <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-950" />
               </div>
-              <span className="text-sm font-bold tracking-tight text-foreground">
-                {DATA.name}
-              </span>
             </Link>
-            <span className="hidden sm:inline text-xs text-muted-foreground">/</span>
-            <span className="hidden sm:inline text-xs text-muted-foreground">
-              Fullstack Engineer
-            </span>
           </div>
 
           {/* Quick Nav Links */}

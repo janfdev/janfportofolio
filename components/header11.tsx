@@ -31,26 +31,15 @@ export function Header11() {
         )}
       >
         {/* Brand Logomark */}
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" aria-label="Home" className="flex items-center group">
           <div
             className={cn(
-              "relative flex items-center justify-center rounded-xl bg-zinc-950 text-white shadow-xs transition-all duration-300 group-hover:scale-105 border border-black/10 shrink-0",
+              "relative flex items-center justify-center rounded-xl bg-zinc-950 text-white shadow-xs transition-all duration-300 group-hover:scale-105 border border-black/10 dark:border-white/10 shrink-0",
               scrolled ? "h-8 w-8" : "h-9 w-9"
             )}
           >
             <LogoZ2 size={scrolled ? 18 : 21} className="text-zinc-100" />
-            <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-white" />
-          </div>
-          <div className="flex flex-col text-left">
-            <div className="flex items-center gap-1.5">
-              <span className="text-sm font-bold tracking-tight text-foreground leading-none">
-                janf<span className="text-emerald-600">.dev</span>
-              </span>
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            </div>
-            <span className="hidden lg:block text-[10px] font-medium text-muted-foreground tracking-wide mt-0.5">
-              Rizqi Noor Fauzan · Systems & AI
-            </span>
+            <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-950" />
           </div>
         </Link>
 
