@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <title>janf.dev - Concept C Terminal Aperture</title>
+  <!-- 'J' Component -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M112 56V164C112 186.1 94.1 204 72 204C49.9 204 32 186.1 32 164V152H60V164C60 170.6 65.4 176 72 176C78.6 176 84 170.6 84 164V56H112Z" fill="#18181B"/>
+  <!-- 'F' Component -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M144 56H224V84H172V112H212V140H172V204H144V56Z" fill="#18181B"/>
+  <!-- Terminal Prompt Accent (Blinking Block Cursor) -->
+  <rect x="188" y="168" width="28" height="36" rx="4" fill="#10B981"/>
+</svg>

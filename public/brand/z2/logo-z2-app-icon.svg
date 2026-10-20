@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>janf.dev</title><rect width="256" height="256" rx="57.6" fill="#09090B"/><g transform="translate(1.02 1.02) scale(0.992)" fill="none">
+  
+  <!-- Upper Kinetic Wing -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M48 48H208V96L156 148H116L168 96H48V48Z" fill="#18181B"/>
+  <!-- Lower Kinetic Wing (Point Symmetric) -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M208 208H48V160L100 108H140L88 160H208V208Z" fill="#18181B"/>
+  <!-- Emerald Velocity Pulse -->
+  <circle cx="128" cy="128" r="14" fill="#10B981"/>
+</g></svg>

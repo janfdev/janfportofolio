@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <title>janf.dev - Concept B Geometric Prism</title>
+  <!-- Angled Chevron Block (45-degree precision) -->
+  <path d="M128 36L220 128L192 156L128 92L64 156L36 128L128 36Z" fill="#18181B"/>
+  <!-- Central Stem & J Hook -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M142 96V184C142 206.1 124.1 224 102 224C79.9 224 62 206.1 62 184V172H90V184C90 190.6 95.4 196 102 196C108.6 196 114 190.6 114 184V96H142Z" fill="#18181B"/>
+  <!-- F Middle Bar (45-degree wing) -->
+  <path d="M142 120H196V148H142V120Z" fill="#18181B"/>
+  <!-- Emerald Core Signal -->
+  <circle cx="128" cy="128" r="14" fill="#10B981"/>
+</svg>

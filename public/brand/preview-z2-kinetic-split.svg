@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" fill="none">
+      <rect width="600" height="600" fill="#0C0D0E"/>
+      <rect x="50" y="50" width="500" height="500" rx="36" fill="#18181B" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+      
+      <!-- Logo Marks Layer (Centered 256x256 inside card) -->
+      <g transform="translate(172, 140)">
+        
+  <title>Logo Concept Z2 - Kinetic Split</title>
+  <!-- Upper Kinetic Wing -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M48 48H208V96L156 148H116L168 96H48V48Z" fill="#FAFAFA"/>
+  <!-- Lower Kinetic Wing (Point Symmetric) -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M208 208H48V160L100 108H140L88 160H208V208Z" fill="#FAFAFA"/>
+  <!-- Emerald Velocity Pulse -->
+  <circle cx="128" cy="128" r="14" fill="#10B981"/>
+
+      </g>
+      
+      <!-- Label -->
+      <text x="300" y="460" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#FAFAFA" text-anchor="middle" letter-spacing="0.05em">Concept Z2: Kinetic Split Z</text>
+      <text x="300" y="490" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#71717A" text-anchor="middle" letter-spacing="0.08em">VECTOR GEOMETRIC SVG · 100/100 AUDIT</text>
+    </svg>

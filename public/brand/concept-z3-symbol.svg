@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <title>Logo Concept Z3 - Monolith Terminal Mark</title>
+  <!-- Architectural Z with Chamfered Precision -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M52 52H204V92H132L204 164V204H52V164H124L52 92V52Z" fill="#18181B"/>
+  <!-- Glowing Emerald Prompt Accent -->
+  <rect x="180" y="52" width="24" height="24" rx="4" fill="#10B981"/>
+</svg>
