@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <title>Logo Concept Z1 - Precision Fold</title>
+  <!-- Pure 45-degree Mathematical Monogram Z -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M48 48H208V88H128L208 168V208H48V168H128L48 88V48Z" fill="#18181B"/>
+  <!-- Focus Signal Dot (Emerald) -->
+  <circle cx="188" cy="68" r="10" fill="#10B981"/>
+</svg>

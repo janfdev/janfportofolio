@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { DATA } from "@/lib/data/resume";
 import { Icons } from "@/components/icons";
+import { LogoZ2 } from "@/components/brand/logo";
 import { cn } from "@/lib/utils";
 
 export function Header11() {
@@ -34,10 +35,10 @@ export function Header11() {
           <div
             className={cn(
               "relative flex items-center justify-center rounded-xl bg-zinc-950 text-white shadow-xs transition-all duration-300 group-hover:scale-105 border border-black/10 shrink-0",
-              scrolled ? "h-8 w-8 text-xs" : "h-9 w-9 text-sm"
+              scrolled ? "h-8 w-8" : "h-9 w-9"
             )}
           >
-            <span className="font-mono font-black tracking-tighter text-zinc-100">jf</span>
+            <LogoZ2 size={scrolled ? 18 : 21} className="text-zinc-100" />
             <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-white" />
           </div>
           <div className="flex flex-col text-left">

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <!-- Concept A: Precision Monogram 'jf' Ligature -->
+  <rect width="256" height="256" rx="56" fill="#09090B"/>
+  <!-- Top Accent Dot (Active Signal) -->
+  <circle cx="188" cy="68" r="14" fill="#10B981"/>
+  <!-- Interlocking 'jf' Vector Path -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M144 52C168.3 52 188 71.7 188 96V108H158V96C158 88.268 151.732 82 144 82C136.268 82 130 88.268 130 96V118H172V146H130V176C130 183.732 123.732 190 116 190C108.268 190 102 183.732 102 176V146H76V118H102V96C102 71.7 121.7 52 144 52ZM76 160H102V180C102 201.2 87.2 216 66 216H56V188H66C71.523 188 76 183.523 76 178V160Z" fill="#FAFAFA"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <title>Logo Concept Z3 - Monolith Terminal Badge</title>
+  <!-- Squircle Base Frame -->
+  <rect width="256" height="256" rx="56" fill="#09090B"/>
+  <!-- Negative Space Carved Z with 45-degree angle -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M56 56H200V92H128L200 164V200H56V164H128L56 92V56Z" fill="#FAFAFA"/>
+  <!-- Glowing Emerald Prompt Pixel -->
+  <rect x="180" y="56" width="20" height="20" rx="4" fill="#10B981"/>
+</svg>

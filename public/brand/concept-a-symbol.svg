@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <title>janf.dev - Concept A Monogram</title>
+  <!-- jf Interlocking Precision Monogram (Centered) -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M152 36C180.7 36 204 59.3 204 88V100H172V88C172 77 163 68 152 68C141 68 132 77 132 88V108H188V138H132V170C132 178.8 124.8 186 116 186C107.2 186 100 178.8 100 170V138H68V108H100V88C100 59.3 123.3 36 152 36ZM68 150H100V174C100 199.4 79.4 220 54 220H38V190H54C62.8 190 70 182.8 70 174V150H68Z" fill="#18181B"/>
+  <circle cx="204" cy="52" r="14" fill="#10B981"/>
+</svg>
