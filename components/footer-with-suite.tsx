@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { DATA } from "@/lib/data/resume";
 import { Icons } from "@/components/icons";
+import { LogoZ2 } from "@/components/brand/logo";
 
 interface FooterSimpleProps {
   className?: string;
@@ -24,9 +25,10 @@ export default function FooterWithSuite({ className }: FooterSimpleProps) {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Identity & Tagline */}
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background font-display font-black text-xs shadow-2xs transition-transform group-hover:scale-105">
-                {DATA.initials}
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-zinc-950 text-white shadow-2xs transition-transform group-hover:scale-105 border border-black/10 dark:border-white/10 shrink-0">
+                <LogoZ2 size={18} className="text-zinc-100" />
+                <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-950" />
               </div>
               <span className="text-sm font-bold tracking-tight text-foreground">
                 {DATA.name}

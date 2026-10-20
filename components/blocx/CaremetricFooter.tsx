@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import { Geist } from "next/font/google";
+import { LogoZ2 } from "@/components/brand/logo";
 import "./caremetric-footer.css";
 
 /**
@@ -98,16 +99,22 @@ export default function CaremetricFooter() {
             animate="show"
             custom={0.35}
           >
-            <Link href="/" aria-label="janfdev home" className="group block select-none">
-              <div className="flex items-center gap-2">
-                <span className="text-3xl font-black tracking-tight text-[var(--ink)]">
-                  janf<span className="text-[var(--green)]">dev</span>
-                </span>
-                <span className="inline-block w-2.5 h-2.5 rounded-full bg-[var(--green)] shadow-[0_0_8px_rgba(10,188,5,0.6)] animate-pulse" />
+            <Link href="/" aria-label="janfdev home" className="group flex items-center gap-3.5 select-none">
+              <div className="relative flex items-center justify-center rounded-xl bg-zinc-950 text-white shadow-xs p-2.5 border border-black/10 shrink-0 group-hover:scale-105 transition-transform dark:border-white/10">
+                <LogoZ2 size={26} className="text-zinc-100" />
+                <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-950" />
               </div>
-              <p className="mt-1 text-xs uppercase tracking-widest text-[var(--ink-60)] font-medium">
-                Systems & AI Orchestrator
-              </p>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl sm:text-3xl font-black tracking-tight text-[var(--ink)] leading-none">
+                    janf<span className="text-[var(--green)]">dev</span>
+                  </span>
+                  <span className="inline-block w-2 h-2 rounded-full bg-[var(--green)] shadow-[0_0_8px_rgba(16,185,129,0.6)] animate-pulse" />
+                </div>
+                <p className="mt-1 text-[10px] sm:text-xs uppercase tracking-widest text-[var(--ink-60)] font-medium">
+                  Systems & AI Orchestrator
+                </p>
+              </div>
             </Link>
           </motion.div>
 
