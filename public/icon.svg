@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <title>janf.dev logo</title>
+  <rect x="16" y="16" width="224" height="224" rx="56" fill="#18181a" stroke="#2e2e32" stroke-width="4" />
+  <circle cx="102" cy="72" r="14" fill="#28c840" />
+  <path d="M 102 108 L 102 164 Q 102 192 74 192 L 66 192" stroke="#f4f4f5" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 190 66 L 174 66 Q 152 66 152 92 L 152 186" stroke="#f4f4f5" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 130 116 L 184 116" stroke="#f4f4f5" stroke-width="22" stroke-linecap="round" />
+</svg>

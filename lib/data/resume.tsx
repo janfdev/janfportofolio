@@ -116,7 +116,7 @@ Implemented REST API integration to handle dynamic data rendering and user inter
       school: "Universitas Muhammadiyah Cirebon",
       href: "https://umc.ac.id",
       degree: "Bachelor of Informatics Engineering",
-      logoUrl: "/umc.png",
+      logoUrl: "/logo_umc.png",
       start: "2023",
       end: "Present"
     }

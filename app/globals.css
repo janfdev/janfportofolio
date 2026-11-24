@@ -231,3 +231,134 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Faiz Intifada & Design Engineer Typography Fonts */
+@font-face {
+  font-family: 'Geist';
+  src: url('/_astro/fonts/502b9851e13aed9b.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 400 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Paper Mono';
+  src: url('/_astro/fonts/95dfa9f724a37ace.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Paper Mono';
+  src: url('/_astro/fonts/f8a3b3f5b3a34952.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Caveat';
+  src: url('/_astro/fonts/239c73ceb3f3caf3.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --font-geist: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-paper-mono: 'Paper Mono', ui-monospace, monospace;
+  --font-caveat: 'Caveat', cursive;
+
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f9f8f6;
+  --color-bg-muted: #f2f1ef;
+  --color-bg-inverse: #0a0a0a;
+  --color-bg-hover: rgba(10, 10, 10, 0.04);
+  --color-fg: #0a0a0a;
+  --color-fg-secondary: rgba(10, 10, 10, 0.65);
+  --color-fg-inverse: #ffffff;
+  --color-border: rgba(10, 10, 10, 0.08);
+  --color-border-subtle: rgba(10, 10, 10, 0.04);
+  --color-border-strong: rgba(10, 10, 10, 0.25);
+  --color-accent: #ff6308;
+  --color-accent-subtle: rgba(255, 99, 8, 0.1);
+  --color-focus: #ff6308;
+  --color-success: #28c840;
+  --color-success-text: #1a7f2b;
+  --color-danger: #ff5f57;
+
+  --shadow-print: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.06), 0 14px 28px -8px rgba(0, 0, 0, 0.22);
+  --shadow-print-lift: 0 6px 12px -4px rgba(0, 0, 0, 0.08), 0 28px 44px -12px rgba(0, 0, 0, 0.18);
+  --shadow-avatar: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-button: 0 8px 24px rgba(0, 0, 0, 0.18);
+  --shadow-float: 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.14);
+  --shadow-overlay: 0 0 1px rgba(0, 0, 0, 0.06), 0 18px 40px rgba(0, 0, 0, 0.12);
+  --shadow-dialog: 0 0 0.5px rgba(0, 0, 0, 0.2), 0 18px 20px rgba(15, 23, 42, 0.12);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-back: cubic-bezier(0.34, 1.45, 0.64, 1);
+  --ease-lift: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.dark {
+  --color-bg: #18181a;
+  --color-bg-subtle: #1f1f22;
+  --color-bg-muted: #27272a;
+  --color-bg-inverse: #f4f4f5;
+  --color-bg-hover: rgba(255, 255, 255, 0.06);
+  --color-fg: #f4f4f5;
+  --color-fg-secondary: #a1a1aa;
+  --color-fg-inverse: #18181a;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-strong: rgba(255, 255, 255, 0.25);
+}
+
+/* Page grid matching single-column editorial layout */
+.page-grid {
+  --gutter: 20px;
+  display: grid;
+  grid-template-columns: 
+    [full-start] minmax(var(--gutter), 1fr) 
+    [breakout-start] minmax(0, 180px) 
+    [content-start] min(640px, 100% - 2 * var(--gutter)) 
+    [content-end] minmax(0, 180px) 
+    [breakout-end] minmax(var(--gutter), 1fr) 
+    [full-end];
+}
+
+@media (min-width: 640px) {
+  .page-grid {
+    --gutter: 24px;
+  }
+}
+
+.page-grid > * {
+  grid-column: content;
+}
+
+.page-grid > .col-breakout {
+  grid-column: breakout;
+}
+
+.page-grid > .col-full {
+  grid-column: full;
+}
+
+@keyframes rise-in {
+  0% {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.35s var(--ease-out) both;
+}

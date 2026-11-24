@@ -1,17 +1,14 @@
-import Navbar from "../../components/navbar";
-import { Header11 } from "../../components/header11";
-import { FloatingMusicPlayer } from "../../components/floating-music-player";
-import { SmoothScroll } from "../../components/smooth-scroll";
+import { FloatingMusicPlayer } from "@/components/floating-music-player";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import { Preloader } from "@/components/design-engineer/Preloader";
 
-// Kolom sempit portofolio hanya untuk situs publik.
-// Dashboard punya layout sendiri dan tidak ikut grup ini.
+// Layout situs publik: single-column editorial dengan preloader, smooth scroll, dan background audio player
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <SmoothScroll>
-      <div className="relative w-full min-h-screen">
-        <Header11 />
+      <div className="relative w-full min-h-screen bg-[var(--color-bg)] text-[var(--color-fg)]">
+        <Preloader />
         {children}
-        <Navbar />
         <FloatingMusicPlayer />
       </div>
     </SmoothScroll>
