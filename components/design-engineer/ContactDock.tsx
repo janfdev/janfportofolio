@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Mail,
   Send,
@@ -9,7 +9,10 @@ import {
   Check,
   RotateCcw,
   X,
+  Moon,
+  Sun,
 } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,7 +27,13 @@ interface ContactDockProps {
 
 export function ContactDock({ placement = "dock", align = "start" }: ContactDockProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
   const [step, setStep] = useState<"intro" | "form">("intro");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -86,22 +95,22 @@ export function ContactDock({ placement = "dock", align = "start" }: ContactDock
         <span
           className="block size-10 rounded-xl bg-[url(/profiless.png)] bg-cover bg-center outline-1 -outline-offset-[0.5px] outline-[var(--color-border)]"
         />
-        <span className="absolute -right-0.5 -bottom-0.5 size-3 rounded-full bg-[#28c840] ring-2 ring-white" />
+        <span className="absolute -right-0.5 -bottom-0.5 size-3 rounded-full bg-[#28c840] ring-2 ring-[var(--color-bg)]" />
       </button>
 
       {/* Contact Card Modal / Popover */}
       {isOpen && (
         <div
           className={cn(
-            "absolute z-50 rounded-[22px] bg-white p-4 shadow-[0_0_0.5px_rgba(0,0,0,0.2),0_18px_20px_rgba(15,23,42,0.12)] border border-[var(--color-border)] transition-all duration-200",
+            "absolute z-50 rounded-[22px] bg-[var(--color-bg)] p-4 shadow-[var(--shadow-dialog)] border border-[var(--color-border)] transition-all duration-200",
             placement === "dock"
-              ? "bottom-[-2px] left-[52px] w-[320px]"
+              ? "bottom-[56px] left-0 w-[320px]"
               : align === "end"
               ? "top-[52px] right-0 w-[min(320px,calc(100vw-40px))]"
               : "top-[52px] left-0 w-[min(320px,calc(100vw-40px))]"
           )}
           role="dialog"
-          aria-label="Contact Faiz"
+          aria-label={`Contact ${DATA.name.split(" ")[0]}`}
         >
           {step === "intro" ? (
             <div className="flex flex-col gap-3.5">
@@ -202,6 +211,21 @@ export function ContactDock({ placement = "dock", align = "start" }: ContactDock
                     <path d="M9 18c-4.51 2-5-2-7-2" />
                   </svg>
                 </a>
+                {mounted && (
+                  <button
+                    type="button"
+                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                    aria-label="Toggle theme"
+                    title="Toggle theme"
+                    className="flex size-9 items-center justify-center rounded-full text-[var(--color-fg-secondary)] hover:bg-[var(--color-bg-muted)] hover:text-[var(--color-fg)] transition-colors cursor-pointer"
+                  >
+                    {theme === "dark" ? (
+                      <Sun className="size-4 text-amber-400" />
+                    ) : (
+                      <Moon className="size-4" />
+                    )}
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}

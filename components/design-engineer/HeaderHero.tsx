@@ -1,22 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, Copy, Moon, Sun } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { DATA } from "@/lib/data/resume";
 import { ContactDock } from "./ContactDock";
-import { useTheme } from "next-themes";
 
 export function HeaderHero() {
   const [copied, setCopied] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(DATA.contact.email);
@@ -60,26 +53,9 @@ export function HeaderHero() {
           </div>
         </div>
 
-        {/* Right action group: Theme switcher & Mobile Contact Trigger */}
-        <div className="flex items-center gap-2">
-          {mounted && (
-            <button
-              type="button"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label="Toggle theme"
-              className="flex size-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg-subtle)] text-[var(--color-fg-secondary)] hover:text-[var(--color-fg)] hover:bg-[var(--color-bg-muted)] transition-all cursor-pointer"
-            >
-              {theme === "dark" ? (
-                <Sun className="size-4 text-amber-400" />
-              ) : (
-                <Moon className="size-4" />
-              )}
-            </button>
-          )}
-
-          <div className="sm:hidden">
-            <ContactDock placement="header" align="end" />
-          </div>
+        {/* Right action group: Mobile Contact Trigger */}
+        <div className="flex items-center gap-2 sm:hidden">
+          <ContactDock placement="header" align="end" />
         </div>
       </div>
 
