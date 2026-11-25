@@ -135,12 +135,80 @@ export function BrandPreloader({
               className="size-full"
               aria-hidden="true"
             >
-              {/* Layer 1: #z-dot — Emerald Green Ignition Point */}
+              {/* Layer 1: #z-upper — Top horizontal bar + right diagonal matching public/favicon.ico */}
+              <motion.path
+                id="z-upper"
+                d="M 96 96 H 416 V 192 L 288 272 A 34 34 0 0 0 224 232 L 274 192 H 96 Z"
+                fill="#FFFFFF"
+                initial={
+                  prefersReducedMotion
+                    ? { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, x: 0, y: 0 }
+                    : { clipPath: "inset(100% 0% 0% 50%)", opacity: 1, x: 0, y: 0 }
+                }
+                animate={
+                  prefersReducedMotion
+                    ? { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, x: 0, y: 0 }
+                    : isLooping
+                    ? {
+                        clipPath: "inset(0% 0% 0% 0%)",
+                        x: [0, 2, 0],
+                        y: [0, -2, 0],
+                        transition: {
+                          x: { duration: 1.4, repeat: Infinity, ease: "easeInOut" },
+                          y: { duration: 1.4, repeat: Infinity, ease: "easeInOut" },
+                        },
+                      }
+                    : {
+                        clipPath: "inset(0% 0% 0% 0%)",
+                        transition: {
+                          duration: 0.6,
+                          delay: 0.25,
+                          ease: EASE_REVEAL,
+                        },
+                      }
+                }
+              />
+
+              {/* Layer 2: #z-lower — Left diagonal + bottom horizontal bar matching public/favicon.ico */}
+              <motion.path
+                id="z-lower"
+                d="M 416 416 H 96 V 320 L 224 240 A 34 34 0 0 0 288 280 L 238 320 H 416 Z"
+                fill="#FFFFFF"
+                initial={
+                  prefersReducedMotion
+                    ? { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, x: 0, y: 0 }
+                    : { clipPath: "inset(0% 50% 100% 0%)", opacity: 1, x: 0, y: 0 }
+                }
+                animate={
+                  prefersReducedMotion
+                    ? { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, x: 0, y: 0 }
+                    : isLooping
+                    ? {
+                        clipPath: "inset(0% 0% 0% 0%)",
+                        x: [0, -2, 0],
+                        y: [0, 2, 0],
+                        transition: {
+                          x: { duration: 1.4, repeat: Infinity, ease: "easeInOut" },
+                          y: { duration: 1.4, repeat: Infinity, ease: "easeInOut" },
+                        },
+                      }
+                    : {
+                        clipPath: "inset(0% 0% 0% 0%)",
+                        transition: {
+                          duration: 0.6,
+                          delay: 0.25,
+                          ease: EASE_REVEAL,
+                        },
+                      }
+                }
+              />
+
+              {/* Layer 3: #z-dot — Emerald Green Ignition Point */}
               <motion.circle
                 id="z-dot"
                 cx="256"
                 cy="256"
-                r="22"
+                r="24"
                 fill="#10B981"
                 style={{ transformOrigin: "256px 256px" }}
                 initial={
@@ -169,82 +237,6 @@ export function BrandPreloader({
                         transition: {
                           duration: 0.3,
                           ease: EASE_IGNITION,
-                        },
-                      }
-                }
-              />
-
-              {/* Layer 2: #z-upper — Top horizontal bar + right diagonal */}
-              <motion.path
-                id="z-upper"
-                d="M 294 218 L 392 120 L 120 120"
-                stroke="#FFFFFF"
-                strokeWidth="44"
-                strokeLinecap="butt"
-                strokeLinejoin="miter"
-                pathLength={1}
-                initial={
-                  prefersReducedMotion
-                    ? { pathLength: 1, opacity: 1, x: 0, y: 0 }
-                    : { pathLength: 0, opacity: 1, x: 0, y: 0 }
-                }
-                animate={
-                  prefersReducedMotion
-                    ? { pathLength: 1, opacity: 1, x: 0, y: 0 }
-                    : isLooping
-                    ? {
-                        pathLength: 1,
-                        x: [0, 2, 0],
-                        y: [0, -2, 0],
-                        transition: {
-                          x: { duration: 1.4, repeat: Infinity, ease: "easeInOut" },
-                          y: { duration: 1.4, repeat: Infinity, ease: "easeInOut" },
-                        },
-                      }
-                    : {
-                        pathLength: 1,
-                        transition: {
-                          duration: 0.6,
-                          delay: 0.25,
-                          ease: EASE_REVEAL,
-                        },
-                      }
-                }
-              />
-
-              {/* Layer 3: #z-lower — Left diagonal + bottom horizontal bar */}
-              <motion.path
-                id="z-lower"
-                d="M 218 294 L 120 392 L 392 392"
-                stroke="#FFFFFF"
-                strokeWidth="44"
-                strokeLinecap="butt"
-                strokeLinejoin="miter"
-                pathLength={1}
-                initial={
-                  prefersReducedMotion
-                    ? { pathLength: 1, opacity: 1, x: 0, y: 0 }
-                    : { pathLength: 0, opacity: 1, x: 0, y: 0 }
-                }
-                animate={
-                  prefersReducedMotion
-                    ? { pathLength: 1, opacity: 1, x: 0, y: 0 }
-                    : isLooping
-                    ? {
-                        pathLength: 1,
-                        x: [0, -2, 0],
-                        y: [0, 2, 0],
-                        transition: {
-                          x: { duration: 1.4, repeat: Infinity, ease: "easeInOut" },
-                          y: { duration: 1.4, repeat: Infinity, ease: "easeInOut" },
-                        },
-                      }
-                    : {
-                        pathLength: 1,
-                        transition: {
-                          duration: 0.6,
-                          delay: 0.25,
-                          ease: EASE_REVEAL,
                         },
                       }
                 }
